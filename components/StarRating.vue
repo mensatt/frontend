@@ -1,5 +1,5 @@
 <template>
-  <div class="star-rating">
+  <div>
     <UtilsStarIcon v-for="val of starValues" :percentage="val*100" />
     <span v-text="props.count" />
   </div>
@@ -23,7 +23,7 @@ const starValues = computed(() => {
 </script>
 
 <style scoped lang="scss">
-.star-rating {
+div {
   height: $content-pills-height;
   background-color: #ffda3354;
   border-radius: 999pt;
@@ -32,16 +32,18 @@ const starValues = computed(() => {
   align-items: center;
   box-sizing: border-box;
   padding: calc($content-pills-height * 0.25);
-
-  svg {
-    height: calc($content-pills-height * 0.5);
-  }
-
-  span {
-    color: #ffac33;
-    font-family: $font-major;
-    font-size: 11pt;
-    margin-left: calc($content-pills-height * 0.25);
-  }
 }
+
+svg {
+  height: calc($content-pills-height * 0.5);
+}
+
+span {
+  color: #ffac33;
+  font-family: $font-major;
+  font-size: 11pt;
+  margin-left: calc($content-pills-height * 0.25);
+  margin-right: calc($content-pills-height * 0.15);
+}
+
 </style>

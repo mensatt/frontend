@@ -115,6 +115,10 @@ h2 {
 }
 
 .comments {
+  .comment:not(:last-child) {
+    margin-bottom: 5pt;
+  }
+
   span {
     margin: 0;
     font-size: 11pt;

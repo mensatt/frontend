@@ -1,5 +1,5 @@
 <template>
-  <div class="tag">
+  <div>
     <span v-text="display" />
   </div>
 </template>
@@ -7,28 +7,28 @@
 <script setup lang="ts">
 import { EntityOccurrence } from '../utils/entities/occurrence'
 
-const props = defineProps<{
+const { data } = defineProps<{
   data: EntityOccurrence.Tag
 }>()
 
-const display = props.data.shortName || props.data.name
+const display = data.shortName || data.name
 </script>
 
 <style scoped lang="scss">
-.tag {
+div {
   height: $content-pills-height;
-  background-color: $bg-dark;
+  background-color: $bg-light;
   border-radius: 999pt;
   width: fit-content;
   display: flex;
   align-items: center;
   box-sizing: border-box;
   padding: calc($content-pills-height * 0.25) calc($content-pills-height * 0.5);
+}
 
-  span {
-    color: $color-regular;
-    font-family: $font-major;
-    font-size: 9pt;
-  }
+span {
+  color: $color-minor;
+  font-family: $font-major;
+  font-size: 9pt;
 }
 </style>
