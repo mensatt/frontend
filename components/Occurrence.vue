@@ -2,12 +2,13 @@
   <div class="occurrence">
     <div class="image">
       <img v-if="imageUrl" :src="imageUrl" />
-      <p v-else>No image uploaded</p>
+      <p v-else>Noch kein Bild vorhanden</p>
     </div>
 
     <div class="details">
       <h2 v-text="data.dish.nameDe" />
       <div class="pills">
+        <PriceTag :data="data" />
         <StarRating
           :stars="data.dish.reviewData.metadata.averageStars || 0"
           :count="data.dish.reviewData.metadata.reviewCount"
@@ -19,8 +20,11 @@
           <span class="name" v-text="review.displayName || '(anonymous)'" />
           <span class="text" v-text="review.text" />
         </div>
+        <div v-if="!comments.length">
+          <span class="none">Noch keine Kommentare vorhanden</span>
+        </div>
       </div>
-      <button v-if="userCanRate" class="rateme" @click="rate()">Give a rating...</button>
+      <button v-if="userCanRate" class="rateme" @click="rate()">Bewertung abgeben...</button>
     </div>
   </div>
 </template>
@@ -67,8 +71,8 @@ function rate() {
   justify-content: space-between;
   overflow: hidden;
   background-color: $bg-lighter;
-  padding-bottom: calc($main-content-padding * 2);
-  border-radius: $main-content-padding;
+  padding-bottom: calc($main-content-padding * 3);
+  // border-radius: $main-content-padding;
 }
 
 .image {
@@ -102,7 +106,7 @@ function rate() {
 h2 {
   margin: 0;
   font-family: $font-header;
-  font-size: 18pt;
+  font-size: 14pt;
   color: $color-header;
   text-wrap: balance;
 }
@@ -111,7 +115,7 @@ h2 {
   margin: $main-content-padding 0;
   display: flex;
   flex-wrap: wrap;
-  gap: calc($main-content-padding / 2);
+  gap: calc($main-content-padding / 4);
 }
 
 .comments {
@@ -121,8 +125,8 @@ h2 {
 
   span {
     margin: 0;
-    font-size: 11pt;
-    color: $color-minor;
+    font-size: 10pt;
+    color: $color-sub;
   }
 
   .name {
@@ -133,6 +137,11 @@ h2 {
 
   .text {
     font-family: $font-regular;
+  }
+
+  .none {
+    font-family: $font-regular;
+    color: $color-minor;
   }
 }
 

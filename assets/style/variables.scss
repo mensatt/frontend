@@ -2,7 +2,7 @@
 @mixin theme-light {
   --bg-darker: #cccccc;
   --bg-dark: #dddddd;
-  --bg-light: #eeeeee;
+  --bg-light: #f2f2f2;
   --bg-lighter: #ffffff;
   --color-green: #77b255;
   --color-green20: #77b25520;
@@ -12,6 +12,7 @@
   --color-redH: #961f39;
   --color-red20: #ec396020;
   --color-minor: #585858;
+  --color-sub: #3f3f3f;
   --color-regular: #141414;
   --color-major: #080808;
   --color-header: #000000;
@@ -30,6 +31,7 @@
   --color-red20: #ec396020;
   --color-redH: #961f39;
   --color-minor: #585858;
+  --color-sub: #3f3f3f;
   --color-regular: #141414;
   --color-major: #080808;
   --color-header: #000000;
@@ -51,6 +53,7 @@ $color-red: var(--color-red);
 $color-red20: var(--color-red20);
 $color-redH: var(--color-redH);
 $color-minor: var(--color-minor);
+$color-sub: var(--color-sub);
 $color-regular: var(--color-regular);
 $color-major: var(--color-major);
 $color-header: var(--color-header);
@@ -58,8 +61,12 @@ $color-header: var(--color-header);
 //// FONTS
 
 $font-header: 'Montserrat 900', 'Roboto', sans-serif;
-$font-major: 'Montserrat 800', 'Roboto', sans-serif;
-$font-regular: 'Montserrat 500', 'Roboto', sans-serif;
+$font-major: 'NotoSans 800', 'Roboto', sans-serif;
+// $font-major: 'Montserrat 800', 'Roboto', sans-serif;
+$font-regular: 'NotoSans 400', 'Roboto', sans-serif;
+// $font-regular: 'Lato 400', 'Roboto', sans-serif;
+// $font-regular: 'Ubuntu 400', 'Roboto', sans-serif;
+// $font-regular: 'Montserrat 500', 'Roboto', sans-serif;
 $font-minor: 'Montserrat 500', 'Roboto', sans-serif;
 $font-mono: 'SpaceMono 400', monospace;
 $font-mono-bold: 'SpaceMono 700', monospace;
@@ -72,7 +79,7 @@ $header-element-height: 40pt;
 $header-element-br: 999pt;
 
 $main-content-margin: 10pt;
-$main-content-padding: 16pt;
+$main-content-padding: 12pt;
 $main-content-br: 7pt;
 
 $card-item-br: 3pt;

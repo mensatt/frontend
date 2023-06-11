@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span v-text="display" />
+    <span v-text="text" />
   </div>
 </template>
 
@@ -8,16 +8,21 @@
 import { EntityOccurrence } from '../utils/entities/occurrence'
 
 const { data } = defineProps<{
-  data: EntityOccurrence.Tag
+  data: EntityOccurrence.Occurrence
 }>()
 
-const display = data.shortName || data.name
+const priceRaw = data.priceStudent
+const price = (priceRaw === null)
+  ? '-- '
+  : (priceRaw / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+const text = `${price}€`
+// const text = `${price}€ (stud)`
 </script>
 
 <style scoped lang="scss">
 div {
   height: $content-pills-height;
-  background-color: $bg-light;
+  background-color: #39eb572f;
   border-radius: 3pt;
   width: fit-content;
   display: flex;
@@ -27,8 +32,8 @@ div {
 }
 
 span {
-  color: $color-minor;
+  color: #0c5a19;
   font-family: $font-major;
-  font-size: 9pt;
+  font-size: 11pt;
 }
 </style>

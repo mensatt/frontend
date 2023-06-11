@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 const api = useApi()
-const { data, pending, error } = await api.getOccurrences('eddfa64d-5f21-4515-97d4-d45e49168116', new Date())
+const { data, pending, error } = await api.getOccurrences('eddfa64d-5f21-4515-97d4-d45e49168116', new Date('06-08-2023'))
 
 </script>
 

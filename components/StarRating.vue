@@ -26,7 +26,7 @@ const starValues = computed(() => {
 div {
   height: $content-pills-height;
   background-color: #ffda3354;
-  border-radius: 999pt;
+  border-radius: 3pt;
   width: fit-content;
   display: flex;
   align-items: center;
