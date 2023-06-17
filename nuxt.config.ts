@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
+    'nuxt-icons',
     '@nuxtjs/apollo',
     '@vite-pwa/nuxt',
   ],
@@ -30,7 +31,7 @@ export default defineNuxtConfig({
   pwa: {
     registerType: 'autoUpdate',
     manifest: {
-      theme_color: '#77b255',
+      theme_color: '#ffffff',
       background_color: '#dce3ea',
       display: 'standalone',
       scope: '/',
@@ -70,7 +71,7 @@ export default defineNuxtConfig({
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
     },
     client: {
-      installPrompt: true,
+      installPrompt: false,
     },
     devOptions: {
       enabled: true,

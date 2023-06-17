@@ -1,16 +1,11 @@
 <template>
   <header>
-    <div>
-      <h1>
-        <img src="~/assets/img/logo.svg" alt="">
-        Mensatt
-      </h1>
-      <div class="mensa">
-        Techfak
-      </div>
-    </div>
-    <div>
-      <h2>Montag, 30. April</h2>
+    <h1>
+      <img src="~/assets/img/logo.svg" alt="">
+      Mensatt
+    </h1>
+    <div class="mensa">
+      Techfak
     </div>
   </header>
 </template>
@@ -21,20 +16,11 @@
 
 <style scoped lang="scss">
 header {
-  margin: 0 0 calc($main-content-padding * 1) 0;
   padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: $bg-lighter;
-
-  div:first-child {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  div:last-child {
-    display: flex;
-    justify-content: left;
-  }
 }
 
 h1 {
@@ -50,14 +36,6 @@ h1 {
     height: 1.3em;
     margin-right: .4em;
   }
-}
-
-h2 {
-  font-family: $font-header;
-  font-size: 20pt;
-  margin: 0 $main-content-padding;
-  display: flex;
-  align-items: center;
 }
 
 .mensa {
