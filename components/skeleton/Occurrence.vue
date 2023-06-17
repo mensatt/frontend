@@ -8,7 +8,7 @@
           v-for="i in Math.floor(Math.sin(seed + 14) * 2) + 5"
           :key="i"
           class="pill"
-          v-text="'a'.repeat(Math.floor((Math.sin(i + seed) + 2) * 10))"
+          v-text="'a'.repeat(Math.floor((Math.sin(i + seed) + 2) * 4))"
         />
       </div>
       <div

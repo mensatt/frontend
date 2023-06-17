@@ -5,28 +5,63 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt',
   ],
 
+  app: {
+    head: {
+      title: 'Mensatt',
+      meta: [
+        { charset: 'utf-8' },
+        { hid: 'description', name: 'description', content: 'Mensatt is providing your high quality information about all Mensas 👍' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        // { name: 'msapplication-TileColor', content: '#c9f1b6' },
+        // { name: 'theme-color', content: '#c9f1b6' }
+      ],
+      link: [
+        // { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32.png' },
+        { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16.png' },
+        // { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#5bbad5' }
+      ],
+      htmlAttrs: {
+        lang: 'en'
+      }
+    }
+  },
+
   pwa: {
     registerType: 'autoUpdate',
     manifest: {
-      name: 'Nuxt Vite PWA',
-      short_name: 'NuxtVitePWA',
-      theme_color: '#ffffff',
+      theme_color: '#77b255',
+      background_color: '#dce3ea',
+      display: 'standalone',
+      scope: '/',
+      start_url: '/',
+      name: 'Mensatt',
+      short_name: 'Mensatt',
+      description: 'Mensatt - In der Mensa wird man satt',
       icons: [
         {
-          src: 'pwa-192x192.png',
+          src: '/icon-192x192.png',
           sizes: '192x192',
           type: 'image/png',
+          purpose: 'any maskable'
         },
         {
-          src: 'pwa-512x512.png',
-          sizes: '512x512',
+          src: '/icon-256x256.png',
+          sizes: '256x256',
           type: 'image/png',
+          purpose: 'any maskable'
         },
         {
-          src: 'pwa-512x512.png',
+          src: '/icon-384x384.png',
+          sizes: '384x384',
+          type: 'image/png',
+          purpose: 'any maskable'
+        },
+        {
+          src: '/icon-512x512.png',
           sizes: '512x512',
           type: 'image/png',
-          purpose: 'any maskable',
+          purpose: 'any maskable'
         }
       ]
     },
@@ -44,11 +79,6 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    esbuild: {
-      options: {
-        target: 'esnext',
-      },
-    },
     prerender: {
       crawlLinks: true
     }

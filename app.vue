@@ -18,4 +18,8 @@ body {
   display: none;
   width: 0px;
 }
+
+* {
+  font-display: swap;
+}
 </style>
