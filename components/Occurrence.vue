@@ -72,7 +72,6 @@ function rate() {
   overflow: hidden;
   background-color: $bg-lighter;
   padding-bottom: calc($main-content-padding * 3);
-  // border-radius: $main-content-padding;
 }
 
 .image {

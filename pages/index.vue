@@ -1,7 +1,11 @@
 <template>
   <div>
     <div v-if="pending">
-      Loading...
+      <SkeletonOccurrence
+        v-for="i in 3"
+        :key="i"
+        :seed="i"
+      />
     </div>
     <div v-else-if="error">
       Error!<br>
