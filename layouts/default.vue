@@ -11,7 +11,7 @@
 <style scoped lang="scss">
 .app {
   display: grid;
-  height: 100vh;
+  height: 100dvh;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr auto;
 }

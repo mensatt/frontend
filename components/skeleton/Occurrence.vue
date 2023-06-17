@@ -86,6 +86,7 @@ const { seed } = defineProps<{
   font-size: 12pt;
   width: fit-content;
   color: transparent;
+  word-break: break-all;
   margin-bottom: 5pt;
 }
 </style>
