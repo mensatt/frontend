@@ -91,6 +91,7 @@ function rate() {
     display: grid;
     place-items: center;
     padding: $main-content-padding;
+    user-select: none;
   }
 }
 

@@ -5,6 +5,8 @@
     </div>
 
     <span>Not done yet</span>
+
+    <p>Hier kommt eine full-screen kalender seite um einen beliebigen tag anzuzeigen.</p>
   </div>
 </template>
 

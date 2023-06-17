@@ -5,6 +5,11 @@
     </div>
 
     <span>Not done yet</span>
+
+    <p>Hier kommen folgende settings:</p>
+    <p>- Studentenpreis / Mitarbeiterpreis / Extern</p>
+    <p>- Gerichtepräferenzen (z.B. veggie only -> alles mit fleisch wird ausgeblendet)</p>
+    <p>- Tags hervorheben (z.B. "Glutenfrei" highligthen damit man es sofort sieht)</p>
   </div>
 </template>
 
