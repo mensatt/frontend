@@ -57,6 +57,8 @@ a {
   text-decoration: none;
   gap: 4pt;
   padding: 6pt 0;
+  -webkit-tap-highlight-color: transparent !important;
+  outline: none !important;
 
   span {
     font-size: 8.5pt;
