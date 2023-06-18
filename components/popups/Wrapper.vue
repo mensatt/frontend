@@ -1,7 +1,7 @@
 <template>
   <div class="popup" :data-dismissed="data.dismissed">
     <div class="curtain" @click="close(null)" />
-    <div class="content">
+    <div class="content" ref="outer" :data-scrolllock="scrollY === 0 && lengthY < 0">
       <div
         ref="inner"
         class="inner"
@@ -24,7 +24,6 @@
 </template>
 
 <script setup lang="ts">
-import { UseSwipeDirection } from '@vueuse/core';
 import { PopupInternally } from '../../utils/popups';
 
 const { data } = defineProps<{
@@ -43,27 +42,37 @@ function close(payload: any) {
 //
 
 const inner = ref<HTMLElement | null>(null)
+const outer = ref<HTMLElement | null>(null)
+
 const containerHeight = computed(() => inner.value?.offsetHeight)
 const screenHeight = computed(() => window.innerHeight)
 const innerHeightClamped = computed(() => Math.min(containerHeight.value ?? 0, screenHeight.value * 0.8))
+
+const { y: scrollY } = useScroll(outer)
+let offsetOnScrollStart = 0
+
+const { isSwiping, lengthY } = useSwipe(inner, {
+  passive: true,
+  threshold: 10,
+  onSwipeStart() {
+    offsetOnScrollStart = scrollY.value
+  },
+  onSwipeEnd() {
+    if (-(lengthY.value + scrollY.value) > innerHeightClamped.value/3)
+      close(null)
+  }
+})
+
 const swipeOffset = computed(() => {
   if (!isSwiping.value) return '0px'
   if (lengthY.value >= 0) return '0px'
-  return `${-lengthY.value}px`
+  if (scrollY.value > 0) return '0px'
+  return `${-lengthY.value - offsetOnScrollStart}px`
 })
 const innerCss = computed(() => ({
   '--offset': swipeOffset.value,
   '--own-height-clamped': `${innerHeightClamped.value}px`
 }))
-
-const { isSwiping, lengthY } = useSwipe(inner, {
-  passive: true,
-  threshold: 10,
-  onSwipeEnd() {
-    if (-lengthY.value > innerHeightClamped.value/3)
-      close(null)
-  }
-})
 </script>
 
 <style scoped lang="scss">
@@ -99,6 +108,12 @@ const { isSwiping, lengthY } = useSwipe(inner, {
 
 .content {
   pointer-events: none;
+  height: 100%;
+  overflow-y: scroll;
+
+  &[data-scrolllock=true] {
+    overflow-y: visible;
+  }
 }
 
 .inner {
