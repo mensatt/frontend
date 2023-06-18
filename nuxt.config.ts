@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     'nuxt-icons',
     '@nuxtjs/apollo',
     '@vite-pwa/nuxt',
+    '@vueuse/nuxt',
   ],
 
   app: {

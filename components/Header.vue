@@ -1,17 +1,29 @@
 <template>
   <header>
-    <h1>
+    <h1  @click="clickTest">
       <img src="~/assets/img/logo.svg" alt="">
       Mensatt
     </h1>
-    <div class="mensa">
+    <div class="mensa" @click="clickMensa">
       Techfak
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
+const popups = usePopups()
 
+async function clickMensa() {
+  const mensa = await popups.open('select_mensa', {
+    current: 'Techfak',
+    options: [ 'Techfak', 'Langemark', 'Devmensa' ]
+  })
+  console.log(mensa)
+}
+
+async function clickTest() {
+  popups.open('test', { a: 1 })
+}
 </script>
 
 <style scoped lang="scss">

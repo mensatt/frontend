@@ -88,6 +88,7 @@ function rate() {
   p {
     font-family: $font-regular;
     font-size: 11pt;
+    color: $color-minor;
     display: grid;
     place-items: center;
     padding: $main-content-padding;

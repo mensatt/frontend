@@ -16,6 +16,10 @@ async function getOccurrences(locationId: string, date: Date): Promise<GqlRespon
   return res
 }
 
+async function getOccurrence(occurrenceId: string): Promise<GqlResponse> {
+  return null as any // TODO
+}
+
 function getImageUrl(image: EntityOccurrence.Image): string {
   return `https://api.mensatt.de${image.imageUrl}`
 }
@@ -24,5 +28,6 @@ function getImageUrl(image: EntityOccurrence.Image): string {
 
 export const useApi = () => ({
   getOccurrences,
+  getOccurrence,
   getImageUrl
 })

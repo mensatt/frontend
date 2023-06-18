@@ -1,34 +1,15 @@
 <template>
   <div>
     <div class="header">
-      <h2>Montag, 19. Juni</h2>
+      <h2>Donnerstag, 15. Juni</h2>
     </div>
-
-    <div v-if="pending">
-      <SkeletonOccurrence
-        v-for="i in 3"
-        :key="i"
-        :seed="i"
-      />
-    </div>
-    <div v-else-if="error">
-      Error!<br>
-      {{ error }}
-    </div>
-    <div v-else class="occurrences">
-      <Occurrence
-        v-for="occ of data.occurrences"
-        :key="occ.id"
-        :data="occ"
-      />
-    </div>
+    <OccurrenceList :mensa="mensa" :date="date" />
   </div>
 </template>
 
 <script setup lang="ts">
-const api = useApi()
-const { data, pending, error } = await api.getOccurrences('eddfa64d-5f21-4515-97d4-d45e49168116', new Date('2023-06-19T18:51:42.712Z'))
-
+const mensa = 'eddfa64d-5f21-4515-97d4-d45e49168116'
+const date = new Date('2023-06-15T18:51:42.712Z')
 </script>
 
 <style scoped lang="scss">
@@ -44,11 +25,5 @@ const { data, pending, error } = await api.getOccurrences('eddfa64d-5f21-4515-97
     display: flex;
     align-items: center;
   }
-}
-
-.occurrences {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
 }
 </style>
