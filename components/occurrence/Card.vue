@@ -8,12 +8,12 @@
     <div class="details">
       <h2 v-text="data.dish.nameDe" />
       <div class="pills">
-        <PriceTag :data="data" />
-        <StarRating
+        <OccurrencePriceTag :data="data" />
+        <OccurrenceStarRating
           :stars="data.dish.reviewData.metadata.averageStars || 0"
           :count="data.dish.reviewData.metadata.reviewCount"
         />
-        <TagPill v-for="tag of displayTags" :key="tag.key" :data="tag" />
+        <OccurrenceTagPill v-for="tag of displayTags" :key="tag.key" :data="tag" />
       </div>
       <div class="comments">
         <div v-for="review of comments" :key="review.id" class="comment">
@@ -80,7 +80,7 @@ function rate() {
     max-height: 50vh;
     object-fit: cover;
     width: 100%;
-    background-color: $bg-light;
+    background-color: $bg-dark;
     box-sizing: border-box;
     margin: 0;
   }

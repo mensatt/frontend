@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { EntityOccurrence } from '../utils/entities/occurrence'
+import { EntityOccurrence } from '../../utils/entities/occurrence'
 
 const { data } = defineProps<{
   data: EntityOccurrence.Occurrence

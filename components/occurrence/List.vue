@@ -11,7 +11,7 @@
     {{ error }}
   </div>
   <div v-else class="occurrences">
-    <Occurrence
+    <OccurrenceCard
       v-for="occ of data.occurrences"
       :key="occ.id"
       :data="occ"

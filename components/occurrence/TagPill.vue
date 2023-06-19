@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { EntityOccurrence } from '../utils/entities/occurrence'
+import { EntityOccurrence } from '../../utils/entities/occurrence'
 
 const { data } = defineProps<{
   data: EntityOccurrence.Tag
@@ -17,7 +17,7 @@ const display = data.shortName || data.name
 <style scoped lang="scss">
 div {
   height: $content-pills-height;
-  background-color: $bg-light;
+  background-color: $bg-dark;
   border-radius: 3pt;
   width: fit-content;
   display: flex;

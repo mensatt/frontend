@@ -58,7 +58,7 @@ const { isSwiping, lengthY } = useSwipe(inner, {
     offsetOnScrollStart = scrollY.value
   },
   onSwipeEnd() {
-    if (-(lengthY.value + scrollY.value) > innerHeightClamped.value/3)
+    if (-(lengthY.value + scrollY.value) > innerHeightClamped.value/4)
       close(null)
   }
 })
@@ -108,7 +108,7 @@ const innerCss = computed(() => ({
 
 .content {
   pointer-events: none;
-  height: 100%;
+  height: 100dvh;
   overflow-y: scroll;
 
   &[data-scrolllock=true] {
@@ -122,7 +122,7 @@ const innerCss = computed(() => ({
   background-color: $bg-lighter;
   height: fit-content;
   min-height: 30vh;
-  top: calc(100vh - var(--own-height-clamped) + var(--offset));
+  top: calc(100dvh - var(--own-height-clamped) + var(--offset));
   position: absolute;
   border-top-left-radius: 30pt;
   border-top-right-radius: 30pt;
@@ -134,13 +134,13 @@ const innerCss = computed(() => ({
   }
 
   [data-dismissed=true] & {
-    top: 100vh;
+    top: 100dvh;
     transition: top .2s linear;
   }
 
   @keyframes inner-in {
-    from { top: 100vh; }
-    to { top: calc(100vh - var(--own-height-clamped)); }
+    from { top: 100dvh; }
+    to { top: calc(100dvh - var(--own-height-clamped)); }
   }
 }
 

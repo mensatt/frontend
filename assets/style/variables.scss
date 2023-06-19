@@ -1,8 +1,8 @@
 
 @mixin theme-light {
   --bg-darker: #cccccc;
-  --bg-dark: #dddddd;
-  --bg-light: #f2f2f2;
+  --bg-dark: #f2f2f2;
+  --bg-light: #fafafa;
   --bg-lighter: #ffffff;
   --color-green: #77b255;
   --color-green20: #77b25520;
@@ -22,8 +22,8 @@
 @mixin theme-dark {
   /* DARK THEME TODO */
   --bg-darker: #cccccc;
-  --bg-dark: #dddddd;
-  --bg-light: #eeeeee;
+  --bg-dark: #f2f2f2;
+  --bg-light: #fafafa;
   --bg-lighter: #ffffff;
   --color-green: #77b255;
   --color-green20: #77b25520;
