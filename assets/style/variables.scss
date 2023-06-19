@@ -8,6 +8,9 @@
   --color-green20: #77b25520;
   --color-green40: #77b25540;
   --color-greenH: #609740;
+  --color-yellow: #ffac33;
+  --color-yellow20: #ffda3320;
+  --color-yellow40: #ffda3354;
   --color-red: #ec3960;
   --color-red20: #ec396020;
   --color-redH: #961f39;
@@ -29,6 +32,9 @@
   --color-green20: #77b25520;
   --color-green40: #77b25540;
   --color-greenH: #609740;
+  --color-yellow: #ffac33;
+  --color-yellow20: #ffda3320;
+  --color-yellow40: #ffda3354;
   --color-red: #ec3960;
   --color-red20: #ec396020;
   --color-redH: #961f39;
@@ -52,6 +58,9 @@ $color-green: var(--color-green);
 $color-green20: var(--color-green20);
 $color-green40: var(--color-green40);
 $color-greenH: var(--color-greenH);
+$color-yellow: var(--color-yellow);
+$color-yellow20: var(--color-yellow20);
+$color-yellow40: var(--color-yellow40);
 $color-red: var(--color-red);
 $color-red20: var(--color-red20);
 $color-redH: var(--color-redH);
@@ -76,18 +85,16 @@ $font-mono-bold: 'SpaceMono 700', monospace;
 
 //
 
-$max-content-width: 350pt;
+// $max-content-width: 350pt;
 
-$header-element-height: 40pt;
-$header-element-br: 999pt;
-
-$main-content-margin: 10pt;
 $main-content-padding: 12pt;
-$main-content-br: 7pt;
 
 $card-item-br: 3pt;
-$card-item-padding: 6pt;
 
-$container-padding: var(--container-padding);
+$menu-item-margin: 5pt;
+$menu-item-padding: 10pt;
+$menu-item-br: 8pt;
+
+// $container-padding: var(--container-padding);
 
 $content-pills-height: 28pt;

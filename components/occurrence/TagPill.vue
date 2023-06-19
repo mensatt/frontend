@@ -18,7 +18,7 @@ const display = data.shortName || data.name
 div {
   height: $content-pills-height;
   background-color: $bg-dark;
-  border-radius: 3pt;
+  border-radius: $card-item-br;
   width: fit-content;
   display: flex;
   align-items: center;

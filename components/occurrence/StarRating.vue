@@ -25,7 +25,7 @@ const starValues = computed(() => {
 <style scoped lang="scss">
 div {
   height: $content-pills-height;
-  background-color: #ffda3354;
+  background-color: $color-yellow40;
   border-radius: 3pt;
   width: fit-content;
   display: flex;
@@ -39,7 +39,7 @@ svg {
 }
 
 span {
-  color: #ffac33;
+  color: $color-yellow;
   font-family: $font-major;
   font-size: 11pt;
   margin-left: calc($content-pills-height * 0.25);

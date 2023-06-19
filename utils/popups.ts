@@ -1,7 +1,9 @@
 import { DefineComponent } from "nuxt/dist/app/compat/capi"
 import PopupSelectMensa from "~/components/popup/SelectMensa.vue"
 import PopupTest from "~/components/popup/Test.vue"
+import PopupRateDish from "~/components/popup/RateDish.vue"
 import { EntityLocation } from "./entities/location"
+import { EntityOccurrence } from "./entities/occurrence"
 
 
 /** REGISTER YOUR POPUP HERE */
@@ -16,12 +18,20 @@ export type Popup = {
     options: EntityLocation.Location[]
   }
   returns: EntityLocation.Location
+} | {
+  id: 'rate_dish'
+  data: {
+    dish: EntityOccurrence.Dish
+  }
+  /** if review was successfully submitted or not */
+  returns: boolean
 }
 
 /** AND HERE */
 export const PopupComponents: Record<Popup['id'], DefineComponent<any, any, any>> = {
   test: PopupTest,
-  select_mensa: PopupSelectMensa
+  select_mensa: PopupSelectMensa,
+  rate_dish: PopupRateDish
 }
 
 //

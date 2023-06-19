@@ -30,7 +30,7 @@ const props = defineProps<{
 
 const favourites = useFavLocations()
 const optionsSorted = useState<EntityLocation.Location[]>(
-  String(Math.random()),
+  'select-mensa--options-sorted',
   () => props.options
 )
 
@@ -62,13 +62,13 @@ function toggleFav(location: EntityLocation.Location) {
 .options {
   display: flex;
   flex-direction: column;
-  gap: 5pt;
+  gap: $menu-item-margin;
 }
 
 .option {
   background-color: #00000005;
-  padding: 10pt;
-  border-radius: 8pt;
+  padding: $menu-item-padding;
+  border-radius: $menu-item-br;
   display: grid;
   grid-template-columns: 1fr auto;
 

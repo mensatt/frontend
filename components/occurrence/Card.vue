@@ -33,6 +33,7 @@
 import { EntityOccurrence } from '~/utils/entities/occurrence'
 
 const api = useApi()
+const popups = usePopups()
 
 const { data } = defineProps<{
   data: EntityOccurrence.Occurrence
@@ -57,8 +58,7 @@ const displayTags = data.tags
   .filter(tag => tag.priority !== 'HIDE')
 
 function rate() {
-  alert('RATING!')
-  console.log(data)
+  popups.open('rate_dish', { dish: data.dish })
 }
 </script>
 
@@ -155,7 +155,7 @@ h2 {
   color: $color-minor;
   border: 1px solid $bg-dark;
   margin-top: 10pt;
-  border-radius: 3pt;
+  border-radius: $card-item-br;
   transition: background-color .1s ease;
   cursor: text;
 
