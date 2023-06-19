@@ -58,7 +58,7 @@ const displayTags = data.tags
   .filter(tag => tag.priority !== 'HIDE')
 
 function rate() {
-  popups.open('rate_dish', { dish: data.dish })
+  popups.open('rate_dish', { occurrence: data })
 }
 </script>
 

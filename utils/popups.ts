@@ -21,7 +21,7 @@ export type Popup = {
 } | {
   id: 'rate_dish'
   data: {
-    dish: EntityOccurrence.Dish
+    occurrence: EntityOccurrence.Occurrence
   }
   /** if review was successfully submitted or not */
   returns: boolean

@@ -1,6 +1,6 @@
 <template>
   <div class="outer">
-    <h2>{{ dish.nameDe }}</h2>
+    <h2>{{ occurrence.dish.nameDe }}</h2>
     
     <label for="stars">Deine Bewertung:</label>
     <div class="stars" :data-error-below="errorRequireStars">
@@ -50,17 +50,19 @@
 <script setup lang="ts">
 import { EntityOccurrence } from '../../utils/entities/occurrence'
 
+const api = useApi()
+
 const props = defineProps<{
   close: (success: boolean) => any,
-  dish: EntityOccurrence.Dish
+  occurrence: EntityOccurrence.Occurrence
 }>()
 
-const inputStars = useState(`rate-dish-${props.dish.id}--stars`, () => 0)
-const inputImage = useState<File | null>(`rate-dish-${props.dish.id}--image`, () => null)
-const inputReview = useState(`rate-dish-${props.dish.id}--review`, () => '')
-const inputNickname = useState(`rate-dish-${props.dish.id}--nickname`, () => '')
+const inputStars = useState(`rate-dish-${props.occurrence.id}--stars`, () => 0)
+const inputImage = useState<File | null>(`rate-dish-${props.occurrence.id}--image`, () => null)
+const inputReview = useState(`rate-dish-${props.occurrence.id}--review`, () => '')
+const inputNickname = useLocalStorage(`rate-dish--nickname`, () => '')
 
-const errorRequireStars = useState(`rate-dish-${props.dish.id}--error-stars`, () => false)
+const errorRequireStars = useState(`rate-dish-${props.occurrence.id}--error-stars`, () => false)
 const readyToSubmit = computed(() => !!inputStars.value)
 
 watch(inputStars, () => errorRequireStars.value = false)
@@ -74,7 +76,15 @@ const fileUploadPreview = computed(() => inputImage.value ? URL.createObjectURL(
 
 function submit() {
   if (!inputStars.value)
-    errorRequireStars.value = true
+    return errorRequireStars.value = true
+
+  api.postRating({
+    occId: props.occurrence.id,
+    stars: inputStars.value,
+    author: inputNickname.value,
+    comment: inputReview.value,
+    images: inputImage.value ? [ { image: inputImage.value } ] : []
+  })
 }
 </script>
 
@@ -143,6 +153,7 @@ label {
     color: $color-yellow;
     font-size: 16pt;
     height: 1em;
+    cursor: pointer;
 
     .nuxt-icon {
       display: grid;
@@ -160,6 +171,7 @@ label {
   border-radius: $menu-item-br;
   overflow: hidden;
   background-color: $bg-dark;
+  cursor: pointer;
 
   &[data-uploaded=true] {
     border-radius: $menu-item-br $menu-item-br 3pt 3pt;

@@ -28,7 +28,7 @@ export namespace EntityReview {
     occId: string
     author?: string
     comment?: string
-    images?: { image: File }
+    images?: { image: File }[]
   }
 
 }

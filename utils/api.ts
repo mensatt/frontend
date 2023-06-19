@@ -1,6 +1,7 @@
 import { _AsyncData } from "nuxt/dist/app/composables/asyncData"
 import { EntityOccurrence } from "./entities/occurrence"
 import { EntityLocation } from "./entities/location"
+import { EntityReview } from "./entities/review"
 
 
 type GqlResponse = _AsyncData<{ occurrences: EntityOccurrence.Occurrence[] }, Error>
@@ -27,6 +28,13 @@ async function getLocations(): Promise<EntityLocation.Location[] | null> {
   return res.data?.value.locations ?? null
 }
 
+/** @returns true if successful */
+async function postRating(variables: EntityReview.AddVariables): Promise<boolean> {
+  const { mutate } = useMutation(EntityReview.mutationAdd, { variables })
+  const res = await mutate().catch(void console.error)
+  return !!res?.data
+}
+
 function getImageUrl(image: EntityOccurrence.Image): string {
   return `https://api.mensatt.de${image.imageUrl}`
 }
@@ -37,5 +45,6 @@ export const useApi = () => ({
   getOccurrences,
   getOccurrence,
   getLocations,
+  postRating,
   getImageUrl
 })
