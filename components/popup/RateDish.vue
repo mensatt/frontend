@@ -3,24 +3,27 @@
     <h2>{{ dish.nameDe }}</h2>
     
     <label for="stars">Deine Bewertung:</label>
-    <div class="stars">
+    <div class="stars" :data-error-below="errorRequireStars">
       <div
         v-for="i in 5"
         :key="i"
         class="star"
         :data-selected="i <= inputStars"
-        @click="clickStar(i)"
+        @click="inputStars = i"
       >
         <NuxtIcon :name="(i <= inputStars) ? 'star_filled' : 'star_outline'" />
       </div>
     </div>
+    <span v-if="errorRequireStars" class="error">Du musst das Gericht noch bewerten!</span>
 
-    <label for="image">Bild vom Gericht:</label>
-    <div class="image">
-      <p>Bild hochladen</p>
+    <label for="image" optional>Bild vom Gericht:</label>
+    <div class="image" :data-uploaded="!!fileUploadPreview" @click="open()">
+      <img v-if="fileUploadPreview" :src="fileUploadPreview" />
+      <p v-else>Bild hochladen</p>
     </div>
+    <span v-if="fileUploadPreview" class="info">Durch Abschicken deiner Bewertung erlaubst du Mensatt dieses Bild in jeglicher Form zu verwenden.</span>
 
-    <label for="review">Platz für Worte:</label>
+    <label for="review" optional>Platz für Worte:</label>
     <div class="review">
       <textarea
         v-model="inputReview"
@@ -29,16 +32,16 @@
       />
     </div>
 
-    <label for="review">Dein Name:</label>
+    <label for="review" optional>Dein Name:</label>
     <div class="review">
       <input
         type="text"
         v-model="inputNickname"
-        placeholder="(annonym)"
+        placeholder="(anonym)"
       />
     </div>
 
-    <button>
+    <button @click="submit()" :data-ready="readyToSubmit">
       Abschicken
     </button>
   </div>
@@ -53,15 +56,25 @@ const props = defineProps<{
 }>()
 
 const inputStars = useState(`rate-dish-${props.dish.id}--stars`, () => 0)
-const inputImage = useState(`rate-dish-${props.dish.id}--image`, () => null)
+const inputImage = useState<File | null>(`rate-dish-${props.dish.id}--image`, () => null)
 const inputReview = useState(`rate-dish-${props.dish.id}--review`, () => '')
 const inputNickname = useState(`rate-dish-${props.dish.id}--nickname`, () => '')
 
-function clickStar(number: number) {
-  if (inputStars.value === number)
-    inputStars.value = 0
-  else
-    inputStars.value = number
+const errorRequireStars = useState(`rate-dish-${props.dish.id}--error-stars`, () => false)
+const readyToSubmit = computed(() => !!inputStars.value)
+
+watch(inputStars, () => errorRequireStars.value = false)
+
+const { open, onChange } = useFileDialog()
+onChange((files) => {
+  if (files?.length)
+    inputImage.value = files[0]
+})
+const fileUploadPreview = computed(() => inputImage.value ? URL.createObjectURL(inputImage.value) : null)
+
+function submit() {
+  if (!inputStars.value)
+    errorRequireStars.value = true
 }
 </script>
 
@@ -76,6 +89,38 @@ label {
   font-family: $font-major;
   color: $color-sub;
   margin-bottom: $menu-item-margin;
+
+  &[optional]::after {
+    content: 'Optional';
+    display: inline;
+    margin-left: 5pt;
+    font-size: 7pt;
+    font-family: $font-major;
+    padding: 1pt 5pt;
+    background-color: $bg-light;
+    color: #00000077;
+    border-radius: 99pt;
+  }
+}
+
+.error, .info {
+  display: block;
+  font-family: $font-major;
+  font-size: 8pt;
+  margin-top: calc($menu-item-margin - $main-content-padding);
+  margin-bottom: $main-content-padding;
+  padding: $menu-item-padding;
+  border-radius: 3pt 3pt $menu-item-br $menu-item-br;
+
+  &.error {
+    color: $color-red;
+    background-color: $color-red20;
+  }
+
+  &.info {
+    color: $color-regular;
+    background-color: $bg-dark;
+  }
 }
 
 .stars {
@@ -84,6 +129,10 @@ label {
   gap: $menu-item-margin;
   border-radius: $menu-item-br;
   overflow: hidden;
+
+  &[data-error-below=true] {
+    border-radius: $menu-item-br $menu-item-br 3pt 3pt;
+  }
 
   .star {
     display: grid;
@@ -108,20 +157,25 @@ label {
 }
 
 .image {
-  height: 35vw;
   border-radius: $menu-item-br;
   overflow: hidden;
   background-color: $bg-dark;
 
+  &[data-uploaded=true] {
+    border-radius: $menu-item-br $menu-item-br 3pt 3pt;
+  }
+
   & > * {
     object-fit: cover;
     width: 100%;
-    height: 100%;
+    max-height: 60vh;
     box-sizing: border-box;
     margin: 0;
+    display: block;
   }
 
   p {
+    height: 35vw;
     font-family: $font-regular;
     font-size: 11pt;
     color: $color-minor;
@@ -143,5 +197,10 @@ button {
   outline: none;
   margin-top: calc(20pt - $main-content-padding);
   padding: $menu-item-padding;
+
+  &[data-ready=false] {
+    background-color: $bg-darker;
+    cursor: not-allowed;
+  }
 }
 </style>

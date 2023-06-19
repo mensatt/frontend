@@ -46,7 +46,7 @@ const outer = ref<HTMLElement | null>(null)
 
 const containerHeight = computed(() => inner.value?.offsetHeight)
 const screenHeight = computed(() => window.innerHeight)
-const innerHeightClamped = computed(() => Math.min(containerHeight.value ?? 0, screenHeight.value * 0.8))
+const innerHeightClamped = computed(() => Math.min(containerHeight.value ?? 0, screenHeight.value * 0.9))
 
 const { y: scrollY } = useScroll(outer)
 let offsetOnScrollStart = 0
