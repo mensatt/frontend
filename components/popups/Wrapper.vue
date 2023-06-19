@@ -127,7 +127,8 @@ const innerCss = computed(() => ({
   border-top-left-radius: 30pt;
   border-top-right-radius: 30pt;
   box-sizing: border-box;
-  animation: inner-in .2s ease-out 1;
+  box-shadow: 0 0 40pt #00000033;
+  animation: inner-in .2s cubic-bezier(0, 0.55, 0.45, 1) 1;
 
   &[data-swiping=false] {
     transition: top .1s ease-out;
@@ -135,7 +136,7 @@ const innerCss = computed(() => ({
 
   [data-dismissed=true] & {
     top: 100dvh;
-    transition: top .2s linear;
+    transition: top .2s cubic-bezier(0.11, 0, 0.5, 0);
   }
 
   @keyframes inner-in {

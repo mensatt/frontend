@@ -7,6 +7,10 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
   ],
 
+  // Disabled so storage forms like localStorage work for our application
+  // Since the deploy target is static anyway we don't really need the benefits of ssr anyway
+  ssr: false,
+
   app: {
     head: {
       title: 'Mensatt',

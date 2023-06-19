@@ -18,7 +18,13 @@ async function backgroundTasks() {
   if (locations)
     useLocationList().value = locations
 }
-onMounted(() => requestIdleCallback(backgroundTasks, { timeout: 2000 }))
+
+onMounted(() => {
+  if ('requestIdleCallback' in window)
+    requestIdleCallback(backgroundTasks, { timeout: 2000 })
+  else
+    backgroundTasks()
+})
 </script>
 
 <style lang="scss">

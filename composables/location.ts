@@ -8,5 +8,5 @@ const defaultLocations: EntityLocation.Location[] = [
 
 //
 
-export const useLocationList = () => useLocalStorage<EntityLocation.Location[]>('location-list', () => defaultLocations)
-export const useSelectedLocation = () => useLocalStorage<EntityLocation.Location>('selected-location', () => defaultLocations[0])
+export const useLocationList = () => useLocalStorage<EntityLocation.Location[]>('location-list', defaultLocations)
+export const useSelectedLocation = () => useLocalStorage<EntityLocation.Location>('selected-location', defaultLocations[0])

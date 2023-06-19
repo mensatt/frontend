@@ -4,7 +4,9 @@
       <img src="~/assets/img/logo.svg" alt="">
       Mensatt
     </h1>
-    <div class="mensa" @click="clickMensa" v-text="selectedLocation?.name ?? '-'" />
+    <div class="mensa" @click="clickMensa">
+      {{ selectedLocation?.name ?? '-' }}
+    </div>
   </header>
 </template>
 
