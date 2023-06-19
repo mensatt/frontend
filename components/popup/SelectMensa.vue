@@ -3,23 +3,25 @@
     <h2>Select Mensa</h2>
     <div class="options">
       <div
-        v-for="opt,i of options"
-        :key="i"
+        v-for="opt of options"
+        :key="opt.id"
         class="option"
-        :data-selected="opt === current"
+        :data-selected="opt.id === current.id"
         @click="close(opt)"
       >
-        <span v-text="opt" />
+        <span v-text="opt.name" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { EntityLocation } from '../../utils/entities/location'
+
 const { close } = defineProps<{
-  close: (mensa: string) => any,
-  current: string
-  options: string[]
+  close: (mensa: EntityLocation.Location) => any,
+  current: EntityLocation.Location
+  options: EntityLocation.Location[]
 }>()
 </script>
 

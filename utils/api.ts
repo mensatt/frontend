@@ -1,5 +1,6 @@
 import { _AsyncData } from "nuxt/dist/app/composables/asyncData"
 import { EntityOccurrence } from "./entities/occurrence"
+import { EntityLocation } from "./entities/location"
 
 
 type GqlResponse = _AsyncData<{ occurrences: EntityOccurrence.Occurrence[] }, Error>
@@ -20,6 +21,12 @@ async function getOccurrence(occurrenceId: string): Promise<GqlResponse> {
   return null as any // TODO
 }
 
+/** @returns a list of all found locations or null if network error */
+async function getLocations(): Promise<EntityLocation.Location[] | null> {
+  const res = await useAsyncQuery<{ locations: EntityLocation.Location[] }>(EntityLocation.queryAll)
+  return res.data?.value.locations ?? null
+}
+
 function getImageUrl(image: EntityOccurrence.Image): string {
   return `https://api.mensatt.de${image.imageUrl}`
 }
@@ -29,5 +36,6 @@ function getImageUrl(image: EntityOccurrence.Image): string {
 export const useApi = () => ({
   getOccurrences,
   getOccurrence,
+  getLocations,
   getImageUrl
 })

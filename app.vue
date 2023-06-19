@@ -6,6 +6,21 @@
   </NuxtLayout>
 </template>
 
+<script setup lang="ts">
+async function backgroundTasks() {
+  // backgroundTasks() gets executed once the main thread is idle or after 2 seconds
+  // this way low priority tasks can be done once all the important rendering and loading work is done
+
+  const api = useApi()
+
+  // update local mensa list
+  const locations = await api.getLocations()
+  if (locations)
+    useLocationList().value = locations
+}
+onMounted(() => requestIdleCallback(backgroundTasks, { timeout: 2000 }))
+</script>
+
 <style lang="scss">
 body {
   @include theme-light;

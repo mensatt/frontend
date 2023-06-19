@@ -1,6 +1,7 @@
 import { DefineComponent } from "nuxt/dist/app/compat/capi"
 import PopupSelectMensa from "~/components/popup/SelectMensa.vue"
 import PopupTest from "~/components/popup/Test.vue"
+import { EntityLocation } from "./entities/location"
 
 
 /** REGISTER YOUR POPUP HERE */
@@ -10,8 +11,11 @@ export type Popup = {
   returns: boolean
 } | {
   id: 'select_mensa'
-  data: { current: string, options: string[] }
-  returns: string
+  data: {
+    current: EntityLocation.Location,
+    options: EntityLocation.Location[]
+  }
+  returns: EntityLocation.Location
 }
 
 /** AND HERE */

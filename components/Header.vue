@@ -4,21 +4,22 @@
       <img src="~/assets/img/logo.svg" alt="">
       Mensatt
     </h1>
-    <div class="mensa" @click="clickMensa">
-      Techfak
-    </div>
+    <div class="mensa" @click="clickMensa" v-text="selectedLocation?.name ?? '-'" />
   </header>
 </template>
 
 <script setup lang="ts">
 const popups = usePopups()
+const selectedLocation = useSelectedLocation()
 
 async function clickMensa() {
+  const options = useLocationList().value
   const mensa = await popups.open('select_mensa', {
-    current: 'Techfak',
-    options: [ 'Techfak', 'Langemark', 'Devmensa' ]
+    current: selectedLocation.value,
+    options
   })
-  console.log(mensa)
+  if (mensa)
+    selectedLocation.value = mensa
 }
 
 async function clickTest() {
