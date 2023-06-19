@@ -127,7 +127,6 @@ const innerCss = computed(() => ({
   border-top-left-radius: 30pt;
   border-top-right-radius: 30pt;
   box-sizing: border-box;
-  box-shadow: 0 0 40pt #00000033;
   animation: inner-in .2s cubic-bezier(0, 0.55, 0.45, 1) 1;
 
   &[data-swiping=false] {
