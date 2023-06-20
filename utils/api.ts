@@ -31,7 +31,7 @@ async function getLocations(): Promise<EntityLocation.Location[] | null> {
 /** @returns true if successful */
 async function postRating(variables: EntityReview.AddVariables): Promise<boolean> {
   const { mutate } = useMutation(EntityReview.mutationAdd, { variables })
-  const res = await mutate().catch(void console.error)
+  const res = await mutate().catch((err) => { console.error(err); return null })
   return !!res?.data
 }
 

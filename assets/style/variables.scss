@@ -94,6 +94,8 @@ $card-item-br: 3pt;
 $menu-item-margin: 5pt;
 $menu-item-padding: 10pt;
 $menu-item-br: 8pt;
+$menu-item-inner-height: 15pt;
+$menu-item-outer-height: $menu-item-inner-height + 2*$menu-item-padding;
 
 // $container-padding: var(--container-padding);
 

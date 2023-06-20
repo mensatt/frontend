@@ -1,5 +1,5 @@
 <template>
-  <div class="outer">
+  <div class="outer" :data-loading="submittedLoading">
     <h2>{{ occurrence.dish.nameDe }}</h2>
     
     <label for="stars">Deine Bewertung:</label>
@@ -32,8 +32,8 @@
       />
     </div>
 
-    <label for="review" optional>Dein Name:</label>
-    <div class="review">
+    <label for="nickname" optional>Dein Name:</label>
+    <div class="nickname">
       <input
         type="text"
         v-model="inputNickname"
@@ -41,9 +41,13 @@
       />
     </div>
 
-    <button @click="submit()" :data-ready="readyToSubmit">
-      Abschicken
-    </button>
+    <UiButton
+      text="Abschicken"
+      :loading="submittedLoading"
+      :disabled="!readyToSubmit"
+      :triggerWhileDisabled="true"
+      @bclick="submit()"
+    />
   </div>
 </template>
 
@@ -63,6 +67,7 @@ const inputReview = useState(`rate-dish-${props.occurrence.id}--review`, () => '
 const inputNickname = useLocalStorage(`rate-dish--nickname`, () => '')
 
 const errorRequireStars = useState(`rate-dish-${props.occurrence.id}--error-stars`, () => false)
+const submittedLoading = useState(`rate-dish-${props.occurrence.id}--submitted-loading`, () => false)
 const readyToSubmit = computed(() => !!inputStars.value)
 
 watch(inputStars, () => errorRequireStars.value = false)
@@ -74,23 +79,47 @@ onChange((files) => {
 })
 const fileUploadPreview = computed(() => inputImage.value ? URL.createObjectURL(inputImage.value) : null)
 
-function submit() {
+async function submit() {
   if (!inputStars.value)
     return errorRequireStars.value = true
 
-  api.postRating({
+  submittedLoading.value = true
+  const success = await api.postRating({
     occId: props.occurrence.id,
     stars: inputStars.value,
     author: inputNickname.value,
     comment: inputReview.value,
     images: inputImage.value ? [ { image: inputImage.value } ] : []
   })
+
+  if (success) {
+    setTimeout(() => {  // <- visually looks better with a timeout
+      submittedLoading.value = false
+      inputStars.value = 0
+      inputImage.value = null
+      inputReview.value = ''
+    }, 1000)
+
+    return props.close(true)
+  } else {
+    submittedLoading.value = false
+  }
 }
 </script>
 
 <style scoped lang="scss">
 .outer > div {
   margin-bottom: $main-content-padding;
+}
+
+.outer[data-loading=true] {
+  & > label, & > div, & > span {
+    opacity: .5;
+  }
+
+  input, textarea {
+    pointer-events: none;
+  }
 }
 
 label {
@@ -197,22 +226,7 @@ label {
   }
 }
 
-button {
-  background-color: $color-green;
-  color: #ffffff;
-  font-family: $font-major;
-  font-size: 10pt;
-  text-align: center;
-  width: 100%;
-  border-radius: 999pt;
-  border: none;
-  outline: none;
-  margin-top: calc(20pt - $main-content-padding);
-  padding: $menu-item-padding;
-
-  &[data-ready=false] {
-    background-color: $bg-darker;
-    cursor: not-allowed;
-  }
+.nickname {
+  margin-bottom: 20pt !important;
 }
 </style>
