@@ -1,13 +1,14 @@
 <template>
   <div>
     <div class="header">
-      <h2>Donnerstag, 15. Juni</h2>
+      <h2>Donnerstag, 22. Juni</h2>
     </div>
 
     <UtilsPullDownRefresh :enabled="refreshAllowed" @refresh="refresh()">
       <OccurrenceList
         ref="primaryList"
-        :mensa="mensa"
+        :key="mensa.id + date"
+        :mensa="mensa.id"
         :date="date"
       />
     </UtilsPullDownRefresh>
@@ -15,8 +16,8 @@
 </template>
 
 <script setup lang="ts">
-const mensa = 'eddfa64d-5f21-4515-97d4-d45e49168116'
-const date = new Date('2023-06-15T18:51:42.712Z')
+const mensa = useSelectedLocation()
+const date = new Date('2023-06-22T18:51:42.712Z')
 
 const primaryList = ref<any>(null)
 const refreshAllowed = useState('index--refresh-allowed', () => true)

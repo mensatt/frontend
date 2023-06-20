@@ -22,8 +22,10 @@ watch(y, val => (globalScroll.value = val))
 .app {
   display: grid;
   height: 100dvh;
+  width: 100dvw;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr auto;
+  overflow: hidden;
 }
 
 .content {
