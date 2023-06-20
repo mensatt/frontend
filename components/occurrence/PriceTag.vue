@@ -22,7 +22,7 @@ const text = `${price}€`
 <style scoped lang="scss">
 div {
   height: $content-pills-height;
-  background-color: #39eb572f;
+  background-color: #375aa52f;
   border-radius: 3pt;
   width: fit-content;
   display: flex;
@@ -32,7 +32,7 @@ div {
 }
 
 span {
-  color: #0c5a19;
+  color: #375aa5;
   font-family: $font-major;
   font-size: 11pt;
 }

@@ -18,16 +18,18 @@ const props = defineProps<{
 }>()
 const emit = defineEmits([ 'refresh' ])
 
+const threshold = 50
+
 const swiper = ref<HTMLElement | null>(null)
 const globalScroll = useGlobalScroll()
 const globalScrollBlock = useGlobalScrollBlock()
 
 const swipeValid = useState('index-swipe-valid', () => false)
-const swipePercent = computed(() => -lengthY.value / (window.innerHeight / 4))
+const swipePercent = computed(() => (-lengthY.value - threshold) / (window.innerHeight / 4))
 
 const { isSwiping, lengthY, direction } = useSwipe(swiper, {
   passive: true,
-  threshold: 1,
+  threshold,
   onSwipeStart() {
     swipeValid.value = false
   },
@@ -46,15 +48,16 @@ const { isSwiping, lengthY, direction } = useSwipe(swiper, {
 watch(direction, (dir) => {
   if (dir !== 'down') return
   if (globalScroll.value !== 0) return
-  if (!props.enabled) return
+  if (props.enabled === false) return
 
+  globalScrollBlock.value++
   swipeValid.value = true
 })
 
 const css = computed(() => {
-  const active = (isSwiping.value && swipeValid.value && lengthY.value < 0)
+  const active = (isSwiping.value && swipeValid.value && lengthY.value < -threshold)
   const visualFriction = window.innerHeight / 3
-  const visualOffset = Math.log10((-lengthY.value+visualFriction)/visualFriction)*visualFriction
+  const visualOffset = Math.log10((-lengthY.value-threshold+visualFriction)/visualFriction)*visualFriction
   const height = active ? `${visualOffset}px` : '0'
 
   return { height, '--percent': Math.min(swipePercent.value, 1) }
@@ -62,6 +65,11 @@ const css = computed(() => {
 </script>
 
 <style scoped lang="scss">
+.pdr {
+  height: 100%;
+  overflow-y: scroll;
+}
+
 .pdr[data-swiping=false] .pdr-spacer {
   transition: height .1s ease-out;
 }
@@ -82,7 +90,7 @@ const css = computed(() => {
   &[data-ready=true] span {
     color: $color-major;
     text-shadow: 0 0 1px $color-major;
-    animation: pop .1s ease-out 1;
+    animation: pop .15s ease-in-out 1;
   }
 
   @keyframes pop {

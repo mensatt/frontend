@@ -1,5 +1,5 @@
 <template>
-  <div v-if="pending || dataCleared">
+  <div v-if="loading">
     <SkeletonOccurrence
       v-for="i in 3"
       :key="i"
@@ -30,7 +30,10 @@ const props = defineProps<{
 const dataCleared = useState(`occurrence-list--${props.mensa}-${props.date}-dc`, () => false)
 const { data, pending, error, refresh: apiRefresh } = await api.getOccurrences(props.mensa, props.date)
 
+const loading = computed(() => pending.value || dataCleared.value)
+
 defineExpose({
+  loading,
   refresh() {
     // why we're waiting half a second before actually refreshing?
     // mensatt api is so fast you don't even realise that the data was refreshed since there was no loading screen or anything

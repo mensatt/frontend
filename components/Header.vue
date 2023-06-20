@@ -1,18 +1,52 @@
 <template>
-  <header>
-    <h1  @click="clickTest">
-      <img src="~/assets/img/logo.svg" alt="">
-      Mensatt
-    </h1>
-    <div class="mensa" @click="clickMensa">
-      {{ selectedLocation?.name ?? '-' }}
+  <header
+    :data-fixed="!!fixed"
+    :style="{ top: `${-commonOffset}px` }"
+  >
+    <div ref="commonEl" class="common">
+      <h1 @click="clickTest">
+        <img src="~/assets/img/logo.svg" alt="">
+        Mensatt
+      </h1>
+      <div v-if="showMensa" class="mensa" @click="clickMensa">
+        {{ selectedLocation?.name ?? '-' }}
+      </div>
     </div>
+    <slot />
   </header>
 </template>
 
 <script setup lang="ts">
+const props = defineProps<{
+  showMensa: boolean
+  fixed?: boolean
+  fixedScrolling?: boolean
+}>()
+
 const popups = usePopups()
 const selectedLocation = useSelectedLocation()
+
+const commonEl = ref(null)
+const { height: commonElHeight } = useElementSize(commonEl)
+
+const commonOffset = useState('header--common-offset', () => 0)
+const globalScrollLastVal = useState('header--globals-lastval', () => 0)
+
+onMounted(() => {
+  if (!props.fixedScrolling) return
+
+  const globalScroll = useGlobalScroll()
+  watch(globalScroll, (scroll) => {
+    const delta = scroll - globalScrollLastVal.value
+    globalScrollLastVal.value = scroll
+
+    let newVal = commonOffset.value + delta
+    if (newVal < 0) newVal = 0
+    else if (newVal > commonElHeight.value) newVal = commonElHeight.value
+
+    commonOffset.value = newVal
+  })
+})
 
 async function clickMensa() {
   const options = useLocationList().value
@@ -32,10 +66,21 @@ async function clickTest() {
 <style scoped lang="scss">
 header {
   padding: 0;
+  background-color: $bg-lighter;
+  border-bottom: 1px solid $bg-dark;
+  // position: sticky;
+  // top: -$global-header-height;
+  
+  &[data-fixed=true] {
+    position: fixed;
+  }
+}
+
+.common {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: $bg-lighter;
+  height: $global-header-height;
 }
 
 h1 {
@@ -62,5 +107,7 @@ h1 {
   font-family: $font-major;
   font-size: 9pt;
   margin: 0 6pt;
+  white-space: nowrap;
+  overflow: hidden;
 }
 </style>

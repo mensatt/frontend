@@ -1,46 +1,78 @@
 <template>
-  <div>
-    <div class="header">
-      <h2>Donnerstag, 22. Juni</h2>
-    </div>
+  <Header
+    ref="header"
+    :show-mensa="true"
+    :fixed="true"
+    :fixed-scrolling="true"
+  >
+    <UtilsHorizontalTabs
+      :tabs="listOfDates"
+      :active="selectedDate"
+      @select="i => (selectedDate = i)"
+    />
+  </Header>
 
-    <UtilsPullDownRefresh :enabled="refreshAllowed" @refresh="refresh()">
-      <OccurrenceList
-        ref="primaryList"
-        :key="mensa.id + date"
-        :mensa="mensa.id"
-        :date="date"
-      />
-    </UtilsPullDownRefresh>
-  </div>
+  <UtilsSwipePages>
+    <template #active>
+      <div class="spacer" :style="{ height: `${headerHeight}px` }" />
+      <UtilsPullDownRefresh :enabled="!primaryList?.loading" @refresh="refresh()">
+        <OccurrenceList
+          ref="primaryList"
+          :key="mensa.id + date"
+          :mensa="mensa.id"
+          :date="date"
+        />
+      </UtilsPullDownRefresh>
+    </template>
+  </UtilsSwipePages>
 </template>
 
 <script setup lang="ts">
-const mensa = useSelectedLocation()
-const date = new Date('2023-06-22T18:51:42.712Z')
+import { TabData } from '../components/utils/HorizontalTabs.vue'
+
+const header = ref(null)
+const { height: headerHeight } = useElementSize(header)
 
 const primaryList = ref<any>(null)
-const refreshAllowed = useState('index--refresh-allowed', () => true)
+
+const listOfDates: TabData[] = []
+let i = -1
+while (listOfDates.length < 7) {
+  const date = new Date(Date.now() + i * 24*60*60*1000)
+
+  // is it the weekend? then check next day
+  if (date.getDay() === 0 || date.getDay() === 6) {
+    if (listOfDates.length === 0) i--
+    else i++
+    continue
+  }
+
+  // TODO(localization) use user language here
+  const intl = new Intl.DateTimeFormat('de-DE', { weekday: 'long' })
+  listOfDates.push({
+    id: date.toISOString(),
+    name: intl.format(date)
+  })
+  i++
+}
+
+const selectedDate = useState('index--selected-date', () => 1)
+
+const mensa = useSelectedLocation()
+const date = computed(() => new Date(listOfDates[selectedDate.value].id))
 
 function refresh() {
-  refreshAllowed.value = false
-  primaryList.value?.refresh()
-  setTimeout(() => (refreshAllowed.value = true), 500)
+  primaryList.value?.refresh?.()
 }
 </script>
 
 <style scoped lang="scss">
-.header {
+h2 {
+  font-family: $font-header;
+  font-size: 20pt;
+  margin: 0 $main-content-padding;
+  padding-bottom: $main-content-padding;
   display: flex;
-  justify-content: left;
-  margin: 0 0 calc($main-content-padding * 1) 0;
-
-  h2 {
-    font-family: $font-header;
-    font-size: 20pt;
-    margin: 0 $main-content-padding;
-    display: flex;
-    align-items: center;
-  }
+  align-items: center;
 }
 </style>
