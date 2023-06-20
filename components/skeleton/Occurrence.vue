@@ -44,7 +44,7 @@ const { seed } = defineProps<{
   max-height: 50vh;
   object-fit: cover;
   width: 100%;
-  background-color: $bg-light;
+  background-color: $bg-dark;
   box-sizing: border-box;
   margin: 0;
 }
@@ -61,7 +61,7 @@ const { seed } = defineProps<{
   margin: 0;
   height: 18pt;
   width: 80%;
-  background-color: $bg-light;
+  background-color: $bg-dark;
   border-radius: $card-item-br;
 }
 
@@ -72,7 +72,7 @@ const { seed } = defineProps<{
   gap: calc($main-content-padding / 4);
 
   .pill {
-    background-color: $bg-light;
+    background-color: $bg-dark;
     border-radius: $card-item-br;
     height: $content-pills-height;
     font-size: 12pt;
@@ -81,7 +81,7 @@ const { seed } = defineProps<{
 }
 
 .comment {
-  background-color: $bg-light;
+  background-color: $bg-dark;
   border-radius: $card-item-br;
   font-size: 12pt;
   width: fit-content;

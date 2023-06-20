@@ -1,5 +1,5 @@
 <template>
-  <div v-if="pending">
+  <div v-if="pending || dataCleared">
     <SkeletonOccurrence
       v-for="i in 3"
       :key="i"
@@ -27,7 +27,22 @@ const props = defineProps<{
   date: Date
 }>()
 
-const { data, pending, error } = await api.getOccurrences(props.mensa, props.date)
+const dataCleared = useState(`occurrence-list--${props.mensa}-${props.date}-dc`, () => false)
+const { data, pending, error, refresh: apiRefresh } = await api.getOccurrences(props.mensa, props.date)
+
+defineExpose({
+  refresh() {
+    // why we're waiting half a second before actually refreshing?
+    // mensatt api is so fast you don't even realise that the data was refreshed since there was no loading screen or anything
+    // that's why we give it a bit of time to properly communicate to the user that we're fetching new data now
+    // this does NOT impact first page load, that's still instant, we're just delaying data refreshing by a bit
+    dataCleared.value = true
+    setTimeout(() => {
+      apiRefresh()
+      nextTick(() => (dataCleared.value = false))
+    }, 500)
+  }
+})
 </script>
 
 <style scoped lang="scss">

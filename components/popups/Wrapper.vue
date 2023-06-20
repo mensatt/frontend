@@ -135,7 +135,10 @@ const innerCss = computed(() => ({
 
   [data-dismissed=true] & {
     top: 100dvh;
-    transition: top .2s cubic-bezier(0.11, 0, 0.5, 0);
+    opacity: 0;
+    transition:
+      top .2s cubic-bezier(0.11, 0, 0.5, 0),
+      opacity 0s linear .2s;
   }
 
   @keyframes inner-in {

@@ -1,12 +1,22 @@
 <template>
   <div class="app">
-    <div class="content">
+    <div ref="scrollcont" class="content" :data-scrollblocked="globalScrollBlock > 0">
       <Header />
       <slot />
     </div>
     <MobileNav />
   </div>
 </template>
+
+<script setup lang=ts>
+const scrollcont = ref<HTMLElement | null>(null)
+
+const globalScroll = useGlobalScroll()
+const globalScrollBlock = useGlobalScrollBlock()
+
+const { y } = useScroll(scrollcont)
+watch(y, val => (globalScroll.value = val))
+</script>
 
 <style scoped lang="scss">
 .app {
@@ -18,5 +28,9 @@
 
 .content {
   overflow-y: scroll;
+
+  &[data-scrollblocked=true] {
+    overflow-y: hidden;
+  }
 }
 </style>
