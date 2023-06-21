@@ -48,6 +48,7 @@ html, body {
 
 * {
   font-display: swap;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 // POPUP DEFAULT STYLING

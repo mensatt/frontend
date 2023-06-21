@@ -139,7 +139,7 @@ function clickDate(date: DateType) {
   place-items: center;
   box-sizing: border-box;
   gap: 5pt;
-  padding: 10pt;
+  padding: $main-content-padding;
   height: calc(100% - var(--header) - 1px);
 
   & > span {

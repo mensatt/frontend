@@ -70,6 +70,7 @@ header {
   background-color: $bg-lighter;
   border-bottom: 1px solid $bg-dark;
   z-index: 10;
+  width: 100%;
   // position: sticky;
   // top: -$global-header-height;
   
