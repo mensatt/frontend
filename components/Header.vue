@@ -35,6 +35,7 @@ const globalScrollLastVal = useState('header--globals-lastval', () => 0)
 onMounted(() => {
   if (!props.fixedScrolling) return
 
+  commonOffset.value = 0
   const globalScroll = useGlobalScroll()
   watch(globalScroll, (scroll) => {
     const delta = scroll - globalScrollLastVal.value

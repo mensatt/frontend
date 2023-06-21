@@ -1,21 +1,185 @@
 <template>
-  <Header :show-mensa="true">
-    <h2>Kalender</h2>
+  <Header ref="headerEl" :show-mensa="true">
+    <UtilsHorizontalTabs
+      :tabs="months"
+      :active="selectedMonth"
+      @select="i => (selectedMonth = i)"
+    />
   </Header>
 
-  <div>
-    <span>Not done yet</span>
-
-    <p>Hier kommt eine full-screen kalender seite um einen beliebigen tag anzuzeigen.</p>
+  <div
+    class="dates"
+    :style="{
+      '--header': `${headerHeight}px`,
+      '--rows': Math.ceil(dates.length/5)
+    }"
+  >
+    <span>MO</span>
+    <span>DI</span>
+    <span>MI</span>
+    <span>DO</span>
+    <span>FR</span>
+    <div
+      v-for="date, i of dates"
+      :key="i"
+      :data-type="date.type"
+      :data-today="date.today"
+      @click="clickDate(date)"
+    >
+      <span v-text="date.date.getDate()" />
+    </div>
   </div>
 </template>
 
+<script setup lang="ts">
+import { TabData } from '../components/utils/HorizontalTabs.vue'
+
+type DateType = {
+  date: Date
+  type: 'prev' | 'next' | 'selectable'
+  today: boolean
+}
+
+//
+
+const headerEl = ref<HTMLElement | null>(null)
+const { height: headerHeight } = useElementSize(headerEl)
+
+//
+
+const MONTHS_PAST = 3
+const MONTHS_FUTURE = 8
+
+// TODO(localization) localize this
+const monthNames = [ 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ]
+
+const months: TabData[] = []
+const currentMonth = new Date().getMonth()
+for (let i = -MONTHS_PAST; i <= MONTHS_FUTURE; i++) {
+  let month = (currentMonth + i + 12) % 12
+
+  months.push({
+    id: String(month),
+    name: monthNames[month]
+  })
+}
+
+const selectedMonth = useState('calendar--sel-month', () => MONTHS_PAST)
+
+const TODAY = new Date()
+const DAY_MILLIS = 24 * 60 * 60 * 1000
+
+function isWeekend(date: Date): boolean {
+  return (date.getDay() === 0) || (date.getDay() === 6)
+}
+
+const dates = computed(() => {
+  let year = TODAY.getFullYear()
+  let month = currentMonth - MONTHS_PAST + selectedMonth.value
+  while (month < 0) {
+    month += 12
+    year -= 1
+  }
+  while (month > 11) {
+    month -= 12
+    year += 1
+  }
+
+  const monthOne = new Date(year, month, 1)
+  const monthLength = new Date(year, month+1, 0).getDate()
+  const out: DateType[] = []
+
+  if (!isWeekend(monthOne)) {
+    // fill in days from prev month which still appear on this page
+    for (let prevMonth = 0; prevMonth < monthOne.getDay(); prevMonth++) {
+      const date = new Date(monthOne.getTime() + (prevMonth - monthOne.getDay()) * DAY_MILLIS)
+      if (isWeekend(date)) continue
+      out.push({ date, type: 'prev', today: false })
+    }
+  }
+
+  for (let counter = 0; counter < monthLength; counter++) {
+    const date = new Date(monthOne.getTime() + counter * DAY_MILLIS)
+    if (isWeekend(date)) continue
+    const today = (TODAY.getDate() === date.getDate())
+      && (TODAY.getMonth() === date.getMonth())
+      && (TODAY.getFullYear() === date.getFullYear())
+    out.push({ date, type: 'selectable', today })
+  }
+
+  for (let counter = 0; counter < 14; counter++) {
+    const date = new Date(monthOne.getTime() + (monthLength + counter) * DAY_MILLIS)
+    if (isWeekend(date)) continue
+    out.push({ date, type: 'next', today: false })
+  }
+
+  return out.slice(0, 5 * 6)
+})
+
+function clickDate(date: DateType) {
+  if (date.type === 'prev') {
+    selectedMonth.value--
+    return
+  }
+
+  if (date.type === 'next') {
+    selectedMonth.value++
+    return
+  }
+
+  console.log('TODO')
+}
+</script>
+
 <style scoped lang="scss">
-h2 {
-  font-family: $font-header;
-  font-size: 20pt;
-  margin: 0 $main-content-padding $main-content-padding $main-content-padding;
-  display: flex;
-  align-items: center;
+.dates {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: auto repeat(var(--rows), 1fr);
+  place-items: center;
+  box-sizing: border-box;
+  gap: 5pt;
+  padding: 10pt;
+  height: calc(100% - var(--header) - 1px);
+
+  & > span {
+    padding: 2pt 0 6pt 0;
+    font-family: $font-major;
+    font-size: 10pt;
+    color: $color-minor;
+  }
+
+  & > div {
+    background-color: $bg-dark;
+    border-radius: 999pt;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    transition: all .2s ease-out;
+
+    span {
+      font-family: $font-major;
+      font-size: 11pt;
+      color: $color-major;
+    }
+
+    &[data-type="prev"],
+    &[data-type="next"] {
+      opacity: .3;
+
+      span {
+        color: $color-minor;
+      }
+    }
+
+    &[data-today=true] {
+      background-color: $color-green40;
+
+      span {
+        color: $color-green;
+      }
+    }
+  }
 }
 </style>

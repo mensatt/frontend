@@ -101,9 +101,10 @@ onMounted(() => {
 }
 
 .indicator {
+  margin-top: -3pt;
   height: 3pt;
   background-color: $color-green;
   border-radius: 99pt 99pt 0 0;
-  // transition: all .1s ease-out;
+  transition: all .1s ease-out;
 }
 </style>
