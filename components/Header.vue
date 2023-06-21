@@ -68,6 +68,7 @@ header {
   padding: 0;
   background-color: $bg-lighter;
   border-bottom: 1px solid $bg-dark;
+  z-index: 10;
   // position: sticky;
   // top: -$global-header-height;
   

@@ -2,7 +2,7 @@
   <div
     ref="swiper"
     class="pdr"
-    :data-swiping="isSwiping"
+    :data-swiping="isSwiping && swipeValid"
   >
     <div class="pdr-spacer" :style="css" :data-ready="swipePercent >= 1">
       <!-- Placeholder for an icon-based visual communicator -->
@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-  enabled?: boolean
+  disabled?: boolean
 }>()
 const emit = defineEmits([ 'refresh' ])
 
@@ -23,9 +23,10 @@ const threshold = 50
 const swiper = ref<HTMLElement | null>(null)
 const globalScroll = useGlobalScroll()
 const globalScrollBlock = useGlobalScrollBlock()
+const globalGestureTracked = useGlobalGestureTracked()
 
-const swipeValid = useState('index-swipe-valid', () => false)
-const swipePercent = computed(() => (-lengthY.value - threshold) / (window.innerHeight / 4))
+const swipeValid = useState('pdr-swipe-valid', () => false)
+const swipePercent = computed(() => swipeValid.value ? (-lengthY.value - threshold) / (window.innerHeight / 4) : 0)
 
 const { isSwiping, lengthY, direction } = useSwipe(swiper, {
   passive: true,
@@ -34,11 +35,12 @@ const { isSwiping, lengthY, direction } = useSwipe(swiper, {
     swipeValid.value = false
   },
   onSwipeEnd() {
-    // unblock scroll
-    if (swipeValid.value)
-      globalScrollBlock.value--
-    else
+    if (!swipeValid.value)
       return
+
+    // unblock scroll and gestures
+    globalScrollBlock.value--
+    globalGestureTracked.value--
 
     if (swipePercent.value >= 1)
       emit('refresh')
@@ -48,9 +50,12 @@ const { isSwiping, lengthY, direction } = useSwipe(swiper, {
 watch(direction, (dir) => {
   if (dir !== 'down') return
   if (globalScroll.value !== 0) return
-  if (props.enabled === false) return
+  if (props.disabled) return
+  if (swipeValid.value) return // swiping was already initialized
+  if (globalGestureTracked.value > 0) return // another gesture is already happening
 
   globalScrollBlock.value++
+  globalGestureTracked.value++
   swipeValid.value = true
 })
 

@@ -30,7 +30,7 @@ const props = defineProps<{
 const dataCleared = useState(`occurrence-list--${props.mensa}-${props.date}-dc`, () => false)
 const { data, pending, error, refresh: apiRefresh } = await api.getOccurrences(props.mensa, props.date)
 
-const loading = computed(() => pending.value || dataCleared.value)
+const loading = computed(() => pending.value || !data.value || dataCleared.value)
 
 defineExpose({
   loading,

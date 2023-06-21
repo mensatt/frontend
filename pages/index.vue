@@ -15,12 +15,12 @@
   <UtilsSwipePages>
     <template #active>
       <div class="spacer" :style="{ height: `${headerHeight}px` }" />
-      <UtilsPullDownRefresh :enabled="!primaryList?.loading" @refresh="refresh()">
+      <UtilsPullDownRefresh :disabled="!!activeList?.loading" @refresh="refresh()">
         <OccurrenceList
-          ref="primaryList"
-          :key="mensa.id + date"
+          ref="activeList"
+          :key="mensa.id + activeDate"
           :mensa="mensa.id"
-          :date="date"
+          :date="activeDate"
         />
       </UtilsPullDownRefresh>
     </template>
@@ -33,7 +33,7 @@ import { TabData } from '../components/utils/HorizontalTabs.vue'
 const header = ref(null)
 const { height: headerHeight } = useElementSize(header)
 
-const primaryList = ref<any>(null)
+const activeList = ref<any>(null)
 
 const listOfDates: TabData[] = []
 let i = -1
@@ -59,10 +59,10 @@ while (listOfDates.length < 7) {
 const selectedDate = useState('index--selected-date', () => 1)
 
 const mensa = useSelectedLocation()
-const date = computed(() => new Date(listOfDates[selectedDate.value].id))
+const activeDate = computed(() => new Date(listOfDates[selectedDate.value].id))
 
 function refresh() {
-  primaryList.value?.refresh?.()
+  activeList.value?.refresh?.()
 }
 </script>
 

@@ -13,7 +13,7 @@ async function getOccurrences(locationId: string, date: Date): Promise<GqlRespon
   if (occurrenceCache.has(cacheKey))
     return occurrenceCache.get(cacheKey)!
 
-  const res = await useAsyncQuery<{ occurrences: EntityOccurrence.Occurrence[] }>(EntityOccurrence.queryByDate, { locationId, date: dateStr })
+  const res = await useLazyAsyncQuery<{ occurrences: EntityOccurrence.Occurrence[] }>(EntityOccurrence.queryByDate, { locationId, date: dateStr })
   occurrenceCache.set(cacheKey, res)
   return res
 }
