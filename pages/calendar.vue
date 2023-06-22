@@ -47,27 +47,31 @@ const { height: headerHeight } = useElementSize(headerEl)
 
 //
 
-const MONTHS_PAST = 3
-const MONTHS_FUTURE = 8
+const TODAY = new Date()
+const DAY_MILLIS = 24 * 60 * 60 * 1000
+
+const MONTHS_PAST = 8
+const MONTHS_FUTURE = 2
 
 // TODO(localization) localize this
 const monthNames = [ 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ]
 
 const months: TabData[] = []
-const currentMonth = new Date().getMonth()
+const currentMonth = TODAY.getMonth()
 for (let i = -MONTHS_PAST; i <= MONTHS_FUTURE; i++) {
-  let month = (currentMonth + i + 12) % 12
+  const month = currentMonth + i
+  const monthMod = (month + 120) % 12
+  const yearOffset = Math.floor(month / 12)
+  const nameAddition = (yearOffset === 0) ? '' : `'${TODAY.getFullYear() - 2000 + yearOffset}`
 
   months.push({
     id: String(month),
-    name: monthNames[month]
+    name: monthNames[monthMod] + nameAddition,
+    seperator: (monthMod === 11)
   })
 }
 
 const selectedMonth = useState('calendar--sel-month', () => MONTHS_PAST)
-
-const TODAY = new Date()
-const DAY_MILLIS = 24 * 60 * 60 * 1000
 
 function isWeekend(date: Date): boolean {
   return (date.getDay() === 0) || (date.getDay() === 6)

@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <label for="languages">Sprache</label>
+    <!-- <label for="languages">Sprache</label>
     <div class="languages">
       <div class="language" :data-selected="inputLanguage === 'de'" @click="inputLanguage = 'de'">
         <NuxtIcon name="flag_de" filled />
@@ -40,6 +40,20 @@
       <div class="language" :data-selected="inputLanguage === 'en'" @click="inputLanguage = 'en'">
         <NuxtIcon name="flag_gb" filled />
         <span>English</span>
+      </div>
+    </div> -->
+
+    <label for="visual">Anzeige</label>
+    <div class="visual">
+      <div class="option" @click="openLanguageSelector">
+        <span class="name">Sprache</span>
+        <span class="selected" v-text="selectedLanguage?.name" />
+        <NuxtIcon :name="selectedLanguage?.icon ?? ''" filled />
+      </div>
+      <div class="option" @click="openThemeSelector">
+        <span class="name">Farbschema</span>
+        <span class="selected" v-text="selectedTheme?.name" />
+        <NuxtIcon :name="selectedTheme?.icon ?? ''" />
       </div>
     </div>
 
@@ -65,13 +79,56 @@
 </template>
 
 <script setup lang="ts">
+const popups = usePopups()
 
 const header = ref(null)
 const { height: headerHeight } = useElementSize(header)
 
 const inputPrice = useSettingPrice()
+
+
+//
+
 const inputLanguage = useSettingLanguage()
 
+const languageList = [
+  { id: 'de', name: 'Deutsch', icon: 'flag_de', iconFilled: true },
+  { id: 'en', name: 'English', icon: 'flag_gb', iconFilled: true },
+] as const
+
+const selectedLanguage = computed(() => languageList.find(search => (search.id === inputLanguage.value)))
+
+async function openLanguageSelector() {
+  const sel = await popups.open('select_option', {
+    title: 'Sprache auswählen',
+    options: [...languageList],
+    selected: inputLanguage.value
+  })
+  if (sel)
+    inputLanguage.value = sel
+}
+
+//
+
+const inputTheme = useSettingColorMode().store
+
+const themeList = [
+  { id: 'auto', name: 'Automatisch', icon: 'theme_auto' },
+  { id: 'light', name: 'Hell', icon: 'theme_light' },
+  { id: 'dark', name: 'Dunkel', icon: 'theme_dark' },
+] as const
+
+const selectedTheme = computed(() => themeList.find(search => (search.id === inputTheme.value)))
+
+async function openThemeSelector() {
+  const sel = await popups.open('select_option', {
+    title: 'Farbschema auswählen',
+    options: [...themeList],
+    selected: inputTheme.value
+  })
+  if (sel)
+    setTimeout(() => (inputTheme.value = sel), 500)
+}
 </script>
 
 <style scoped lang="scss">
@@ -86,6 +143,7 @@ const inputLanguage = useSettingLanguage()
 h2 {
   font-family: $font-header;
   font-size: 20pt;
+  color: $color-header;
   margin: $main-content-padding;
   display: flex;
   align-items: center;
@@ -94,6 +152,7 @@ h2 {
 h3 {
   font-family: $font-header;
   font-size: 16pt;
+  color: $color-header;
   padding: 0;
   margin: calc($main-content-padding*2) 0 $main-content-padding 0;
   display: flex;
@@ -220,6 +279,40 @@ label {
       font-size: 8pt;
       font-family: $font-major;
     }
+  }
+}
+
+.option {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  gap: $menu-item-padding;
+  margin-bottom: $menu-item-margin;
+  padding: $menu-item-padding;
+  border-radius: $menu-item-br;
+  background-color: $bg-light;
+
+  span {
+    pointer-events: none;
+  }
+
+  .name {
+    font-family: $font-major;
+    font-size: 10pt;
+    color: $color-major;
+  }
+
+  .selected {
+    font-family: $font-regular;
+    font-size: 10pt;
+    color: $color-sub;
+  }
+
+  .nuxt-icon {
+    font-size: 12pt;
+    color: $color-sub;
   }
 }
 </style>

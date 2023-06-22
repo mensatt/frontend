@@ -73,7 +73,7 @@ header {
   width: 100%;
   // position: sticky;
   // top: -$global-header-height;
-  
+
   &[data-fixed=true] {
     position: fixed;
   }
@@ -89,6 +89,7 @@ header {
 h1 {
   font-family: $font-major;
   font-size: 11pt;
+  color: $color-major;
   margin: $main-content-padding;
   display: flex;
   align-items: center;
@@ -112,5 +113,6 @@ h1 {
   margin: 0 6pt;
   white-space: nowrap;
   overflow: hidden;
+  color: $color-major;
 }
 </style>

@@ -17,7 +17,7 @@
   --color-red: #ec3960;
   --color-red20: #ec396020;
   --color-redH: #961f39;
-  --color-red20: #ec396020;
+  --color-placeholders: #00000055;
   --color-minor: #585858;
   --color-sub: #3f3f3f;
   --color-regular: #141414;
@@ -27,10 +27,10 @@
 
 @mixin theme-dark {
   /* DARK THEME TODO */
-  --bg-darker: #cccccc;
-  --bg-dark: #f2f2f2;
-  --bg-light: #fafafa;
-  --bg-lighter: #ffffff;
+  --bg-darker: #60656e;
+  --bg-dark: #323234;
+  --bg-light: #1b1b1c;
+  --bg-lighter: #101010;
   --color-green: #77b255;
   --color-green20: #77b25520;
   --color-green40: #77b25540;
@@ -38,17 +38,18 @@
   --color-yellow: #ffac33;
   --color-yellow20: #ffda3320;
   --color-yellow40: #ffda3354;
-  --color-blue: #375aa5;
-  --color-blue20: #375aa52f;
-  --color-blue40: #375aa556;
+  --color-blue: #587bc5;
+  --color-blue20: #587bc52f;
+  --color-blue40: #587bc556;
   --color-red: #ec3960;
   --color-red20: #ec396020;
   --color-redH: #961f39;
-  --color-minor: #585858;
-  --color-sub: #3f3f3f;
-  --color-regular: #141414;
-  --color-major: #080808;
-  --color-header: #000000;
+  --color-placeholders: #ffffff55;
+  --color-minor: #8a8b8f;
+  --color-sub: #c1c2c7;
+  --color-regular: #e1e1e1;
+  --color-major: #f7f7f7;
+  --color-header: #ffffff;
 }
 
 //// COLORS
@@ -73,6 +74,7 @@ $color-blue40: var(--color-blue40);
 $color-red: var(--color-red);
 $color-red20: var(--color-red20);
 $color-redH: var(--color-redH);
+$color-placeholders: var(--color-placeholders);
 $color-minor: var(--color-minor);
 $color-sub: var(--color-sub);
 $color-regular: var(--color-regular);

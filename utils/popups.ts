@@ -2,12 +2,13 @@ import { DefineComponent } from "nuxt/dist/app/compat/capi"
 import PopupSelectMensa from "~/components/popup/SelectMensa.vue"
 import PopupTest from "~/components/popup/Test.vue"
 import PopupRateDish from "~/components/popup/RateDish.vue"
+import PopupSelectOption from "~/components/popup/SelectOption.vue"
 import { EntityLocation } from "./entities/location"
 import { EntityOccurrence } from "./entities/occurrence"
 
 
 /** REGISTER YOUR POPUP HERE */
-export type Popup = {
+export type Popup<T extends String> = {
   id: 'test'
   data: { a: number }
   returns: boolean
@@ -25,24 +26,38 @@ export type Popup = {
   }
   /** if review was successfully submitted or not */
   returns: boolean
+} | {
+  id: 'select_option'
+  data: {
+    title: string
+    options: {
+      id: T
+      name: string
+      icon?: string
+      iconFilled?: boolean
+    }[]
+    selected?: T
+  }
+  returns: T
 }
 
 /** AND HERE */
-export const PopupComponents: Record<Popup['id'], DefineComponent<any, any, any>> = {
+export const PopupComponents: Record<Popup<any>['id'], DefineComponent<any, any, any>> = {
   test: PopupTest,
   select_mensa: PopupSelectMensa,
-  rate_dish: PopupRateDish
+  rate_dish: PopupRateDish,
+  select_option: PopupSelectOption
 }
 
 //
 
-export type PopupInternally = Omit<Popup, 'returns'> & { callback: Function, uuid: number, dismissed: boolean }
+export type PopupInternally = Omit<Popup<any>, 'returns'> & { callback: Function, uuid: number, dismissed: boolean }
 
 const getState = () => useState<PopupInternally[]>('popups', () => ([]))
 let uuidCounter = 0
 
 export const usePopups = () => ({
-  open<Id extends Popup['id']>(id: Id, data: (Popup & { id: Id })['data']): Promise<(Popup & { id: Id })['returns'] | null> {
+  open<T extends string, Id extends Popup<T>['id']>(id: Id, data: (Popup<T> & { id: Id })['data']): Promise<(Popup<T> & { id: Id })['returns'] | null> {
     return new Promise((callback) => getState().value.push({ id, data, callback, uuid: uuidCounter++, dismissed: false }))
   },
   get state() {

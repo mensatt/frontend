@@ -5,3 +5,6 @@ export const useSettingPrice = () => useLocalStorage<SettingPrice>('usersetting-
 
 export type SettingLanguage = 'de' | 'en'
 export const useSettingLanguage = () => useLocalStorage<SettingLanguage>('usersetting-language', () => 'de')
+
+export type SettingColorMode = 'auto' | 'light' | 'dark'
+export const useSettingColorMode = () => useColorMode()

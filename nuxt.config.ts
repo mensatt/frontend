@@ -17,7 +17,8 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { hid: 'description', name: 'description', content: 'Mensatt is providing your high quality information about all Mensas 👍' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },,
+        { name: 'darkreader-lock', content: 'true' },
         // { name: 'msapplication-TileColor', content: '#c9f1b6' },
         // { name: 'theme-color', content: '#c9f1b6' }
       ],

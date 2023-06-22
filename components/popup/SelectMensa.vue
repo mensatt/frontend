@@ -66,7 +66,7 @@ function toggleFav(location: EntityLocation.Location) {
 }
 
 .option {
-  background-color: #00000005;
+  background-color: $bg-light;
   padding: $menu-item-padding;
   border-radius: $menu-item-br;
   display: grid;

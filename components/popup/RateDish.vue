@@ -137,7 +137,7 @@ label {
     font-family: $font-major;
     padding: 1pt 5pt;
     background-color: $bg-light;
-    color: #00000077;
+    color: $color-placeholders;
     border-radius: 99pt;
   }
 }

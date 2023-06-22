@@ -6,6 +6,7 @@
           v-for="tab, i of tabs"
           :key="tab.id"
           :style="{ '--active': 1 - Math.min(1, Math.abs(active - i)) }"
+          :data-seperator="tab.seperator && (i !== tabs.length-1)"
           @click="emit('select', i)"
         >
           <span v-text="tab.name" />
@@ -21,6 +22,7 @@
 export type TabData = {
   id: string
   name: string
+  seperator?: boolean
 }
 
 const props = defineProps<{
@@ -89,6 +91,7 @@ onMounted(() => {
   padding: 0 10pt;
 
   & > div {
+    position: relative;
     padding: 10pt;
 
     span {
@@ -96,6 +99,20 @@ onMounted(() => {
       font-size: 11pt;
       color: $color-major;
       opacity: calc(0.7 + var(--active)*0.3);
+    }
+
+    &[data-seperator=true] {
+      margin-right: 10pt;
+    }
+
+    &[data-seperator=true]::after {
+      content: '';
+      position: absolute;
+      right: -5pt;
+      top: 10pt;
+      height: calc(100% - 20pt);
+      width: 1px;
+      background-color: $bg-dark;
     }
   }
 }

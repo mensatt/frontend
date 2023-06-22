@@ -35,13 +35,29 @@ const { height: headerHeight } = useElementSize(header)
 
 const activeList = ref<any>(null)
 
+// TODO(localization)
+const relativeDayNames: Record<number, string> = {
+  [-1]: 'Gestern',
+  [0]: 'Heute',
+  [1]: 'Morgen'
+}
+
+//
+
+const TODAY = new Date()
+const DAY_MILLIS = 24 * 60 * 60 * 1000
+
+function isWeekend(date: Date): boolean {
+  return (date.getDay() === 0) || (date.getDay() === 6)
+}
+
 const listOfDates: TabData[] = []
 let i = -1
 while (listOfDates.length < 7) {
-  const date = new Date(Date.now() + i * 24*60*60*1000)
+  const date = new Date(TODAY.getTime() + i * DAY_MILLIS)
 
   // is it the weekend? then check next day
-  if (date.getDay() === 0 || date.getDay() === 6) {
+  if (isWeekend(date)) {
     if (listOfDates.length === 0) i--
     else i++
     continue
@@ -51,12 +67,13 @@ while (listOfDates.length < 7) {
   const intl = new Intl.DateTimeFormat('de-DE', { weekday: 'long' })
   listOfDates.push({
     id: date.toISOString(),
-    name: intl.format(date)
+    name: relativeDayNames[i] ?? intl.format(date),
+    seperator: (date.getDay() === 5) // freitag
   })
   i++
 }
 
-const selectedDate = useState('index--selected-date', () => 1)
+const selectedDate = useState('index--selected-date', () => (isWeekend(new Date()) || TODAY.getHours() < 17) ? 1 : 2)
 
 const mensa = useSelectedLocation()
 const activeDate = computed(() => new Date(listOfDates[selectedDate.value].id))

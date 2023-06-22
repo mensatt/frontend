@@ -7,6 +7,9 @@
 </template>
 
 <script setup lang="ts">
+// apply color mode
+useColorMode()
+
 async function backgroundTasks() {
   // backgroundTasks() gets executed once the main thread is idle or after 2 seconds
   // this way low priority tasks can be done once all the important rendering and loading work is done
@@ -29,16 +32,23 @@ onMounted(() => {
 
 <style lang="scss">
 body {
-  @include theme-light;
-
   padding: 0;
   margin: 0;
   overflow-y: scroll;
   position: fixed;
+  background-color: $bg-lighter;
 }
 
 html, body {
   overscroll-behavior: none;
+}
+
+html.dark body {
+  @include theme-dark;
+}
+
+html:not(.dark) body {
+  @include theme-light;
 }
 
 ::-webkit-scrollbar {
@@ -66,7 +76,7 @@ textarea, input[type="text"] {
   padding: $menu-item-padding;
   margin: 0;
   box-sizing: border-box;
-  background-color: none;
+  background-color: transparent;
   outline: none;
   resize: none;
   border: 1px solid $bg-darker;
@@ -76,7 +86,7 @@ textarea, input[type="text"] {
   color: $color-regular;
 
   &::placeholder {
-    color: #00000055;
+    color: $color-placeholders;
   }
 }
 </style>
