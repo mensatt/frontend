@@ -1,45 +1,80 @@
 <template>
   <div
     class="toggle"
-    :data-disabled="!!disabled"
+    :data-active="modelValue"
+    @click="emit('update:modelValue', !modelValue)"
   >
     <span v-text="text" />
+    <div class="button">
+      <div class="inner" />
+    </div>
   </div>
 </template>
 
 <script setup lang=ts>
 const props = defineProps<{
   text: string
-  disabled?: boolean
+  modelValue: boolean
 }>()
+
+const emit = defineEmits([ 'update:modelValue' ])
 </script>
 
 <style scoped lang=scss>
 .toggle {
-  background-color: $color-green;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   box-sizing: border-box;
+  gap: $menu-item-padding;
+  margin-bottom: $menu-item-margin;
   padding: $menu-item-padding;
+  border-radius: $menu-item-br;
+  background-color: $bg-light;
   cursor: pointer;
 
-  & > * {
-    color: #ffffff;
+  span {
+    pointer-events: none;
     font-family: $font-major;
     font-size: 10pt;
+    color: $color-minor;
+    transition: color .2s ease;
   }
 
-  .nuxt-icon {
-    font-size: 14pt;
+  .button {
+    height: 20pt;
+    margin: -10pt -3pt;
+    width: 36pt;
+    background-color: $bg-dark;
+    border-radius: 999pt;
+    transition: background-color .2s ease;
+
+    .inner {
+      width: 14pt;
+      height: 14pt;
+      border-radius: 999pt;
+      background-color: $bg-darker;
+      margin: 3pt;
+      transition:
+        background-color .2s ease,
+        margin-left .2s ease;
+    }
   }
 
-  &[data-disabled=true] {
-    background-color: $bg-darker;
-    cursor: not-allowed;
-  }
+  &[data-active=true] {
+    span {
+      color: $color-major;
+    }
 
-  &[data-loading=true] {
-    opacity: .6;
-    cursor: not-allowed;
+    .button {
+      background-color: $color-green20;
+
+      .inner {
+        background-color: $color-green;
+        margin-left: 18pt;
+      }
+    }
   }
 }
 </style>

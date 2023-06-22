@@ -46,12 +46,18 @@
     <label for="visual">Anzeige</label>
     <div class="visual">
       <div class="option" @click="openLanguageSelector">
-        <span class="name">Sprache</span>
+        <div>
+          <span class="name">Sprache</span>
+          <NuxtIcon name="right" />
+        </div>
         <span class="selected" v-text="selectedLanguage?.name" />
         <NuxtIcon :name="selectedLanguage?.icon ?? ''" filled />
       </div>
       <div class="option" @click="openThemeSelector">
-        <span class="name">Farbschema</span>
+        <div>
+          <span class="name">Farbschema</span>
+          <NuxtIcon name="right" />
+        </div>
         <span class="selected" v-text="selectedTheme?.name" />
         <NuxtIcon :name="selectedTheme?.icon ?? ''" />
       </div>
@@ -59,22 +65,45 @@
 
     <label for="preferences">Gerichtspräferenzen</label>
     <div class="preferences">
-      <UiToggle text="Fleisch ausblenden" />
-      <UiToggle text="Fisch ausblenden" />
-      <UiToggle text="Glutenhaltiges ausblenden" />
+      <UiToggle text="Fleischgerichte ausblenden" v-model="inputHideMeat" />
+      <UiToggle text="Fischgerichte ausblenden" v-model="inputHideFish" />
+      <UiToggle text="Glutenhaltiges ausblenden" v-model="inputHideGluten" />
     </div>
 
     <label for="others">Sonstiges</label>
     <div class="others">
-      <UiToggle text="Entwicklermodus" />
+      <UiToggle text="Entwicklermodus" v-model="inputDevMode" />
+      <div v-if="inputDevMode" class="option" @click="openBackendSelector">
+        <div>
+          <span class="name">Backend</span>
+          <NuxtIcon name="right" />
+        </div>
+        <span class="selected" v-text="selectedBackend?.name" />
+        <NuxtIcon :name="selectedBackend?.icon ?? ''" />
+      </div>
     </div>
 
     <h3>Information</h3>
-    <p>Link to privacy policy</p>
-    <p>Link to terms of service</p>
-    <p>Mitwirkende / Authors</p>
-    <p>Socials</p>
-    <p>Copyright Mensatt</p>
+
+    <UiExternLink text="Privacy Policy" url="/privacy" />
+    <UiExternLink text="Terms of Service" url="/terms" />
+    <UiExternLink text="Mitwirkende" url="/credits" />
+
+    <div class="footer">
+      <!-- SOCIALS -->
+      <div class="socials">
+        <div class="social">
+          <NuxtIcon name="brands/discord" />
+        </div>
+        <div class="social">
+          <NuxtIcon name="brands/github" />
+        </div>
+        <div class="social">
+          <NuxtIcon name="brands/mail" />
+        </div>
+      </div>
+      <span>Copyright &copy; 2023 Mensatt</span>
+    </div>
   </div>
 </template>
 
@@ -85,6 +114,10 @@ const header = ref(null)
 const { height: headerHeight } = useElementSize(header)
 
 const inputPrice = useSettingPrice()
+
+const inputHideMeat = useSettingHideMeat()
+const inputHideFish = useSettingHideFish()
+const inputHideGluten = useSettingHideGluten()
 
 
 //
@@ -128,6 +161,29 @@ async function openThemeSelector() {
   })
   if (sel)
     setTimeout(() => (inputTheme.value = sel), 500)
+}
+
+//
+
+const inputDevMode = useSettingDevMode()
+const inputDevBackend = useSettingDevBackend()
+
+const backendList = [
+  { id: 'prod', name: 'api.mensatt.de (prod)', icon: 'rocket' },
+  { id: 'dev', name: 'dev-api.mensatt.de (dev)', icon: 'labs' },
+  { id: 'local', name: 'localhost:4000 (local)', icon: 'laptop' },
+] as const
+
+const selectedBackend = computed(() => backendList.find(search => (search.id === inputDevBackend.value)))
+
+async function openBackendSelector() {
+  const sel = await popups.open('select_option', {
+    title: 'Select Backend',
+    options: [...backendList],
+    selected: inputDevBackend.value
+  })
+  if (sel)
+    inputDevBackend.value = sel
 }
 </script>
 
@@ -248,40 +304,6 @@ label {
   }
 }
 
-.languages {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: $menu-item-margin;
-  border-radius: $menu-item-br;
-  overflow: hidden;
-
-  .language {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: $menu-item-padding;
-    background-color: $bg-light;
-    border-radius: 3pt;
-    gap: 3pt;
-    color: $color-major;
-    cursor: pointer;
-
-    &[data-selected=true] {
-      background-color: $bg-darker;
-    }
-
-    span:first-child {
-      font-size: 16pt;
-      font-family: $font-major;
-    }
-
-    span:last-child {
-      font-size: 8pt;
-      font-family: $font-major;
-    }
-  }
-}
-
 .option {
   display: grid;
   grid-template-columns: 1fr auto auto;
@@ -293,9 +315,14 @@ label {
   padding: $menu-item-padding;
   border-radius: $menu-item-br;
   background-color: $bg-light;
+  cursor: pointer;
 
   span {
     pointer-events: none;
+  }
+
+  & > div .nuxt-icon {
+    margin-left: 2pt;
   }
 
   .name {
@@ -313,6 +340,33 @@ label {
   .nuxt-icon {
     font-size: 12pt;
     color: $color-sub;
+  }
+}
+
+.footer {
+  .socials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: $menu-item-margin;
+    
+    .social {
+      background-color: $bg-light;
+      border-radius: $menu-item-br;
+      padding: $menu-item-padding;
+      display: grid;
+      place-items: center;
+      color: $color-major;
+    }
+  }
+
+  & > span {
+    display: block;
+    margin: 30pt 0;
+    text-align: center;
+    font-family: $font-regular;
+    color: $color-sub;
+    font-size: 10pt;
   }
 }
 </style>
