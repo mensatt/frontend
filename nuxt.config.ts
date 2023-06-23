@@ -103,8 +103,14 @@ export default defineNuxtConfig({
 
   apollo: {
     clients: {
-      default: {
+      prod: {
         httpEndpoint: 'https://api.mensatt.de/v1/graphql',
+      },
+      dev: {
+        httpEndpoint: 'https://dev-api.mensatt.de/v1/graphql',
+      },
+      local: {
+        httpEndpoint: 'https://localhost:4000/v1/graphql',
       },
     },
   },

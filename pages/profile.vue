@@ -81,6 +81,13 @@
         <span class="selected" v-text="selectedBackend?.name" />
         <NuxtIcon :name="selectedBackend?.icon ?? ''" />
       </div>
+      <div v-if="inputDevMode" class="option" @click="devFullReload">
+        <div>
+          <span class="name">Full Reload (PWA)</span>
+        </div>
+        <span class="selected" v-text="''" />
+        <NuxtIcon name="refresh" />
+      </div>
     </div>
 
     <h3>Information</h3>
@@ -184,6 +191,10 @@ async function openBackendSelector() {
   })
   if (sel)
     inputDevBackend.value = sel
+}
+
+function devFullReload() {
+  location.reload()
 }
 </script>
 
