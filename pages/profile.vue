@@ -93,23 +93,23 @@
     <h3>Information</h3>
 
     <UiExternLink text="Privacy Policy" url="/privacy" />
-    <UiExternLink text="Terms of Service" url="/terms" />
+    <!-- <UiExternLink text="Terms of Service" url="/terms" /> -->
     <UiExternLink text="Mitwirkende" url="/credits" />
 
     <div class="footer">
       <!-- SOCIALS -->
       <div class="socials">
-        <div class="social">
+        <NuxtLink to="https://discord.gg/wjeYsQQQ3R" target="_blank" class="social">
           <NuxtIcon name="brands/discord" />
-        </div>
-        <div class="social">
+        </NuxtLink>
+        <NuxtLink to="https://github.com/mensatt" target="_blank" class="social">
           <NuxtIcon name="brands/github" />
-        </div>
-        <div class="social">
+        </NuxtLink>
+        <NuxtLink href="mailto:hello@mensatt.de" target="_blank" class="social">
           <NuxtIcon name="brands/mail" />
-        </div>
+        </NuxtLink>
       </div>
-      <span>Copyright &copy; 2023 Mensatt</span>
+      <span>Copyright &copy; {{ new Date().getFullYear() }} Mensatt</span>
     </div>
   </div>
 </template>
