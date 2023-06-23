@@ -23,7 +23,7 @@
     <p>- Nuxt, Vue & VueUse</p>
     <p>- Go & Gin</p>
     <p>- GraphQl</p>
-    <p>And much more; Visit us on GitHub for more info.</p>
+    <p>- Spezi</p>
   </div>
 </template>
 
@@ -64,5 +64,6 @@ p {
   font-family: $font-regular;
   font-size: 10pt;
   color: $color-regular;
+  margin: 3pt 0;
 }
 </style>
