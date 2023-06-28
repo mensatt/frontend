@@ -8,3 +8,6 @@ export const useGlobalScrollBlock = () => useState('global-scroll-allowed', () =
 
 /** increment this value to indicate you're tracking a gesture. Check if this value is 0 before allowing a gesture. */
 export const useGlobalGestureTracked = () => useState('global-gesture-tracked', () => 0)
+
+/** html element that is globally scrolling */
+export const useGlobalScrollContainer = () => useState<HTMLElement | null>('global-scroll-container', () => null)

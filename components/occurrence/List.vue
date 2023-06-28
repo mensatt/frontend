@@ -12,15 +12,34 @@
   </div>
   <div v-else class="occurrences">
     <OccurrenceCard
-      v-for="occ of data.occurrences"
+      v-for="occ of occurrences.visible"
       :key="occ.id"
       :data="occ"
     />
+
+    <div
+      v-if="occurrences.hidden.length"
+      :data-show-hidden="showHidden"
+    >
+      <div class="toggle" @click="toggleHiddenItems()">
+        <NuxtIcon name="expand_more" />
+        <span v-if="occurrences.hidden.length === 1">1 ausgeblendetes Gericht</span>
+        <span v-else>{{ occurrences.hidden.length }} ausgeblendete Gerichte</span>
+      </div>
+      <div class="hidden-list" v-if="showHidden">
+        <OccurrenceCard
+          v-for="occ of occurrences.hidden"
+          :key="occ.id"
+          :data="occ"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 const api = useApi()
+const filters = useFilters()
 
 const props = defineProps<{
   mensa: string
@@ -31,6 +50,24 @@ const dataCleared = useState(`occurrence-list--${props.mensa}-${props.date}-dc`,
 const { data, pending, error, refresh: apiRefresh } = await api.getOccurrences(props.mensa, props.date)
 
 const loading = computed(() => pending.value || !data.value || dataCleared.value)
+
+const showHidden = useState(`occurrence-list--${props.mensa}-${props.date}-sh`, () => false)
+
+const occurrences = computed(() => {
+  if (loading.value) return { visible: [], hidden: [] }
+  return filters.filterOccurrences(data.value.occurrences)
+})
+
+function toggleHiddenItems() {
+  showHidden.value = !showHidden.value
+
+  nextTick(() => {
+    if (showHidden.value)
+      useGlobalScrollContainer().value?.scrollBy({ top: window.innerHeight/5*4, behavior: 'smooth' })
+    else
+      useGlobalScrollContainer().value?.scrollBy({ top: -1, behavior: 'smooth' })
+  })
+}
 
 defineExpose({
   loading,
@@ -53,6 +90,35 @@ defineExpose({
   display: grid;
   grid-template-columns: 1fr;
   gap: 0;
+}
+
+.toggle {
+  width: 100%;
+  height: 40pt;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5pt;
+  background-color: $bg-light;
+  border-top: 1px solid $bg-dark;
+
+  span {
+    font-family: $font-regular;
+    font-size: 9pt;
+    color: $color-minor;
+  }
+}
+
+.nuxt-icon {
+  transition: transform .2s ease-out;
+
+  [data-show-hidden=true] & {
+    transform: scaleY(-1);
+  }
+}
+
+.hidden-list {
+  opacity: .7;
 }
 </style>
 

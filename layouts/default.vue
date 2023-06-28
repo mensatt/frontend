@@ -15,6 +15,9 @@ const globalScrollBlock = useGlobalScrollBlock()
 
 const { y } = useScroll(scrollcont)
 watch(y, val => (globalScroll.value = val))
+
+const gsc = useGlobalScrollContainer()
+onMounted(() => (gsc.value = scrollcont.value))
 </script>
 
 <style scoped lang="scss">

@@ -4,7 +4,6 @@ import { EntityLocation } from "./entities/location"
 import { EntityReview } from "./entities/review"
 
 function getClient() {
-  console.log('getClient', useSettingDevMode().value ? useSettingDevBackend().value : 'prod')
   return useSettingDevMode().value
     ? useSettingDevBackend().value
     : 'prod'
