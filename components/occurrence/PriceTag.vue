@@ -38,7 +38,7 @@ const price = computed(() => {
 div {
   height: $content-pills-height;
   background-color: $color-blue20;
-  border-radius: 3pt;
+  border-radius: $card-item-br;
   width: fit-content;
   display: flex;
   align-items: center;

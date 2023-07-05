@@ -1,6 +1,5 @@
 <template>
   <Header
-    ref="header"
     :show-mensa="true"
     :fixed="true"
     :fixed-scrolling="true"
@@ -14,7 +13,6 @@
 
   <UtilsSwipePages>
     <template #active>
-      <div class="spacer" :style="{ height: `${headerHeight}px` }" />
       <UtilsPullDownRefresh :disabled="!!activeList?.loading" @refresh="refresh()">
         <OccurrenceList
           ref="activeList"
@@ -29,9 +27,6 @@
 
 <script setup lang="ts">
 import { TabData } from '../components/utils/HorizontalTabs.vue'
-
-const header = ref(null)
-const { height: headerHeight } = useElementSize(header)
 
 const activeList = ref<any>(null)
 

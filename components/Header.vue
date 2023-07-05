@@ -1,5 +1,6 @@
 <template>
   <header
+    ref="headerEl"
     :data-fixed="!!fixed"
     :style="{ top: `${-commonOffset}px` }"
   >
@@ -14,6 +15,8 @@
     </div>
     <slot />
   </header>
+
+  <div v-if="fixed" class="spacer" :style="{ height: `${fullElHeight}px` }" />
 </template>
 
 <script setup lang="ts">
@@ -28,6 +31,9 @@ const selectedLocation = useSelectedLocation()
 
 const commonEl = ref(null)
 const { height: commonElHeight } = useElementSize(commonEl)
+
+const headerEl = ref(null)
+const { height: fullElHeight } = useElementSize(headerEl)
 
 const commonOffset = useState('header--common-offset', () => 0)
 const globalScrollLastVal = useState('header--globals-lastval', () => 0)

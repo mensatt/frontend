@@ -1,9 +1,8 @@
 <template>
-  <Header ref="header" :show-mensa="false" :fixed="true" :fixed-scrolling="true">
+  <Header :show-mensa="false" :fixed="true" :fixed-scrolling="true">
     <h2>Profil</h2>
   </Header>
 
-  <div class="spacer" :style="{ height: `${headerHeight}px` }" />
   <div class="inner">
     <div class="account">
       <div class="image">
@@ -81,6 +80,13 @@
         <span class="selected" v-text="selectedBackend?.name" />
         <NuxtIcon :name="selectedBackend?.icon ?? ''" />
       </div>
+      <NuxtLink v-if="inputDevMode" class="option" to="/dev/info">
+        <div>
+          <span class="name">Build Info</span>
+        </div>
+        <span class="selected" v-text="`v${version.version} (${version.revision.slice(0, 7)})`" />
+        <NuxtIcon name="right" />
+      </NuxtLink>
       <div v-if="inputDevMode" class="option" @click="devFullReload">
         <div>
           <span class="name">Full Reload (PWA)</span>
@@ -109,7 +115,8 @@
           <NuxtIcon name="brands/mail" />
         </NuxtLink>
       </div>
-      <span>Copyright &copy; {{ new Date().getFullYear() }} Mensatt</span>
+
+      <span>Copyright &copy; {{ new Date().getFullYear() }} Mensatt<br>v{{version.version}}</span>
     </div>
   </div>
 </template>
@@ -117,8 +124,7 @@
 <script setup lang="ts">
 const popups = usePopups()
 
-const header = ref(null)
-const { height: headerHeight } = useElementSize(header)
+const version = useVersion()
 
 const inputPrice = useSettingPrice()
 
@@ -326,6 +332,7 @@ label {
   padding: $menu-item-padding;
   border-radius: $menu-item-br;
   background-color: $bg-light;
+  text-decoration: none;
   cursor: pointer;
 
   span {

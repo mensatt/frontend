@@ -1,5 +1,5 @@
 <template>
-  <Header ref="headerEl" :show-mensa="true">
+  <Header :show-mensa="true">
     <UtilsHorizontalTabs
       :tabs="months"
       :active="selectedMonth"

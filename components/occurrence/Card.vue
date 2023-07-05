@@ -18,7 +18,7 @@
       <div class="comments">
         <div v-for="review of comments" :key="review.id" class="comment">
           <span class="name" v-text="review.displayName || '(anonymous)'" />
-          <span class="text" v-text="review.text" />
+          <span class="text" v-text="trimText(review.text)" />
         </div>
         <div v-if="!comments.length">
           <span class="none">Noch keine Kommentare vorhanden</span>
@@ -56,6 +56,11 @@ const userCanRate = new Date(data.date) <= new Date()
 
 const displayTags = data.tags
   .filter(tag => tag.priority !== 'HIDE')
+
+function trimText(text: string): string {
+  if (text.length > 300) return text.substring(0, 280) + '...'
+  return text
+}
 
 function rate() {
   popups.open('rate_dish', { occurrence: data })
@@ -149,13 +154,13 @@ h2 {
 .rateme {
   all: unset;
   flex: 1 1;
-  padding: 8pt;
+  padding: 8pt 10pt;
   font-family: $font-regular;
-  font-size: 11pt;
+  font-size: 10pt;
   color: $color-minor;
-  border: 1px solid $bg-dark;
+  border: 1px solid $bg-darker;
   margin-top: 10pt;
-  border-radius: $card-item-br;
+  border-radius: $menu-item-br;
   transition: background-color .1s ease;
   cursor: text;
 

@@ -1,0 +1,15 @@
+{
+  "_": "DO NOT CHANGE THIS FILE MANUALLY. THIS FILE WILL GET FILLED IN AT BUILD/DEPLOY TIME. LEAVE ALL FIELDS AT <unknown> SO WE CAN SEE IF FIELDS DID NOT GET POPULATED DURING DEPLOYMENT.",
+  "version": "<unknown>",
+  "revision": "<unknown>",
+  "commitTime": "<unknown>",
+  "commitMessage": "<unknown>",
+  "commitAuthor": "<unknown>",
+  "buildTime": "<unknown>",
+  "buildId": "<unknown>",
+  "buildContext": "<unknown>",
+  "buildNodeVersion": "<unknown>",
+  "buildYarnVersion": "<unknown>",
+  "deployId": "<unknown>",
+  "deployUrl": "<unknown>"
+}

@@ -1,9 +1,8 @@
 <template>
-  <Header ref="header" :show-mensa="false" :fixed="true" :fixed-scrolling="true">
+  <Header :show-mensa="false" :fixed="true" :fixed-scrolling="true">
     <h2>Mitwirkende</h2>
   </Header>
 
-  <div class="spacer" :style="{ height: `${headerHeight}px` }" />
   <div class="inner">
     <p>Mensatt &lt;3</p>
     <h3>Mensatt Core Team</h3>
@@ -28,8 +27,6 @@
 </template>
 
 <script setup lang="ts">
-const header = ref(null)
-const { height: headerHeight } = useElementSize(header)
 </script>
 
 <style scoped lang="scss">

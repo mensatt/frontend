@@ -1,18 +1,12 @@
 <template>
-  <Header ref="header" :show-mensa="false" :fixed="true" :fixed-scrolling="true">
+  <Header :show-mensa="false" :fixed="true" :fixed-scrolling="true">
     <h2>Datenschutz&shy;erklärung</h2>
   </Header>
 
-  <div class="spacer" :style="{ height: `${headerHeight}px` }" />
   <div class="inner">
     <p>Hier wird es bald eine Datenschutzerklärung geben...</p>
   </div>
 </template>
-
-<script setup lang="ts">
-const header = ref(null)
-const { height: headerHeight } = useElementSize(header)
-</script>
 
 <style scoped lang="scss">
 .inner {

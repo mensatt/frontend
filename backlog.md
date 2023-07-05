@@ -12,3 +12,4 @@
 [ ] Localization
 [ ] iOS popup scrolling issue
 [ ] 404 page
+[ ] Hidden Occurrences button floating if there's only one occurrence -> anchor at bottom somehow
