@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   modules: [
     'nuxt-icons',
-    '@nuxtjs/apollo',
+    '@maanex/nuxt-apollo-upload',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
   ],
@@ -105,12 +105,15 @@ export default defineNuxtConfig({
     clients: {
       prod: {
         httpEndpoint: 'https://api.mensatt.de/v1/graphql',
+        useUploadLink: true
       },
       dev: {
         httpEndpoint: 'https://dev-api.mensatt.de/v1/graphql',
+        useUploadLink: true
       },
       local: {
         httpEndpoint: 'https://localhost:4000/v1/graphql',
+        useUploadLink: true
       },
     },
   },

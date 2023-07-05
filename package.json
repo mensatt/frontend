@@ -9,7 +9,6 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxtjs/apollo": "^5.0.0-alpha.6",
     "@types/node": "^18",
     "@vite-pwa/nuxt": "^0.1.0",
     "@vueuse/core": "^10.2.0",
@@ -18,5 +17,8 @@
     "nuxt-icons": "^3.2.1",
     "sass": "^1.62.1",
     "sass-loader": "^13.3.1"
+  },
+  "dependencies": {
+    "@maanex/nuxt-apollo-upload": "^5.0.0"
   }
 }
