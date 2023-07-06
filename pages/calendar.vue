@@ -1,5 +1,5 @@
 <template>
-  <Header :show-mensa="true">
+  <Header :show-mensa="true" @height-update="val => (headerHeight = val)">
     <UtilsHorizontalTabs
       :tabs="months"
       :active="selectedMonth"
@@ -42,8 +42,7 @@ type DateType = {
 
 //
 
-const headerEl = ref<HTMLElement | null>(null)
-const { height: headerHeight } = useElementSize(headerEl)
+const headerHeight = useState(() => 0)
 
 //
 

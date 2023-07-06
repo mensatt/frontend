@@ -24,7 +24,10 @@ const props = defineProps<{
   showMensa: boolean
   fixed?: boolean
   fixedScrolling?: boolean
+  readHeight?: number
 }>()
+
+const emit = defineEmits([ 'height-update' ])
 
 const popups = usePopups()
 const selectedLocation = useSelectedLocation()
@@ -34,11 +37,14 @@ const { height: commonElHeight } = useElementSize(commonEl)
 
 const headerEl = ref(null)
 const { height: fullElHeight } = useElementSize(headerEl)
+watch(fullElHeight, val => emit('height-update', val))
 
 const commonOffset = useState('header--common-offset', () => 0)
 const globalScrollLastVal = useState('header--globals-lastval', () => 0)
 
 onMounted(() => {
+  emit('height-update', fullElHeight.value)
+
   if (!props.fixedScrolling) return
 
   commonOffset.value = 0
