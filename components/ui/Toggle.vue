@@ -4,7 +4,7 @@
     :data-active="modelValue"
     @click="emit('update:modelValue', !modelValue)"
   >
-    <span v-text="text" />
+    <span v-text="$t(text)" />
     <div class="button">
       <div class="inner" />
     </div>
@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang=ts>
-const props = defineProps<{
+defineProps<{
   text: string
   modelValue: boolean
 }>()

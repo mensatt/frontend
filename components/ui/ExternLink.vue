@@ -1,6 +1,6 @@
 <template>
-  <NuxtLink class="external-link" :to="url">
-    <span v-text="text" />
+  <NuxtLink class="external-link" :to="localePath(url)">
+    <span v-text="$t(text)" />
     <NuxtIcon name="right" />
   </NuxtLink>
 </template>
@@ -11,6 +11,7 @@ defineProps<{
   url: string
 }>()
 
+const localePath = useLocalePath()
 </script>
 
 <style scoped lang=scss>

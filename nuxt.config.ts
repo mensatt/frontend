@@ -118,4 +118,29 @@ export default defineNuxtConfig({
       },
     },
   },
+
+  i18n: {
+    legacy: false,
+    langDir: 'lang',
+    defaultLocale: 'de',
+    fallbackLocale: 'de',
+    jsTsFormatResource: true,
+    lazy: true,
+    // ↓ remove strategy to get mensatt.de/en/about like urls. Downside: PWA entry point url is static -> language gets overwritten on startup. For now we'll rely on cookies only for language persistence.
+    strategy: 'no_prefix',
+    locales: [
+      {
+        code: 'de',
+        iso: 'de',
+        file: 'de.js',
+        name: 'Deutsch'
+      },
+      {
+        code: 'en',
+        iso: 'en',
+        file: 'en.js',
+        name: 'English'
+      },
+    ]
+  }
 })

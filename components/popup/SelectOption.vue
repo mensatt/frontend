@@ -1,6 +1,6 @@
 <template>
   <div class="outer">
-    <h2 v-text="title" />
+    <h2 v-text="$t(title)" />
     <div class="options">
       <div
         v-for="opt of options"
@@ -9,7 +9,7 @@
         :data-selected="opt.id === selected"
         @click.self="close(opt.id)"
       >
-        <span class="name" v-text="opt.name" />
+        <span class="name" v-text="$t(opt.name)" />
         <NuxtIcon v-if="opt.icon && opt.iconFilled" :name="opt.icon" filled />
         <NuxtIcon v-else-if="opt.icon" :name="opt.icon" />
       </div>

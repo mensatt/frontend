@@ -3,7 +3,7 @@
     <NuxtLink
       v-for="tab of tabs"
       :key="tab.id"
-      :to="tab.href"
+      :to="localePath(tab.href)"
     >
       <div class="icon">
         <NuxtIcon :name="tab.iconNormal" />
@@ -15,6 +15,8 @@
 </template>
 
 <script setup lang="ts">
+const localePath = useLocalePath()
+
 const tabs = [
   {
     id: 'home',

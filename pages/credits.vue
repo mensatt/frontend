@@ -1,66 +1,44 @@
 <template>
   <Header :show-mensa="false" :fixed="true" :fixed-scrolling="true">
-    <h2>Mitwirkende</h2>
+    <h2 v-text="$t('credits_header')" />
   </Header>
 
-  <div class="inner">
+  <div class="page-content">
     <p>Mensatt &lt;3</p>
-    <h3>Mensatt Core Team</h3>
-    <p>- Tobias Gessler (Backend & Organization)</p>
-    <p>- Louis Duemler (Backend & Infrastructure)</p>
-    <p>- Kevin Kollenda (Scraper & Backend)</p>
-    <p>- Benedikt Nerb (Frontend & Devops)</p>
-    <p>- Andreas May (Frontend & Design)</p>
+    <h3 v-text="$t('credits_core_team')" />
+    <p v-for="name of coreTeam">- {{ name }}</p>
 
-    <h3>Special Thanks</h3>
-    <p>- Lars</p>
-    <p>- Matthias</p>
-    <p>- Freddi</p>
-    <p>- Jannik</p>
+    <h3 v-text="$t('credits_special_thanks')" />
+    <p v-for="name of specialThanks">- {{ name }}</p>
 
-    <h3>We use and love</h3>
-    <p>- Nuxt, Vue & VueUse</p>
-    <p>- Go & Gin</p>
-    <p>- GraphQl</p>
-    <p>- Spezi</p>
+    <h3 v-text="$t('credits_we_love')" />
+    <p v-for="name of weLove">- {{ name }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
+const shuffle = () => (Math.random() < .5) ? 1 : -1
+
+const coreTeam = [
+  'Tobias Gessler (Backend & Organization)',
+  'Louis Duemler (Backend & Infrastructure)',
+  'Kevin Kollenda (Scraper & Backend)',
+  'Benedikt Nerb (Frontend & Devops)',
+  'Andreas May (Frontend & Design)',
+].sort(shuffle)
+
+const specialThanks = [
+  'Lars',
+  'Matthias',
+  'Freddi',
+  'Jannik',
+  'Lasse',
+].sort(shuffle)
+
+const weLove = [
+  'Nuxt, Vue & VueUse',
+  'Go & Gin',
+  'GraphQl',
+  'Spezi',
+].sort(shuffle)
 </script>
-
-<style scoped lang="scss">
-.inner {
-  padding: $main-content-padding;
-}
-
-.inner > div {
-  margin-bottom: $main-content-padding;
-}
-
-h2 {
-  font-family: $font-header;
-  font-size: 20pt;
-  color: $color-header;
-  margin: $main-content-padding;
-  display: flex;
-  align-items: center;
-}
-
-h3 {
-  font-family: $font-header;
-  font-size: 16pt;
-  color: $color-header;
-  padding: 0;
-  margin: calc($main-content-padding*2) 0 $main-content-padding 0;
-  display: flex;
-  align-items: center;
-}
-
-p {
-  font-family: $font-regular;
-  font-size: 10pt;
-  color: $color-regular;
-  margin: 3pt 0;
-}
-</style>

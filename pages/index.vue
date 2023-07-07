@@ -77,14 +77,3 @@ function refresh() {
   activeList.value?.refresh?.()
 }
 </script>
-
-<style scoped lang="scss">
-h2 {
-  font-family: $font-header;
-  font-size: 20pt;
-  margin: 0 $main-content-padding;
-  padding-bottom: $main-content-padding;
-  display: flex;
-  align-items: center;
-}
-</style>
