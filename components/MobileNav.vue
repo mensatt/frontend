@@ -50,6 +50,7 @@ nav {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   background-color: $color-green20;
+  user-select: none;
 }
 
 a {

@@ -90,6 +90,8 @@ function rate() {
 }
 
 .image {
+  pointer-events: none;
+
   & > * {
     aspect-ratio: 16/9;
     max-height: 50vh;
@@ -98,6 +100,7 @@ function rate() {
     background-color: $bg-dark;
     box-sizing: border-box;
     margin: 0;
+    user-select: none;
   }
 
   p {
@@ -107,7 +110,6 @@ function rate() {
     display: grid;
     place-items: center;
     padding: $main-content-padding;
-    user-select: none;
   }
 }
 

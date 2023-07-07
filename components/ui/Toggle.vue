@@ -32,6 +32,7 @@ const emit = defineEmits([ 'update:modelValue' ])
   padding: $menu-item-padding;
   border-radius: $menu-item-br;
   background-color: $bg-light;
+  user-select: none;
   cursor: pointer;
 
   span {

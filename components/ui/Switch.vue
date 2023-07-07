@@ -39,6 +39,7 @@ const emit = defineEmits([ 'update:modelValue' ])
   border-radius: $menu-item-br;
   overflow: hidden;
   width: 100%;
+  user-select: none;
 }
 
 .option {

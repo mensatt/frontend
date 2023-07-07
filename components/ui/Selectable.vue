@@ -41,6 +41,7 @@ const emit = defineEmits([ 'open' ])
   border-radius: $menu-item-br;
   background-color: $bg-light;
   text-decoration: none;
+  user-select: none;
   cursor: pointer;
 }
 

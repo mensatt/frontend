@@ -6,22 +6,31 @@
       :seed="i"
     />
   </div>
-  <div v-else-if="error">
-    <!-- TODO -->
-    Error!<br>
-    {{ error }}
+  <div v-else-if="error" class="no-list">
+    <img src="~/assets/img/carrocket_down.svg" alt="">
+    <span class="title" v-text="$t('occurrence_list_error_title')" />
+    <span class="desc" v-text="error" />
   </div>
   <div v-else class="occurrences">
-    <OccurrenceCard
-      v-for="occ of occurrences.visible"
-      :key="occ.id"
-      :data="occ"
-    />
+    <div v-if="occurrences.visible.length" class="visible-list">
+      <OccurrenceCard
+        v-for="occ of occurrences.visible"
+        :key="occ.id"
+        :data="occ"
+      />
+    </div>
+    <div v-else-if="occurrences.hidden.length" class="no-list">
+      <img src="~/assets/img/carrocket_down.svg" alt="">
+      <span class="title" v-text="$t('occurrence_all_hidden_title')" />
+      <span class="desc" v-text="$t('occurrence_all_hidden_desc')" />
+    </div>
+    <div v-else class="no-list">
+      <img src="~/assets/img/carrocket_down.svg" alt="">
+      <span class="title" v-text="$t('occurrence_list_empty_title')" />
+      <span class="desc" v-text="$t('occurrence_list_empty_desc')" />
+    </div>
 
-    <div
-      v-if="occurrences.hidden.length"
-      :data-show-hidden="showHidden"
-    >
+    <div v-if="occurrences.hidden.length" :data-show-hidden="showHidden">
       <div class="toggle" @click="toggleHiddenItems()">
         <NuxtIcon name="expand_more" />
         <span v-text="$t('hidden_dish', occurrences.hidden.length)" />
@@ -87,9 +96,43 @@ defineExpose({
 
 <style scoped lang="scss">
 .occurrences {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
+}
+
+.visible-list {
+  min-height: calc(100vh - 90pt);
+}
+
+.no-list {
+  display: flex;
+  min-height: calc(100vh - 90pt);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $main-content-padding;
+  box-sizing: border-box;
+
+  img {
+    width: 30vw;
+    height: 30vw;
+  }
+
+  .title {
+    font-family: $font-major;
+    font-size: 10pt;
+    color: $color-sub;
+    text-align: center;
+    text-wrap: balance;
+    margin: calc($main-content-padding*3) 0 $main-content-padding 0;
+  }
+
+  .desc {
+    font-family: $font-regular;
+    font-size: 10pt;
+    color: $color-minor;
+    text-align: center;
+    text-wrap: balance;
+    margin-bottom: calc($main-content-padding*7);
+  }
 }
 
 .toggle {
@@ -101,6 +144,7 @@ defineExpose({
   gap: 5pt;
   background-color: $bg-light;
   border-top: 1px solid $bg-dark;
+  user-select: none;
 
   span {
     font-family: $font-regular;

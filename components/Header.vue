@@ -83,8 +83,7 @@ header {
   border-bottom: 1px solid $bg-dark;
   z-index: 10;
   width: 100%;
-  // position: sticky;
-  // top: -$global-header-height;
+  user-select: none;
 
   &[data-fixed=true] {
     position: fixed;

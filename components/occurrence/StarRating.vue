@@ -32,6 +32,7 @@ div {
   align-items: center;
   box-sizing: border-box;
   padding: calc($content-pills-height * 0.25);
+  user-select: none;
 }
 
 svg {

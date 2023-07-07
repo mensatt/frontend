@@ -35,6 +35,7 @@ button {
   border: none;
   outline: none;
   padding: $menu-item-padding;
+  user-select: none;
   cursor: pointer;
 
   & > * {
