@@ -15,7 +15,7 @@
       v-for="i in Math.floor(Math.sin(seed + 20) * 2) + 2"
         :key="i"
         class="comment"
-        v-text="'a'.repeat(Math.floor((Math.sin(i*2 + seed) + 2) * 18))"
+        v-text="'a'.repeat(Math.floor((Math.sin(i*2 + seed) + 2) * 20))"
       />
     </div>
   </div>
@@ -82,7 +82,7 @@ const { seed } = defineProps<{
 
 .comment {
   background-color: $bg-dark;
-  border-radius: $card-item-br;
+  border-radius: $menu-item-br;
   font-size: 12pt;
   width: fit-content;
   color: transparent;

@@ -7,6 +7,7 @@
     />
   </div>
   <div v-else-if="error">
+    <!-- TODO -->
     Error!<br>
     {{ error }}
   </div>
@@ -23,8 +24,7 @@
     >
       <div class="toggle" @click="toggleHiddenItems()">
         <NuxtIcon name="expand_more" />
-        <span v-if="occurrences.hidden.length === 1">1 ausgeblendetes Gericht</span>
-        <span v-else>{{ occurrences.hidden.length }} ausgeblendete Gerichte</span>
+        <span v-text="$t('hidden_dish', occurrences.hidden.length)" />
       </div>
       <div class="hidden-list" v-if="showHidden">
         <OccurrenceCard

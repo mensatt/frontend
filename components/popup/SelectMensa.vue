@@ -1,6 +1,6 @@
 <template>
   <div class="outer">
-    <h2>Select Mensa</h2>
+    <h2 v-text="$t('select_mensa_header')" />
     <div class="options">
       <div
         v-for="opt of optionsSorted"

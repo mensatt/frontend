@@ -29,12 +29,12 @@
 import { TabData } from '../components/utils/HorizontalTabs.vue'
 
 const activeList = ref<any>(null)
+const i18n = useI18n()
 
-// TODO(localization)
 const relativeDayNames: Record<number, string> = {
-  [-1]: 'Gestern',
-  [0]: 'Heute',
-  [1]: 'Morgen'
+  [-1]: i18n.t('yesterday'),
+  [0]: i18n.t('today'),
+  [1]: i18n.t('tomorrow')
 }
 
 //
@@ -58,8 +58,7 @@ while (listOfDates.length < 7) {
     continue
   }
 
-  // TODO(localization) use user language here
-  const intl = new Intl.DateTimeFormat('de-DE', { weekday: 'long' })
+  const intl = new Intl.DateTimeFormat(i18n.locale.value, { weekday: 'long' })
   listOfDates.push({
     id: date.toISOString(),
     name: relativeDayNames[i] ?? intl.format(date),

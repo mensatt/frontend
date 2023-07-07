@@ -6,7 +6,7 @@
   >
     <div class="pdr-spacer" :style="css" :data-ready="swipePercent >= 1">
       <!-- Placeholder for an icon-based visual communicator -->
-      <span>Aktualisieren</span>
+      <span v-text="$t('refresh')" />
     </div>
     <slot />
   </div>  

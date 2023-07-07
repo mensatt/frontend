@@ -1,8 +1,8 @@
 <template>
   <div class="outer" :data-loading="submittedLoading">
-    <h2>{{ occurrence.dish.nameDe }}</h2>
+    <h2>{{ dishName }}</h2>
     
-    <label for="stars">Deine Bewertung:</label>
+    <label for="stars" v-text="$t('rate_dish_stars')" />
     <div class="stars" :data-error-below="errorRequireStars">
       <div
         v-for="i in 5"
@@ -14,35 +14,35 @@
         <NuxtIcon :name="(i <= inputStars) ? 'star_filled' : 'star_outline'" />
       </div>
     </div>
-    <span v-if="errorRequireStars" class="error">Du musst das Gericht noch bewerten!</span>
+    <span v-if="errorRequireStars" class="error" v-text="$t('rate_dish_stars_error')" />
 
-    <label for="image" optional>Bild vom Gericht:</label>
+    <label for="image" optional v-text="$t('rate_dish_image')" />
     <div class="image" :data-uploaded="!!fileUploadPreview" @click="open()">
       <img v-if="fileUploadPreview" :src="fileUploadPreview" />
-      <p v-else>Bild hochladen</p>
+      <p v-else v-text="$t('rate_dish_image_upload')" />
     </div>
-    <span v-if="fileUploadPreview" class="info">Durch Abschicken deiner Bewertung erlaubst du Mensatt dieses Bild in jeglicher Form zu verwenden.</span>
+    <span v-if="fileUploadPreview" class="info" v-text="$t('rate_dish_image_disclaimer')" />
 
-    <label for="review" optional>Platz für Worte:</label>
+    <label for="review" optional v-text="$t('rate_dish_review')" />
     <div class="review">
       <textarea
         v-model="inputReview"
         rows="4"
-        placeholder="Zwar nur Brei, aber dafür echt lecker! Kann ich weiter empfehlen."
+        :placeholder="$t('rate_dish_review_placeholder')"
       />
     </div>
 
-    <label for="nickname" optional>Dein Name:</label>
+    <label for="nickname" optional v-text="$t('rate_dish_nickname')" />
     <div class="nickname">
       <input
         type="text"
         v-model="inputNickname"
-        placeholder="(anonym)"
+        :placeholder="$t('rate_dish_nickname_placeholder')"
       />
     </div>
 
     <UiButton
-      text="Abschicken"
+      :text="$t('rate_dish_submit')"
       :loading="submittedLoading"
       :disabled="!readyToSubmit"
       :triggerWhileDisabled="true"
@@ -55,11 +55,21 @@
 import { EntityOccurrence } from '../../utils/entities/occurrence'
 
 const api = useApi()
+const i18n = useI18n()
 
 const props = defineProps<{
   close: (success: boolean) => any,
   occurrence: EntityOccurrence.Occurrence
 }>()
+
+const dishName = computed(() => {
+  if (i18n.locale.value === 'de' && props.occurrence.dish.nameDe)
+    return props.occurrence.dish.nameDe
+  if (i18n.locale.value === 'en' && props.occurrence.dish.nameEn)
+    return props.occurrence.dish.nameEn
+
+  return props.occurrence.dish.nameDe ?? props.occurrence.dish.nameEn
+})
 
 const inputStars = useState(`rate-dish-${props.occurrence.id}--stars`, () => 0)
 const inputImage = useState<File | null>(`rate-dish-${props.occurrence.id}--image`, () => null)

@@ -14,11 +14,11 @@
       '--rows': Math.ceil(dates.length/5)
     }"
   >
-    <span>MO</span>
-    <span>DI</span>
-    <span>MI</span>
-    <span>DO</span>
-    <span>FR</span>
+    <span v-text="$t('weekday_mon')" />
+    <span v-text="$t('weekday_tue')" />
+    <span v-text="$t('weekday_wed')" />
+    <span v-text="$t('weekday_thu')" />
+    <span v-text="$t('weekday_fri')" />
     <div
       v-for="date, i of dates"
       :key="i"
@@ -42,6 +42,7 @@ type DateType = {
 
 //
 
+const i18n = useI18n()
 const headerHeight = useState(() => 0)
 
 //
@@ -51,9 +52,6 @@ const DAY_MILLIS = 24 * 60 * 60 * 1000
 
 const MONTHS_PAST = 8
 const MONTHS_FUTURE = 2
-
-// TODO(localization) localize this
-const monthNames = [ 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ]
 
 const months: TabData[] = []
 const currentMonth = TODAY.getMonth()
@@ -65,7 +63,7 @@ for (let i = -MONTHS_PAST; i <= MONTHS_FUTURE; i++) {
 
   months.push({
     id: String(month),
-    name: monthNames[monthMod] + nameAddition,
+    name: i18n.t('month_' + monthMod) + nameAddition,
     seperator: (monthMod === 11)
   })
 }

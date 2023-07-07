@@ -2,11 +2,11 @@
   <div class="occurrence">
     <div class="image">
       <img v-if="imageUrl" :src="imageUrl" />
-      <p v-else>Noch kein Bild vorhanden</p>
+      <p v-else v-text="$t('occurrence_no_image')" />
     </div>
 
     <div class="details">
-      <h2 v-text="data.dish.nameDe" />
+      <h2 v-text="dishName" />
       <div class="pills">
         <OccurrencePriceTag :data="data" />
         <OccurrenceStarRating
@@ -17,14 +17,14 @@
       </div>
       <div class="comments">
         <div v-for="review of comments" :key="review.id" class="comment">
-          <span class="name" v-text="review.displayName || '(anonymous)'" />
+          <span class="name" v-text="review.displayName || $t('occurrence_comment_author_anon')" />
           <span class="text" v-text="trimText(review.text)" />
         </div>
         <div v-if="!comments.length">
-          <span class="none">Noch keine Kommentare vorhanden</span>
+          <span class="none" v-text="$t('occurrence_no_comments')" />
         </div>
       </div>
-      <button v-if="userCanRate" class="rateme" @click="rate()">Bewertung abgeben...</button>
+      <button v-if="userCanRate" class="rateme" @click="rate()" v-text="$t('occurrence_add_rating')" />
     </div>
   </div>
 </template>
@@ -34,10 +34,20 @@ import { EntityOccurrence } from '~/utils/entities/occurrence'
 
 const api = useApi()
 const popups = usePopups()
+const i18n = useI18n()
 
 const { data } = defineProps<{
   data: EntityOccurrence.Occurrence
 }>()
+
+const dishName = computed(() => {
+  if (i18n.locale.value === 'de' && data.dish.nameDe)
+    return data.dish.nameDe
+  if (i18n.locale.value === 'en' && data.dish.nameEn)
+    return data.dish.nameEn
+
+  return data.dish.nameDe ?? data.dish.nameEn
+})
 
 const imageReviews = data.dish.reviewData.reviews
   .filter(rev => rev.images.length)

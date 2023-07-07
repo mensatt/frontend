@@ -1,10 +1,10 @@
 # The Backlog
 
 ## v1.0 (Go Live)
-[ ] Localization
 [ ] Desktop view
 [ ] Make clicking calendar date work
 [ ] iOS popup scrolling issue
+[X] Localization
 [X] 404 page
 [X] Fix image upload. Right now it just crashes because the file does not get attached to the request properly.
 [X] Add dev and localhost to mensa list (if developer mode is on)
