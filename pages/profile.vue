@@ -1,6 +1,6 @@
 <template>
   <Header :show-mensa="false" :fixed="true" :fixed-scrolling="true">
-    <h2>Profil</h2>
+    <h2 v-text="$t('profile_header')" />
   </Header>
 
   <div class="inner">
@@ -8,45 +8,33 @@
       <div class="image">
         <NuxtIcon name="person_filled" />
       </div>
-      <span class="name">Gast</span>
-      <span class="subtitle">Nicht angemeldet</span>
+      <span class="name" v-text="$t('profile_guest_name')" />
+      <span class="subtitle" v-text="$t('profile_guest_subtitle')" />
     </div>
 
-    <h3>Einstellungen</h3>
+    <h3 v-text="$t('settings_header')" />
 
-    <label for="prices">Relevanter Preis</label>
+    <label for="prices" v-text="$t('settings_price_header')" />
     <div class="prices">
       <div class="price" :data-selected="inputPrice === 'student'" @click="inputPrice = 'student'">
         <span>€</span>
-        <span>Studenten</span>
+        <span v-text="$t('settings_price_group1')" />
       </div>
       <div class="price" :data-selected="inputPrice === 'staff'" @click="inputPrice = 'staff'">
         <span>€€</span>
-        <span>Mitarbeiter</span>
+        <span v-text="$t('settings_price_group2')" />
       </div>
       <div class="price" :data-selected="inputPrice === 'guest'" @click="inputPrice = 'guest'">
         <span>€€€</span>
-        <span>Extern</span>
+        <span v-text="$t('settings_price_group3')" />
       </div>
     </div>
 
-    <!-- <label for="languages">Sprache</label>
-    <div class="languages">
-      <div class="language" :data-selected="inputLanguage === 'de'" @click="inputLanguage = 'de'">
-        <NuxtIcon name="flag_de" filled />
-        <span>Deutsch</span>
-      </div>
-      <div class="language" :data-selected="inputLanguage === 'en'" @click="inputLanguage = 'en'">
-        <NuxtIcon name="flag_gb" filled />
-        <span>English</span>
-      </div>
-    </div> -->
-
-    <label for="visual">Anzeige</label>
+    <label for="visual" v-text="$t('settings_visual_header')" />
     <div class="visual">
       <div class="option" @click="openLanguageSelector">
         <div>
-          <span class="name">Sprache</span>
+          <span class="name" v-text="$t('settings_visual_language')" />
           <NuxtIcon name="right" />
         </div>
         <span class="selected" v-text="selectedLanguage?.name" />
@@ -54,7 +42,7 @@
       </div>
       <div class="option" @click="openThemeSelector">
         <div>
-          <span class="name">Farbschema</span>
+          <span class="name" v-text="$t('settings_visual_theme')" />
           <NuxtIcon name="right" />
         </div>
         <span class="selected" v-text="selectedTheme?.name" />
@@ -62,16 +50,16 @@
       </div>
     </div>
 
-    <label for="preferences">Gerichtspräferenzen</label>
+    <label for="preferences" v-text="$t('settings_preferences_header')" />
     <div class="preferences">
-      <UiToggle text="Fleischgerichte ausblenden" v-model="inputHideMeat" />
-      <UiToggle text="Fischgerichte ausblenden" v-model="inputHideFish" />
-      <UiToggle text="Glutenhaltiges ausblenden" v-model="inputHideGluten" />
+      <UiToggle :text="$t('settings_preferences_hide_meat')" v-model="inputHideMeat" />
+      <UiToggle :text="$t('settings_preferences_hide_fish')" v-model="inputHideFish" />
+      <UiToggle :text="$t('settings_preferences_hide_gluten')" v-model="inputHideGluten" />
     </div>
 
-    <label for="others">Sonstiges</label>
+    <label for="others" v-text="$t('settings_others_header')" />
     <div class="others">
-      <UiToggle text="Entwicklermodus" v-model="inputDevMode" />
+      <UiToggle :text="$t('settings_others_devmode')" v-model="inputDevMode" />
       <div v-if="inputDevMode" class="option" @click="openBackendSelector">
         <div>
           <span class="name">Backend</span>
@@ -96,14 +84,12 @@
       </div>
     </div>
 
-    <h3>Information</h3>
+    <h3 v-text="$t('info_header')" />
 
-    <UiExternLink text="Privacy Policy" url="/privacy" />
-    <!-- <UiExternLink text="Terms of Service" url="/terms" /> -->
-    <UiExternLink text="Mitwirkende" url="/credits" />
+    <UiExternLink :text="$t('info_privacy')" url="/privacy" />
+    <UiExternLink :text="$t('info_credits')" url="/credits" />
 
     <div class="footer">
-      <!-- SOCIALS -->
       <div class="socials">
         <NuxtLink to="https://discord.gg/wjeYsQQQ3R" target="_blank" class="social">
           <NuxtIcon name="brands/discord" />

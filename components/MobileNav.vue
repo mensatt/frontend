@@ -9,7 +9,7 @@
         <NuxtIcon :name="tab.iconNormal" />
         <NuxtIcon :name="tab.iconActive" />
       </div>
-      <span v-text="tab.name" />
+      <span v-text="$t(tab.name)" />
     </NuxtLink>
   </nav>
 </template>
@@ -18,21 +18,21 @@
 const tabs = [
   {
     id: 'home',
-    name: 'Übersicht',
+    name: 'nav_home',
     href: '/',
     iconNormal: 'home_outline',
     iconActive: 'home_filled'
   },
   {
     id: 'calendar',
-    name: 'Kalender',
+    name: 'nav_calendar',
     href: '/calendar',
     iconNormal: 'calendar_outline',
     iconActive: 'calendar_filled'
   },
   {
     id: 'profile',
-    name: 'Profil',
+    name: 'nav_profile',
     href: '/profile',
     iconNormal: 'person_outline',
     iconActive: 'person_filled'

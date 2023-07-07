@@ -1,10 +1,11 @@
+import { WritableComputedRef } from "nuxt/dist/app/compat/capi"
 
 
 export type SettingPrice = 'student' | 'staff' | 'guest'
 export const useSettingPrice = () => useLocalStorage<SettingPrice>('usersetting-price', () => 'student')
 
 export type SettingLanguage = 'de' | 'en'
-export const useSettingLanguage = () => useLocalStorage<SettingLanguage>('usersetting-language', () => 'de')
+export const useSettingLanguage = () => useI18n().locale as WritableComputedRef<SettingLanguage>
 
 export type SettingColorMode = 'auto' | 'light' | 'dark'
 export const useSettingColorMode = () => useColorMode()
