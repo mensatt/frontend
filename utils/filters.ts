@@ -15,7 +15,7 @@ type VisibleHidden = {
 //
 
 // Since there's no reliable "meat" tag we'll just filter manually
-const meatKeywords = [ 'schwein', 'geschnetzelt', 'pute', 'rind', 'hähnchen', 'huhn', 'fleisch', 'wurst', 'steak' ]
+const meatKeywords = [ 'schwein', 'geschnetzelt', 'pute', 'rind', 'hähnchen', 'huhn', 'fleisch', 'wurst', 'steak', 'con carne' ]
 const veggieKeywords = [ 'fleischlos', 'vegetarisch', 'vegan' ]
 
 function nameDescribesMeat(name: string): boolean {
