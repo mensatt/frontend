@@ -1,6 +1,7 @@
 <template>
-  <div class="app">
+  <div class="app" view-mode="mobile">
     <div ref="scrollcont" class="content" :data-scrollblocked="globalScrollBlock > 0">
+      <Header />
       <slot />
     </div>
     <MobileNav />
@@ -32,6 +33,7 @@ onMounted(() => (gsc.value = scrollcont.value))
 
 .content {
   overflow-y: scroll;
+  background-color: $bg-lighter;
 
   &[data-scrollblocked=true] {
     overflow-y: hidden;

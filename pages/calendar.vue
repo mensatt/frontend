@@ -1,34 +1,36 @@
 <template>
-  <Header :show-mensa="true" @height-update="val => (headerHeight = val)">
+  <HeaderTag ref="headerTagEl">
     <UtilsHorizontalTabs
       :tabs="months"
       :active="selectedMonth"
       @select="i => (selectedMonth = i)"
     />
-  </Header>
+  </HeaderTag>
 
-  <div
-    class="dates"
-    :style="{
-      '--header': `${headerHeight}px`,
-      '--rows': Math.ceil(dates.length/5)
-    }"
-  >
-    <span v-text="$t('weekday_mon')" />
-    <span v-text="$t('weekday_tue')" />
-    <span v-text="$t('weekday_wed')" />
-    <span v-text="$t('weekday_thu')" />
-    <span v-text="$t('weekday_fri')" />
+  <PageContent :no-padding="true">
     <div
-      v-for="date, i of dates"
-      :key="i"
-      :data-type="date.type"
-      :data-today="date.today"
-      @click="clickDate(date)"
+      class="dates"
+      :style="{
+        '--occupied': `${globalOccupiedVerticalSpace}px`,
+        '--rows': Math.ceil(dates.length/5)
+      }"
     >
-      <span v-text="date.date.getDate()" />
+      <span v-text="$t('weekday_mon')" />
+      <span v-text="$t('weekday_tue')" />
+      <span v-text="$t('weekday_wed')" />
+      <span v-text="$t('weekday_thu')" />
+      <span v-text="$t('weekday_fri')" />
+      <div
+        v-for="date, i of dates"
+        :key="i"
+        :data-type="date.type"
+        :data-today="date.today"
+        @click="clickDate(date)"
+      >
+        <span v-text="date.date.getDate()" />
+      </div>
     </div>
-  </div>
+  </PageContent>
 </template>
 
 <script setup lang="ts">
@@ -43,7 +45,12 @@ type DateType = {
 //
 
 const i18n = useI18n()
-const headerHeight = useState(() => 0)
+
+const globalHeaderFullHeight = useGlobalHeaderFullHeight()
+const globalNavFullHeight = useGlobalNavFullHeight()
+const headerTagEl = ref<HTMLElement | null>(null)
+const { height: headerTagHeight } = useElementSize(headerTagEl)
+const globalOccupiedVerticalSpace = computed(() => (globalHeaderFullHeight.value + globalNavFullHeight.value + headerTagHeight.value))
 
 //
 
@@ -141,7 +148,7 @@ function clickDate(date: DateType) {
   box-sizing: border-box;
   gap: 5pt;
   padding: $main-content-padding;
-  height: calc(100% - var(--header) - 1px);
+  height: calc(100vh - var(--occupied) - 1px);
 
   & > span {
     padding: 2pt 0 6pt 0;

@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav ref="navEl">
     <NuxtLink
       v-for="tab of tabs"
       :key="tab.id"
@@ -41,7 +41,10 @@ const tabs = [
   },
 ]
 
-const active = 'home'
+const navEl = ref<HTMLElement | null>(null)
+const globalNavFullHeight = useGlobalNavFullHeight()
+const { height } = useElementSize(navEl)
+watch(height, val => (globalNavFullHeight.value = val))
 </script>
 
 <style scoped lang="scss">
@@ -49,8 +52,9 @@ nav {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  background-color: $color-green20;
+  background-color: $color-green20S;
   user-select: none;
+  view-transition-name: header;
 }
 
 a {

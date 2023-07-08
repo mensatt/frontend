@@ -1,9 +1,9 @@
 <template>
-  <Header :show-mensa="false" :fixed="true" :fixed-scrolling="true">
+  <HeaderTag>
     <h2 v-text="$t('profile_header')" />
-  </Header>
+  </HeaderTag>
 
-  <div class="page-content">
+  <PageContent>
     <div class="account">
       <div class="image">
         <NuxtIcon name="person_filled" />
@@ -66,7 +66,7 @@
     <div class="footer">
       <span>Copyright &copy; {{ new Date().getFullYear() }} Mensatt<br>v{{version.version}}</span>
     </div>
-  </div>
+  </PageContent>
 </template>
 
 <script setup lang="ts">

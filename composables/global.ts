@@ -11,3 +11,12 @@ export const useGlobalGestureTracked = () => useState('global-gesture-tracked', 
 
 /** html element that is globally scrolling */
 export const useGlobalScrollContainer = () => useState<HTMLElement | null>('global-scroll-container', () => null)
+
+/** visible height of the global header. is equal to fullHeight (below) when fully visible, is 0 when hidden through scrolling */
+export const useGlobalHeaderHeight = () => useState<number>('global-header-height', () => 0)
+
+/** height of the global header element. Just height. Not changing unless screen resized. */
+export const useGlobalHeaderFullHeight = () => useState<number>('global-header-full-height', () => 0)
+
+/** height of the global nav element. Just height. Not changing unless screen resized. */
+export const useGlobalNavFullHeight = () => useState<number>('global-nav-full-height', () => 0)

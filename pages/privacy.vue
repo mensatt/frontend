@@ -1,9 +1,9 @@
 <template>
-  <Header :show-mensa="false" :fixed="true" :fixed-scrolling="true">
+  <HeaderTag>
     <h2 v-text="$t('privacy_header')" />
-  </Header>
+  </HeaderTag>
 
-  <div class="page-content">
+  <PageContent>
     <p>Hier wird es bald eine Datenschutzerklärung geben...</p>
-  </div>
+  </PageContent>
 </template>

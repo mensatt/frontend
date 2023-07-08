@@ -1,0 +1,161 @@
+body {
+  padding: 0;
+  margin: 0;
+  overflow-y: scroll;
+  position: fixed;
+  background-color: $bg-lighter;
+}
+
+html, body {
+  overscroll-behavior: none;
+}
+
+// THEMING
+
+html.dark body {
+  @include theme-dark;
+}
+
+html:not(.dark) body {
+  @include theme-light;
+}
+
+// OTHER
+
+::-webkit-scrollbar {
+  display: none;
+  width: 0px;
+}
+
+* {
+  font-display: swap;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+// VIEW TRANSITIONS
+
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+
+@keyframes fade-out {
+  to { opacity: 0; }
+}
+
+@keyframes slide-from-right {
+  from { transform: translateX(30px); }
+}
+
+@keyframes slide-to-left {
+  to { transform: translateX(-30px); }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(header-main),
+::view-transition-new(header-main) {
+  animation-duration: .2s;
+}
+
+::view-transition-old(header-tag) {
+  animation: .1s ease-in both fade-out;
+}
+
+::view-transition-new(header-tag) {
+  animation: .1s ease-in .1s both fade-in;
+}
+
+::view-transition-old(main-content) {
+  position: static;
+  top: 0;
+  animation:
+    .07s cubic-bezier(0.4, 0, 1, 1) both fade-out,
+    .2s cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+}
+
+::view-transition-new(main-content) {
+  animation:
+    .13s cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+    .2s cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+}
+
+// PAGES DEFAULT STYLING
+
+h2 {
+  font-family: $font-header;
+  font-size: 20pt;
+  color: $color-header;
+  margin: $main-content-padding;
+  display: flex;
+  align-items: center;
+}
+
+h3 {
+  font-family: $font-header;
+  font-size: 16pt;
+  color: $color-header;
+  padding: 0;
+  margin: calc($main-content-padding*2) 0 $main-content-padding 0;
+  display: flex;
+  align-items: center;
+}
+
+p {
+  font-family: $font-regular;
+  font-size: 10pt;
+  margin: 3pt 0;
+  color: $color-regular;
+}
+
+label {
+  display: block;
+  font-size: 10pt;
+  font-family: $font-major;
+  color: $color-sub;
+  margin: calc($menu-item-margin*2) 0 $menu-item-margin 0;
+
+  &[optional]::after {
+    content: 'Optional';
+    display: inline;
+    margin-left: 5pt;
+    font-size: 7pt;
+    font-family: $font-major;
+    padding: 1pt 5pt;
+    background-color: $bg-light;
+    color: #00000077;
+    border-radius: 99pt;
+  }
+}
+
+// POPUP DEFAULT STYLING
+
+.popup h2 {
+  font-family: $font-header;
+  font-size: 16pt;
+  color: $color-major;
+  margin: 0 0 $main-content-padding 0;
+  padding: 0;
+}
+
+textarea, input[type="text"] {
+  width: 100%;
+  padding: $menu-item-padding;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: transparent;
+  outline: none;
+  resize: none;
+  border: 1px solid $bg-darker;
+  border-radius: $menu-item-br;
+  font-family: $font-regular;
+  font-size: 10pt;
+  color: $color-regular;
+
+  &::placeholder {
+    color: $color-placeholders;
+  }
+}

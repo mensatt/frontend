@@ -1,9 +1,9 @@
 <template>
-  <Header :show-mensa="false" :fixed="true" :fixed-scrolling="true">
+  <HeaderTag>
     <h2>Build Info</h2>
-  </Header>
+  </HeaderTag>
 
-  <div class="inner">
+  <PageContent>
     <p><b>Version:</b> {{ version.version }}</p>
     <p>
       <b>Git Commit:</b><br>
@@ -25,30 +25,9 @@
       Id: {{ version.deployId }}<br>
       Url: {{ version.deployUrl }}<br>
     </p>
-  </div>
+  </PageContent>
 </template>
 
 <script setup lang="ts">
 const version = useVersion()
 </script>
-
-<style scoped lang="scss">
-.inner {
-  padding: $main-content-padding;
-}
-
-h2 {
-  font-family: $font-header;
-  font-size: 20pt;
-  color: $color-header;
-  margin: $main-content-padding;
-  display: flex;
-  align-items: center;
-}
-
-p {
-  font-family: $font-regular;
-  font-size: 10pt;
-  color: $color-regular;
-}
-</style>

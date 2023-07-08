@@ -1,9 +1,5 @@
 <template>
-  <header
-    ref="headerEl"
-    :data-fixed="!!fixed"
-    :style="{ top: `${-commonOffset}px` }"
-  >
+  <header :style="{ top: `${-commonOffset}px` }">
     <div ref="commonEl" class="common">
       <h1 @click="clickTest">
         <img src="~/assets/img/logo.svg" alt="">
@@ -13,39 +9,36 @@
         {{ selectedLocation?.name ?? '-' }}
       </div>
     </div>
-    <slot />
   </header>
-
-  <div v-if="fixed" class="spacer" :style="{ height: `${fullElHeight}px` }" />
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
-  showMensa: boolean
-  fixed?: boolean
-  fixedScrolling?: boolean
-  readHeight?: number
-}>()
+const route = useRoute()
 
-const emit = defineEmits([ 'height-update' ])
+const pagesWhereShowMensa = [ 'index', 'calendar' ]
+const showMensa = computed(() => pagesWhereShowMensa.includes(String(route.name)))
+
+//
 
 const popups = usePopups()
 const selectedLocation = useSelectedLocation()
+const globalHeightTracker = useGlobalHeaderHeight()
+const globalFullHeightTracker = useGlobalHeaderFullHeight()
 
 const commonEl = ref(null)
 const { height: commonElHeight } = useElementSize(commonEl)
+watch(commonElHeight, val => {
+  globalFullHeightTracker.value = val
+  globalHeightTracker.value = (val - commonOffset.value)
+})
 
-const headerEl = ref(null)
-const { height: fullElHeight } = useElementSize(headerEl)
-watch(fullElHeight, val => emit('height-update', val))
-
+// THIS GUY. WE NEED THIS GUY!!!!!!!!
 const commonOffset = useState('header--common-offset', () => 0)
 const globalScrollLastVal = useState('header--globals-lastval', () => 0)
 
 onMounted(() => {
-  emit('height-update', fullElHeight.value)
-
-  if (!props.fixedScrolling) return
+  globalFullHeightTracker.value = commonElHeight.value
+  globalHeightTracker.value = commonElHeight.value
 
   commonOffset.value = 0
   const globalScroll = useGlobalScroll()
@@ -58,6 +51,7 @@ onMounted(() => {
     else if (newVal > commonElHeight.value) newVal = commonElHeight.value
 
     commonOffset.value = newVal
+    globalHeightTracker.value = commonElHeight.value - newVal
   })
 })
 
@@ -78,16 +72,13 @@ async function clickTest() {
 
 <style scoped lang="scss">
 header {
+  position: sticky;
   padding: 0;
   background-color: $bg-lighter;
-  border-bottom: 1px solid $bg-dark;
   z-index: 10;
   width: 100%;
   user-select: none;
-
-  &[data-fixed=true] {
-    position: fixed;
-  }
+  view-transition-name: header-main;
 }
 
 .common {

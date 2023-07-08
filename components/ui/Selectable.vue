@@ -20,9 +20,9 @@ defineProps<{
   text: string
   iconFilled?: boolean
   selected: {
-    name: string
-    icon: string
-  } | null
+    readonly name: string
+    readonly icon: string
+  } | null | undefined
 }>()
 
 const emit = defineEmits([ 'open' ])

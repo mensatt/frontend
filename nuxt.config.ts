@@ -12,6 +12,10 @@ export default defineNuxtConfig({
   // Since the deploy target is static anyway we don't really need the benefits of ssr anyway
   ssr: false,
 
+  experimental: {
+    viewTransition: true
+  },
+
   app: {
     head: {
       title: 'Mensatt',
@@ -32,7 +36,7 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'en'
       }
-    }
+    },
   },
 
   pwa: {
@@ -96,7 +100,7 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@import "@/assets/style/all.scss";'
+          additionalData: '@import "@/assets/style/imports.scss";'
         }
       }
     }

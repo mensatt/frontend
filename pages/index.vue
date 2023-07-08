@@ -1,28 +1,26 @@
 <template>
-  <Header
-    :show-mensa="true"
-    :fixed="true"
-    :fixed-scrolling="true"
-  >
+  <HeaderTag>
     <UtilsHorizontalTabs
       :tabs="listOfDates"
       :active="selectedDate"
       @select="i => (selectedDate = i)"
     />
-  </Header>
-
-  <UtilsSwipePages>
-    <template #active>
-      <UtilsPullDownRefresh :disabled="!!activeList?.loading" @refresh="refresh()">
-        <OccurrenceList
-          ref="activeList"
-          :key="mensa.id + activeDate"
-          :mensa="mensa.id"
-          :date="activeDate"
-        />
-      </UtilsPullDownRefresh>
-    </template>
-  </UtilsSwipePages>
+  </HeaderTag>
+ 
+  <PageContent :no-padding="true">
+    <UtilsSwipePages>
+      <template #active>
+        <UtilsPullDownRefresh :disabled="!!activeList?.loading" @refresh="refresh()">
+          <OccurrenceList
+            ref="activeList"
+            :key="mensa.id + activeDate"
+            :mensa="mensa.id"
+            :date="activeDate"
+          />
+        </UtilsPullDownRefresh>
+      </template>
+    </UtilsSwipePages>
+  </PageContent>
 </template>
 
 <script setup lang="ts">
