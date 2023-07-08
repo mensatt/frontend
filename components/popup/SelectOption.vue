@@ -9,7 +9,7 @@
         :data-selected="opt.id === selected"
         @click.self="close(opt.id)"
       >
-        <span class="name" v-text="$t(opt.name)" />
+        <span class="name" v-text="skipNameT ? opt.name : $t(opt.name)" />
         <NuxtIcon v-if="opt.icon && opt.iconFilled" :name="opt.icon" filled />
         <NuxtIcon v-else-if="opt.icon" :name="opt.icon" />
       </div>
@@ -27,6 +27,7 @@ defineProps<{
     icon?: string
     iconFilled?: boolean
   }[]
+  skipNameT?: boolean
   selected?: T
 }>()
 </script>

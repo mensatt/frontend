@@ -53,6 +53,7 @@ html:not(.dark) body {
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
+  animation-duration: 0s;
   mix-blend-mode: normal;
 }
 
@@ -70,17 +71,17 @@ html:not(.dark) body {
 }
 
 ::view-transition-old(main-content) {
-  position: static;
-  top: 0;
-  animation:
-    .07s cubic-bezier(0.4, 0, 1, 1) both fade-out,
-    .2s cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+  // animation:
+  //   .07s cubic-bezier(0.4, 0, 1, 1) both fade-out,
+  //   .2s cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+  animation: 0s linear both fade-out;
 }
 
 ::view-transition-new(main-content) {
-  animation:
-    .13s cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
-    .2s cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+  // animation:
+  //   .13s cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+  //   .2s cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+  animation: 0s linear both fade-in;
 }
 
 // PAGES DEFAULT STYLING

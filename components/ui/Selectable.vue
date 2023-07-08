@@ -8,7 +8,7 @@
       <NuxtIcon name="right" />
     </div>
 
-    <span class="selected" v-text="selected ? $t(selected.name) : ''" />
+    <span class="selected" v-text="selected ? (skipValueT ? selected.name : $t(selected.name)) : ''" />
 
     <NuxtIcon v-if="iconFilled" :name="selected?.icon ?? ''" filled />
     <NuxtIcon v-else :name="selected?.icon ?? ''" />
@@ -23,6 +23,8 @@ defineProps<{
     readonly name: string
     readonly icon: string
   } | null | undefined
+  /** skips localizing the value -> value will get shown without $t function call */
+  skipValueT?: boolean
 }>()
 
 const emit = defineEmits([ 'open' ])

@@ -28,7 +28,7 @@
 
     <label for="visual" v-text="$t('settings_visual_header')" />
     <div class="visual">
-      <UiSelectable text="settings_visual_language" :iconFilled="true" :selected="selectedLanguage" @open="openLanguageSelector" />
+      <UiSelectable text="settings_visual_language" :iconFilled="true" :selected="selectedLanguage" :skip-value-t="true" @open="openLanguageSelector" />
       <UiSelectable text="settings_visual_theme" :selected="selectedTheme" @open="openThemeSelector" />
     </div>
 
@@ -41,10 +41,10 @@
 
     <label for="others" v-text="$t('settings_others_header')" />
     <div class="others">
-      <UiToggle :text="$t('settings_others_devmode')" v-model="inputDevMode" />
-      <UiSelectable v-if="inputDevMode" text="settings_others_dev_backend" :selected="selectedBackend" @open="openBackendSelector" />
+      <UiToggle text="settings_others_devmode" v-model="inputDevMode" />
+      <UiSelectable v-if="inputDevMode" text="settings_others_dev_backend" :selected="selectedBackend" :skip-value-t="true" @open="openBackendSelector" />
       <UiExternLink v-if="inputDevMode" text="settings_others_dev_app_info" url="/dev/info" />
-      <UiSelectable v-if="inputDevMode" text="settings_others_dev_full_reload" :selected="{ name: '', icon: 'refresh' }" @open="devFullReload" />
+      <UiSelectable v-if="inputDevMode" text="settings_others_dev_full_reload" :selected="{ name: '', icon: 'refresh' }" :skip-value-t="true" @open="devFullReload" />
     </div>
 
     <h3 v-text="$t('info_header')" />
@@ -101,6 +101,7 @@ async function openLanguageSelector() {
   const sel = await popups.open('select_option', {
     title: 'Sprache auswählen',
     options: [...languageList.value],
+    skipNameT: true,
     selected: locale.value
   })
   if (sel)

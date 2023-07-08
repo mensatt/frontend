@@ -36,6 +36,8 @@ export type Popup<T extends String> = {
       icon?: string
       iconFilled?: boolean
     }[]
+    /** skips localizing the name -> name will get shown without $t function call */
+    skipNameT?: boolean
     selected?: T
   }
   returns: T
