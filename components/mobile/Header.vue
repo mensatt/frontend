@@ -1,13 +1,11 @@
 <template>
-  <header :style="{ top: `${-commonOffset}px` }">
-    <div ref="commonEl" class="common">
-      <h1 @click="clickTest">
-        <img src="~/assets/img/logo.svg" alt="">
-        Mensatt
-      </h1>
-      <div v-if="showMensa" class="mensa" @click="clickMensa">
-        {{ selectedLocation?.name ?? '-' }}
-      </div>
+  <header ref="commonEl" :style="{ top: `${-commonOffset}px` }">
+    <h1 @click="clickTest">
+      <img src="~/assets/img/logo.svg" alt="">
+      Mensatt
+    </h1>
+    <div v-if="showMensa" class="mensa" @click="clickMensa">
+      {{ selectedLocation?.name ?? '-' }}
     </div>
   </header>
 </template>
@@ -79,9 +77,6 @@ header {
   width: 100%;
   user-select: none;
   view-transition-name: header-main;
-}
-
-.common {
   display: flex;
   justify-content: space-between;
   align-items: center;

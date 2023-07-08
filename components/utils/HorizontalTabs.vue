@@ -53,12 +53,13 @@ const indicatorCss = computed(() => {
   if (!tabsEl.value) return {}
 
   const scroll = parentEl.value.scrollLeft
+  const parentBounds = parentEl.value.getBoundingClientRect()
   const lower = tabsEl.value.children[Math.floor(props.active)].getBoundingClientRect()
   const higher = tabsEl.value.children[Math.ceil(props.active)].getBoundingClientRect()
   const ratio = props.active % 1
   const padding = 13
 
-  const left = mix(lower.left+padding, higher.left+padding, ratio) + scroll
+  const left = mix(lower.left+padding, higher.left+padding, ratio) + scroll - parentBounds.left
   const width = mix(lower.width-padding*2, higher.width-padding*2, ratio)
 
   return {
@@ -82,23 +83,33 @@ onMounted(() => {
 <style scoped lang="scss">
 .ht {
   width: 100vw;
+  height: 100%;
   overflow-x: scroll;
+  
+  & > div {
+    height: 100%;
+  }
 }
 
 .tabs {
   display: flex;
   width: fit-content;
   padding: 0 10pt;
+  height: 100%;
 
-  & > div {
+  div {
     position: relative;
     padding: 10pt;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 
     span {
       font-family: $font-major;
       font-size: 11pt;
       color: $color-major;
       opacity: calc(0.7 + var(--active)*0.3);
+      z-index: 10;
     }
 
     &[data-seperator=true] {
@@ -114,6 +125,24 @@ onMounted(() => {
       width: 1px;
       background-color: $bg-dark;
     }
+  }
+}
+
+[view-mode="desktop"] .tabs div {
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: calc($main-content-padding/2);
+    width: 100%;
+    height: calc(100% - $main-content-padding);
+    border-radius: 999pt;
+    background-color: $bg-lighter;
+    transition: .1s ease background-color;
+  }
+
+  &:hover:not(:focus)::before {
+    background-color: $bg-dark;
   }
 }
 

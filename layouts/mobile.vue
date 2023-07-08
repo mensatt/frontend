@@ -1,7 +1,7 @@
 <template>
   <div class="app" view-mode="mobile">
     <div ref="scrollcont" class="content" :data-scrollblocked="globalScrollBlock > 0">
-      <Header />
+      <MobileHeader />
       <slot />
     </div>
     <MobileNav />

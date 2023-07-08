@@ -99,6 +99,11 @@ $font-mono-bold: 'SpaceMono 700', monospace;
 
 //
 
+$view-max-width-mobile: 800px; // keep this in sync with the number in app.vue (script setup)
+$view-min-width-desktop: $view-max-width-mobile + 1px;
+
+//
+
 // $max-content-width: 350pt;
 
 $global-header-height: 38pt;

@@ -6,11 +6,13 @@
       :seed="i"
     />
   </div>
+
   <div v-else-if="error" class="no-list">
     <img src="~/assets/img/carrocket_down.svg" alt="">
     <span class="title" v-text="$t('occurrence_list_error_title')" />
     <span class="desc" v-text="error" />
   </div>
+
   <div v-else class="occurrences">
     <div v-if="occurrences.visible.length" class="visible-list">
       <OccurrenceCard
@@ -100,6 +102,9 @@ defineExpose({
 
 .visible-list {
   min-height: calc(100vh - 90pt);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300pt, 1fr));
+  gap: $main-content-padding;
 }
 
 .no-list {
@@ -114,6 +119,8 @@ defineExpose({
   img {
     width: 30vw;
     height: 30vw;
+    max-width: 100pt;
+    max-height: 100pt;
   }
 
   .title {

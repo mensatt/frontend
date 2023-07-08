@@ -16,6 +16,8 @@ defineProps<{
 
   &[data-no-padding=false] {
     padding: $main-content-padding;
+    box-sizing: border-box;
+    max-width: 100vw;
 
     & > div {
       margin-bottom: $main-content-padding;

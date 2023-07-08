@@ -20,3 +20,6 @@ export const useGlobalHeaderFullHeight = () => useState<number>('global-header-f
 
 /** height of the global nav element. Just height. Not changing unless screen resized. */
 export const useGlobalNavFullHeight = () => useState<number>('global-nav-full-height', () => 0)
+
+/** the date we're looking at right now. */
+export const useGlobalSelectedDate = () => useState<Date>('global-selected-date', () => new Date())

@@ -1,8 +1,7 @@
 <template>
   <div class="app" view-mode="desktop">
-    <DesktopNav />
+    <DesktopHeader />
     <div ref="scrollcont" class="content" :data-scrollblocked="globalScrollBlock > 0">
-      DESKTOP DESKTOP DEKSOTPM SEDOEPM DEPSKEOP!
       <slot />
     </div>
   </div>

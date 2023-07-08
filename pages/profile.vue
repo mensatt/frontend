@@ -99,7 +99,7 @@ const selectedLanguage = computed(() => languageList.value.find(search => (searc
 
 async function openLanguageSelector() {
   const sel = await popups.open('select_option', {
-    title: 'Sprache auswählen',
+    title: 'settings_visual_language_select',
     options: [...languageList.value],
     skipNameT: true,
     selected: locale.value
@@ -122,7 +122,7 @@ const selectedTheme = computed(() => themeList.find(search => (search.id === inp
 
 async function openThemeSelector() {
   const sel = await popups.open('select_option', {
-    title: 'Farbschema auswählen',
+    title: 'settings_visual_theme_select',
     options: [...themeList],
     selected: inputTheme.value
   })
@@ -145,8 +145,9 @@ const selectedBackend = computed(() => backendList.find(search => (search.id ===
 
 async function openBackendSelector() {
   const sel = await popups.open('select_option', {
-    title: 'Select Backend',
+    title: 'settings_others_dev_backend_select',
     options: [...backendList],
+    skipNameT: true,
     selected: inputDevBackend.value
   })
   if (sel)

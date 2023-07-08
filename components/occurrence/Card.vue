@@ -7,6 +7,7 @@
 
     <div class="details">
       <h2 v-text="dishName" />
+
       <div class="pills">
         <OccurrencePriceTag :data="data" />
         <OccurrenceStarRating
@@ -15,6 +16,7 @@
         />
         <OccurrenceTagPill v-for="tag of displayTags" :key="tag.key" :data="tag" />
       </div>
+
       <div class="comments">
         <div v-for="review of comments" :key="review.id" class="comment">
           <span class="name" v-text="review.displayName || $t('occurrence_comment_author_anon')" />
@@ -24,7 +26,12 @@
           <span class="none" v-text="$t('occurrence_no_comments')" />
         </div>
       </div>
-      <button v-if="userCanRate" class="rateme" @click="rate()" v-text="$t('occurrence_add_rating')" />
+
+      <div v-if="viewMode === 'desktop'" class="buttons">
+        <button class="details" @click="rate()" v-text="$t('occurrence_show_details')" />
+        <button class="rate" :disabled="!userCanRate" @click="rate()" v-text="$t('occurrence_add_rating')" />
+      </div>
+      <button v-else-if="userCanRate" class="rateme" @click="rate()" v-text="$t('occurrence_add_rating')" />
     </div>
   </div>
 </template>
@@ -35,6 +42,7 @@ import { EntityOccurrence } from '~/utils/entities/occurrence'
 const api = useApi()
 const popups = usePopups()
 const i18n = useI18n()
+const viewMode = useViewMode()
 
 const { data } = defineProps<{
   data: EntityOccurrence.Occurrence
@@ -87,12 +95,14 @@ function rate() {
   overflow: hidden;
   background-color: $bg-lighter;
   padding-bottom: calc($main-content-padding * 3);
+  height: fit-content;
 }
 
 .image {
   pointer-events: none;
 
   & > * {
+    display: block;
     aspect-ratio: 16/9;
     max-height: 50vh;
     object-fit: cover;
@@ -174,10 +184,66 @@ h2 {
   margin-top: 10pt;
   border-radius: $menu-item-br;
   transition: background-color .1s ease;
-  cursor: text;
+  cursor: pointer;
 
   &:hover {
     border-color: $bg-darker;
+  }
+}
+
+.buttons {
+  display: flex;
+  gap: $menu-item-margin;
+  justify-content: space-between;
+
+  button {
+    all: unset;
+    flex: 1 1;
+    padding: 8pt 10pt;
+    font-size: 10pt;
+    margin-top: 10pt;
+    box-sizing: border-box;
+    font-family: $font-major;
+    color: $bg-lighter;
+    text-align: center;
+    border-radius: 999pt;
+    cursor: pointer;
+    transition: background-color .1s ease;
+
+    &.details {
+      padding: 7pt 9pt;
+      border: 1pt solid $bg-darker;
+      color: $color-minor;
+
+      &:hover {
+        background-color: $bg-dark;
+      }
+    }
+
+    &.rate {
+      background-color: $color-green;
+
+      &:disabled {
+        background-color: $bg-dark;
+        cursor: not-allowed;
+        color: $bg-darker;
+      }
+
+      &:hover:not(:disabled) { background-color: $color-greenH; }
+    }
+  }
+}
+
+@media screen and (min-width: $view-min-width-desktop) {
+  .occurrence {
+    border: 1px solid $bg-dark;
+    border-radius: $menu-item-br;
+    padding-bottom: 0;
+  }
+
+  .image {
+    overflow: hidden;
+    border-radius: $menu-item-br $menu-item-br 0 0;
   }
 }
 </style>

@@ -1,11 +1,16 @@
 <template>
-  <div class="header-tag" :style="{ top: `${globalHeaderHeight}px` }">
+  <div
+    v-if="viewMode !== 'desktop'"
+    class="header-tag"
+    :style="{ top: `${globalHeaderHeight}px` }"
+  >
     <slot />
   </div>
 </template>
 
 <script setup lang="ts">
 const globalHeaderHeight = useGlobalHeaderHeight()
+const viewMode = useViewMode()
 </script>
 
 <style scoped lang="scss">

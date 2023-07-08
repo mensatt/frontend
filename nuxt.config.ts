@@ -24,6 +24,7 @@ export default defineNuxtConfig({
         { hid: 'description', name: 'description', content: 'Mensatt is providing your high quality information about all Mensas 👍' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' },
         { name: 'darkreader-lock', content: 'true' },
+        { name: 'ScreenOrientation', "http-equiv": 'ScreenOrientation', content: 'autoRotate:disabled' },
         // { name: 'msapplication-TileColor', content: '#c9f1b6' },
         // { name: 'theme-color', content: '#c9f1b6' }
       ],
