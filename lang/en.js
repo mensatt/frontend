@@ -81,4 +81,6 @@ export default {
   rate_dish_nickname_placeholder: '(anonymous)',
   rate_dish_submit: 'Submit',
   refresh: 'Refresh',
+  desktop_calendar: 'Calendar',
+  desktop_profile: 'Profile & Preferences',
 }

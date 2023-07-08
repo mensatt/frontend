@@ -5,7 +5,7 @@
         <div
           v-for="tab, i of tabs"
           :key="tab.id"
-          :style="{ '--active': 1 - Math.min(1, Math.abs(active - i)) }"
+          :style="{ '--active': (active === null) ? 0 : (1 - Math.min(1, Math.abs(active - i))) }"
           :data-seperator="tab.seperator && (i !== tabs.length-1)"
           @click="emit('select', i)"
         >
@@ -28,7 +28,7 @@ export type TabData = {
 const props = defineProps<{
   tabs: TabData[]
   /** which element out of them is the active one. You may use decimals to smoothly transition */
-  active: number
+  active: number | null
 }>()
 
 const emit = defineEmits([ 'select' ])
@@ -51,6 +51,7 @@ const indicatorCss = computed(() => {
 
   if (!parentEl.value) return {}
   if (!tabsEl.value) return {}
+  if (props.active === null) return {}
 
   const scroll = parentEl.value.scrollLeft
   const parentBounds = parentEl.value.getBoundingClientRect()
@@ -64,7 +65,7 @@ const indicatorCss = computed(() => {
 
   return {
     marginLeft: `${left}px`,
-    width: `${width}px`,
+    width: `${width}px`
   }
 })
 
@@ -124,6 +125,7 @@ onMounted(() => {
       height: calc(100% - 20pt);
       width: 1px;
       background-color: $bg-dark;
+      pointer-events: none;
     }
   }
 }
@@ -149,6 +151,7 @@ onMounted(() => {
 .indicator {
   margin-top: -3pt;
   height: 3pt;
+  width: 0;
   background-color: $color-green;
   border-radius: 99pt 99pt 0 0;
   transition: all .1s ease-out;

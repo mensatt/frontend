@@ -9,8 +9,8 @@
 <script setup lang="ts">
 import { TabData } from '../utils/HorizontalTabs.vue'
 
-const { daysPast = 1, daysCount = 7 } = defineProps<{
-  modelValue: Date
+const props = defineProps<{
+  modelValue?: number | null
   daysPast?: number
   daysCount?: number
 }>()
@@ -37,8 +37,8 @@ function isWeekend(date: Date): boolean {
 }
 
 const listOfDates: TabData[] = []
-let i = -daysPast
-while (listOfDates.length < daysCount) {
+let i = -(props.daysPast ?? 1)
+while (listOfDates.length < (props.daysCount ?? 7)) {
   const date = new Date(TODAY.getTime() + i * DAY_MILLIS)
 
   // is it the weekend? then check next day
@@ -57,9 +57,13 @@ while (listOfDates.length < daysCount) {
   i++
 }
 
-const selectedDate = useState('rel-date-sel--selected-date', () => (isWeekend(new Date()) || TODAY.getHours() < 17) ? 1 : 2)
+const selectedDate = useState<number | null>('rel-date-sel--selected-date', () => (isWeekend(new Date()) || TODAY.getHours() < 17) ? 1 : 2)
+watch(selectedDate, val => emit('update:modelValue', val))
+onMounted(() => emit('update:modelValue', selectedDate.value))
+watch(props, val => (val.modelValue !== undefined) ? (selectedDate.value = val.modelValue) : {})
 
-const activeDate = computed(() => new Date(listOfDates[selectedDate.value].id))
-watch(activeDate, val => emit('update:modelValue', val))
-onMounted(() => emit('update:modelValue', activeDate.value))
+const activeDate = computed(() => new Date(listOfDates[selectedDate.value ?? 0].id))
+const globalSync = useGlobalSelectedDate()
+watch(activeDate, val => (globalSync.value = val))
+onMounted(() => (globalSync.value = activeDate.value))
 </script>

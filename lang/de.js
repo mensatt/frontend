@@ -82,5 +82,7 @@ export default {
   rate_dish_nickname_placeholder: '(anonym)',
   rate_dish_submit: 'Abschicken',
   refresh: 'Aktualisieren',
+  desktop_calendar: 'Kalender',
+  desktop_profile: 'Profil & Optionen',
 }
 

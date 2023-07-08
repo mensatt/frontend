@@ -1,6 +1,6 @@
 <template>
   <HeaderTag>
-    <UtilsRelativeDateSelect v-model="activeDate" />
+    <UtilsRelativeDateSelect />
   </HeaderTag>
  
   <PageContent v-if="viewMode === 'desktop'">

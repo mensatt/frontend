@@ -1,21 +1,59 @@
 <template>
   <header>
-    <NuxtLink to="/">
+    <NuxtLink to="/" @click="resetActiveDate()">
       <h1>
         <img src="~/assets/img/logo.svg" alt="">
         Mensatt
       </h1>
     </NuxtLink>
 
-    <UtilsRelativeDateSelect v-model="activeDate" :days-count="6" />
+    <UtilsRelativeDateSelect
+      class="dates"
+      :days-count="6"
+      @click="gotoIndex()"
+      v-model="selectedDay"
+    />
 
-    <!-- TODO button for date select dropdown (calendar) -->
-    <!-- TODO button for profile / settings -->
+    <div class="calendar">
+      <NuxtIcon name="calendar_outline" />
+      {{ $t('desktop_calendar') }}
+    </div>
+
+    <div class="spacer" />
+
+    <div class="location">
+      {{ mensa.name }}
+    </div>
+
+    <div class="profile">
+      <NuxtIcon name="person_outline" />
+      {{ $t('desktop_profile') }}
+    </div>
   </header>
 </template>
 
 <script setup lang="ts">
-const activeDate = useGlobalSelectedDate()
+const selectedDay = useState<number | null>(() => 1)
+const router = useRouter()
+const mensa = useSelectedLocation()
+
+const route = useRoute()
+watch(route, val => {
+  if (val.name !== 'index')
+    selectedDay.value = null
+  else if (selectedDay.value === null)
+    selectedDay.value = 1
+})
+
+function resetActiveDate() {
+  selectedDay.value = 1
+}
+
+function gotoIndex() {
+  if (route.name === 'index')
+    return
+  router.push({ path: '/' })
+}
 </script>
 
 <style scoped lang="scss">
@@ -26,8 +64,9 @@ header {
   user-select: none;
   view-transition-name: header-main;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
+  box-sizing: border-box;
   height: $global-header-height;
   border-bottom: 1px solid $bg-dark;
 
@@ -59,5 +98,39 @@ h1 {
   a:hover > & {
     background-color: $color-green40;
   }
+}
+
+.dates {
+  width: fit-content;
+}
+
+.calendar, .profile, .location {
+  font-family: $font-regular;
+  font-size: 10pt;
+  color: $color-major;
+  height: 100%;
+  margin: 0 calc($main-content-padding/2);
+  padding: 0 $main-content-padding;
+  display: flex;
+  align-items: center;
+  line-height: 1em;
+  border-left: 1pt solid $bg-dark;
+  border-right: 1pt solid $bg-dark;
+  box-sizing: border-box;
+  transition: .1s ease background-color;
+  cursor: pointer;
+  gap: calc($main-content-padding/3);
+
+  &:hover {
+    background-color: $bg-light;
+  }
+
+  .nuxt-icon {
+    font-size: 1.2em;
+  }
+}
+
+.spacer {
+  flex: 1 1;
 }
 </style>
