@@ -59,7 +59,7 @@ button {
     cursor: not-allowed;
   }
 
-  [view-mode=desktop] &:hover {
+  [view-mode=desktop] &:hover:not(:disabled) {
     background-color: $color-greenH;
   }
 }
