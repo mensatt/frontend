@@ -16,12 +16,10 @@
     />
 
     <div class="location">
-      <!-- put inside pill -->
       {{ mensa.name }}
     </div>
 
     <div class="profile">
-      <!-- let this one live free without borders -->
       <NuxtIcon name="person_outline" />
       {{ $t('desktop_profile') }}
     </div>
@@ -101,29 +99,31 @@ h1 {
   flex: 1 1;
 }
 
-.profile, .location {
+.location, .profile {
   font-family: $font-regular;
   font-size: 10pt;
-  color: $color-major;
-  height: 100%;
-  margin: 0 calc($main-content-padding/2);
-  padding: 0 $main-content-padding;
+  color: $color-sub;
+  margin: calc($main-content-padding/2);
+  padding: calc($main-content-padding/2) $main-content-padding;
+  border-radius: 999pt;
   display: flex;
   align-items: center;
   line-height: 1em;
-  border-left: 1pt solid $bg-dark;
-  border-right: 1pt solid $bg-dark;
-  box-sizing: border-box;
-  transition: .1s ease background-color;
+  border: 1px solid $bg-dark;
+  gap: calc($main-content-padding/2);
   cursor: pointer;
-  gap: calc($main-content-padding/3);
+  transition:
+    background-color .1s ease,
+    color .1s ease;
 
   &:hover {
     background-color: $bg-light;
+    color: $color-major;
   }
 
   .nuxt-icon {
     font-size: 1.2em;
+    margin: -.2em;
   }
 }
 </style>

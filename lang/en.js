@@ -33,6 +33,7 @@ export default {
   theme_auto: 'Automatic',
   theme_light: 'Light',
   theme_dark: 'Dark',
+  theme_amoled: 'Amoled',
   credits_header: 'Contributors',
   credits_core_team: 'Mensatt Core Team',
   credits_special_thanks: 'Special Thanks',

@@ -1,0 +1,84 @@
+// REGISTER YOUR THEME IN GLOBAL.SCSS ASWELL
+// AND ADD IT TO /utils/themes.ts to be selectable in the ui
+
+
+@mixin theme-light {
+  --bg-darker: #cccccc;
+  --bg-dark: #f2f2f2;
+  --bg-light: #fafafa;
+  --bg-lighter: #ffffff;
+  --color-green: #77b255;
+  --color-green20: #77b25520;
+  --color-green40: #77b25540;
+  --color-greenH: #609740;
+  --color-green20S: #eef5ea;
+  --color-yellow: #ffac33;
+  --color-yellow20: #ffda3320;
+  --color-yellow40: #ffda3354;
+  --color-blue: #375aa5;
+  --color-blue20: #375aa52f;
+  --color-blue40: #375aa556;
+  --color-red: #ec3960;
+  --color-red20: #ec396020;
+  --color-redH: #961f39;
+  --color-placeholders: #00000055;
+  --color-minor: #585858;
+  --color-sub: #3f3f3f;
+  --color-regular: #141414;
+  --color-major: #080808;
+  --color-header: #000000;
+}
+
+@mixin theme-dark {
+  --bg-darker: #60656e;
+  --bg-dark: #323234;
+  --bg-light: #1b1b1c;
+  --bg-lighter: #101010;
+  --color-green: #77b255;
+  --color-green20: #77b25520;
+  --color-green40: #77b25540;
+  --color-greenH: #609740;
+  --color-green20S: #1d2419;
+  --color-yellow: #ffac33;
+  --color-yellow20: #ffda3320;
+  --color-yellow40: #ffda3354;
+  --color-blue: #587bc5;
+  --color-blue20: #587bc52f;
+  --color-blue40: #587bc556;
+  --color-red: #ec3960;
+  --color-red20: #ec396020;
+  --color-redH: #961f39;
+  --color-placeholders: #ffffff55;
+  --color-minor: #8a8b8f;
+  --color-sub: #c1c2c7;
+  --color-regular: #e1e1e1;
+  --color-major: #f7f7f7;
+  --color-header: #ffffff;
+}
+
+@mixin theme-amoled {
+  --bg-darker: #2c2c2c;
+  --bg-dark: #0c0c0c;
+  --bg-light: #080808;
+  --bg-lighter: #000000;
+  --color-green: #3c562d;
+  --color-green20: #3c562d20;
+  --color-green40: #3c562d40;
+  --color-greenH: #3e6c24;
+  --color-green20S: #080a07;
+  --color-yellow: #85602c;
+  --color-yellow20: #85602c20;
+  --color-yellow40: #85602c40;
+  --color-blue: #526fab;
+  --color-blue20: #526fab20;
+  --color-blue40: #526fab40;
+  --color-red: #ec3960;
+  --color-red20: #ec396020;
+  --color-redH: #961f39;
+  --color-placeholders: #ffffff55;
+  --color-minor: #9d9d9d;
+  --color-sub: #a7a7a7;
+  --color-regular: #b7b7b7;
+  --color-major: #e3e3e3;
+  --color-header: #ffffff;
+}

@@ -12,13 +12,9 @@ html, body {
 
 // THEMING
 
-html.dark body {
-  @include theme-dark;
-}
-
-html:not(.dark) body {
-  @include theme-light;
-}
+html.dark body { @include theme-dark; }
+html.amoled body { @include theme-amoled; }
+html:not(:is(.dark, .amoled)) body { @include theme-light; }
 
 // OTHER
 

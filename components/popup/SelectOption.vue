@@ -3,15 +3,16 @@
     <h2 v-text="$t(title)" />
     <div class="options">
       <div
-        v-for="opt of options"
-        :key="opt.id"
+        v-for="opt, i of options"
+        :key="opt ? opt.id : i-100"
         class="option"
-        :data-selected="opt.id === selected"
-        @click.self="close(opt.id)"
+        :data-selected="opt ? (opt.id === selected) : false"
+        :data-divider="opt === null"
+        @click.self="opt ? close(opt.id) : {}"
       >
-        <span class="name" v-text="skipNameT ? opt.name : $t(opt.name)" />
-        <NuxtIcon v-if="opt.icon && opt.iconFilled" :name="opt.icon" filled />
-        <NuxtIcon v-else-if="opt.icon" :name="opt.icon" />
+        <span v-if="opt" class="name" v-text="skipNameT ? opt.name : $t(opt.name)" />
+        <NuxtIcon v-if="opt && opt.icon && opt.iconFilled" :name="opt.icon" filled />
+        <NuxtIcon v-else-if="opt && opt.icon" :name="opt.icon" />
       </div>
     </div>
   </div>
@@ -21,12 +22,12 @@
 defineProps<{
   close: (selected: T) => any,
   title: string
-  options: {
+  options: ({
     id: T
     name: string
     icon?: string
     iconFilled?: boolean
-  }[]
+  } | null)[]
   skipNameT?: boolean
   selected?: T
 }>()
@@ -51,6 +52,13 @@ defineProps<{
   grid-template-columns: 1fr auto;
   transition: background-color .1s ease;
   cursor: pointer;
+
+  &[data-divider=true] {
+    cursor: default;
+    padding: 0;
+    height: calc($menu-item-padding*2 - $menu-item-margin);
+    background-color: transparent;
+  }
 
   .name {
     font-family: $font-major;
@@ -78,11 +86,11 @@ defineProps<{
     }
   }
 
-  [view-mode=desktop] &[data-selected=true]:hover {  
+  [view-mode=desktop] &[data-selected=true][data-divider=false]:hover {  
     background-color: $color-green40;
   }
 
-  [view-mode=desktop] &[data-selected=false]:hover {  
+  [view-mode=desktop] &[data-selected=false][data-divider=false]:hover {  
     background-color: $bg-dark;
   }
 }

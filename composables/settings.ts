@@ -1,9 +1,9 @@
+import { ThemeChoice } from "../utils/themes"
 
 export type SettingPrice = 'student' | 'staff' | 'guest'
 export const useSettingPrice = () => useLocalStorage<SettingPrice>('usersetting-price', () => 'student')
 
-export type SettingColorMode = 'auto' | 'light' | 'dark'
-export const useSettingColorMode = () => useColorMode()
+export const useSettingColorMode = () => useColorMode<ThemeChoice>({ modes: useThemes().asConfigObject() })
 
 export const useSettingHideMeat = () => useLocalStorage<boolean>('usersetting-hide-meat', () => false)
 export const useSettingHideFish = () => useLocalStorage<boolean>('usersetting-hide-fish', () => false)

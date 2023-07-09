@@ -30,12 +30,12 @@ export type Popup<T extends String> = {
   id: 'select_option'
   data: {
     title: string
-    options: {
+    options: ({
       id: T
       name: string
       icon?: string
       iconFilled?: boolean
-    }[]
+    } | null)[]
     /** skips localizing the name -> name will get shown without $t function call */
     skipNameT?: boolean
     selected?: T

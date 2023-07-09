@@ -33,6 +33,7 @@ export default {
   theme_auto: 'Automatisch',
   theme_light: 'Hell',
   theme_dark: 'Dunkel',
+  theme_amoled: 'Amoled',
   credits_header: 'Mitwirkende',
   credits_core_team: 'Das Mensatt Team:',
   credits_special_thanks: 'Extra Dankeschön an:',

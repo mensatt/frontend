@@ -71,6 +71,7 @@
 
 <script setup lang="ts">
 import { LocaleObject } from '@nuxtjs/i18n/dist/runtime/composables'
+import { useThemes } from '../utils/themes'
 
 const popups = usePopups()
 const version = useVersion()
@@ -112,13 +113,9 @@ async function openLanguageSelector() {
 
 const inputTheme = useSettingColorMode().store
 
-const themeList = [
-  { id: 'auto', name: 'theme_auto', icon: 'theme_auto' },
-  { id: 'light', name: 'theme_light', icon: 'theme_light' },
-  { id: 'dark', name: 'theme_dark', icon: 'theme_dark' },
-] as const
+const themeList = useThemes().asChoicesList()
 
-const selectedTheme = computed(() => themeList.find(search => (search.id === inputTheme.value)))
+const selectedTheme = computed(() => themeList.find(search => (search?.id === inputTheme.value)))
 
 async function openThemeSelector() {
   const sel = await popups.open('select_option', {
