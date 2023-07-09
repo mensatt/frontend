@@ -155,8 +155,13 @@ textarea, input[type="text"] {
   font-family: $font-regular;
   font-size: 10pt;
   color: $color-regular;
+  transition: border-color .1s ease;
 
   &::placeholder {
     color: $color-placeholders;
+  }
+
+  [view-mode=desktop] &:focus {
+    border-color: $color-minor;
   }
 }

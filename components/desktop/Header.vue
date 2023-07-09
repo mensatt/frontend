@@ -15,13 +15,13 @@
       v-model="selectedDay"
     />
 
-    <div class="spacer" />
-
     <div class="location">
+      <!-- put inside pill -->
       {{ mensa.name }}
     </div>
 
     <div class="profile">
+      <!-- let this one live free without borders -->
       <NuxtIcon name="person_outline" />
       {{ $t('desktop_profile') }}
     </div>
@@ -97,10 +97,11 @@ h1 {
 }
 
 .dates {
-  width: fit-content;
+  width: 30pt;
+  flex: 1 1;
 }
 
-.calendar, .profile, .location {
+.profile, .location {
   font-family: $font-regular;
   font-size: 10pt;
   color: $color-major;
@@ -124,9 +125,5 @@ h1 {
   .nuxt-icon {
     font-size: 1.2em;
   }
-}
-
-.spacer {
-  flex: 1 1;
 }
 </style>

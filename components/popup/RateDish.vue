@@ -223,6 +223,10 @@ label {
     box-sizing: border-box;
     margin: 0;
     display: block;
+
+    [view-mode=desktop] & {
+      max-height: 150pt;
+    }
   }
 
   p {

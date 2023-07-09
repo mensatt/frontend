@@ -35,6 +35,7 @@ button {
   border: none;
   outline: none;
   padding: $menu-item-padding;
+  transition: background-color .1s ease;
   user-select: none;
   cursor: pointer;
 
@@ -56,6 +57,10 @@ button {
   &[data-loading=true] {
     opacity: .6;
     cursor: not-allowed;
+  }
+
+  [view-mode=desktop] &:hover {
+    background-color: $color-greenH;
   }
 }
 </style>

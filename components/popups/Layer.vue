@@ -1,8 +1,9 @@
 <template>
   <div class="popups" :view-mode="viewMode">
-    <PopupsWrapper
+    <component
       v-for="popup of popups.state"
       :key="popup.uuid"
+      :is="WrapperComponent"
       :data="popup"
       @destruct="destruct(popup)"
     />
@@ -11,9 +12,13 @@
 
 <script setup lang="ts">
 import { PopupInternally } from '../../utils/popups';
+import PopupsWrapperMobile from './WrapperMobile.vue'
+import PopupsWrapperDesktop from './WrapperDesktop.vue'
 
 const viewMode = useViewMode()
 const popups = usePopups()
+
+const WrapperComponent = computed(() => (viewMode.value === 'mobile') ? PopupsWrapperMobile : PopupsWrapperDesktop)
 
 function destruct(popup: PopupInternally) {
   popup.dismissed = true

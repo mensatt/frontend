@@ -49,6 +49,8 @@ defineProps<{
   border-radius: $menu-item-br;
   display: grid;
   grid-template-columns: 1fr auto;
+  transition: background-color .1s ease;
+  cursor: pointer;
 
   .name {
     font-family: $font-major;
@@ -74,6 +76,14 @@ defineProps<{
     .nuxt-icon:not([filled]) {
       color: $color-green;
     }
+  }
+
+  [view-mode=desktop] &[data-selected=true]:hover {  
+    background-color: $color-green40;
+  }
+
+  [view-mode=desktop] &[data-selected=false]:hover {  
+    background-color: $bg-dark;
   }
 }
 </style>
