@@ -34,6 +34,7 @@ export default {
   theme_light: 'Light',
   theme_dark: 'Dark',
   theme_amoled: 'Amoled',
+  theme_green: 'Green',
   credits_header: 'Contributors',
   credits_core_team: 'Mensatt Core Team',
   credits_special_thanks: 'Special Thanks',

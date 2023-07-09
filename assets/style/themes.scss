@@ -82,3 +82,30 @@
   --color-major: #e3e3e3;
   --color-header: #ffffff;
 }
+
+@mixin theme-green {
+  --bg-darker: #587e43;
+  --bg-dark: #65954a;
+  --bg-light: #6ca34d;
+  --bg-lighter: #77b255;
+  --color-green: #e3e3e3;
+  --color-green20: #e3e3e320;
+  --color-green40: #e3e3e340;
+  --color-greenH: #ffffff;
+  --color-green20S: #315020;
+  --color-yellow: #bf8c43;
+  --color-yellow20: #ffda3320;
+  --color-yellow40: #ffda3354;
+  --color-blue: #2e2d93;
+  --color-blue20: #302dff30;
+  --color-blue40: #302dff50;
+  --color-red: #ec3960;
+  --color-red20: #ec396020;
+  --color-redH: #961f39;
+  --color-placeholders: #ffffff55;
+  --color-minor: #c4cdc0;
+  --color-sub: #d6dbd3;
+  --color-regular: #cfd3cc;
+  --color-major: #f7f7f7;
+  --color-header: #ffffff;
+}

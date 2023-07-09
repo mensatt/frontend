@@ -34,6 +34,7 @@ export default {
   theme_light: 'Hell',
   theme_dark: 'Dunkel',
   theme_amoled: 'Amoled',
+  theme_green: 'Grün',
   credits_header: 'Mitwirkende',
   credits_core_team: 'Das Mensatt Team:',
   credits_special_thanks: 'Extra Dankeschön an:',

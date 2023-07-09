@@ -14,7 +14,8 @@ html, body {
 
 html.dark body { @include theme-dark; }
 html.amoled body { @include theme-amoled; }
-html:not(:is(.dark, .amoled)) body { @include theme-light; }
+html.green body { @include theme-green; }
+html:not(:is(.dark, .amoled, .green)) body { @include theme-light; }
 
 // OTHER
 
