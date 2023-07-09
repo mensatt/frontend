@@ -10,14 +10,10 @@
     <UtilsRelativeDateSelect
       class="dates"
       :days-count="6"
+      :showCalendar="true"
       @click="gotoIndex()"
       v-model="selectedDay"
     />
-
-    <div class="calendar">
-      <NuxtIcon name="calendar_outline" />
-      {{ $t('desktop_calendar') }}
-    </div>
 
     <div class="spacer" />
 

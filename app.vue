@@ -11,7 +11,7 @@
 useColorMode()
 
 const viewMode = useViewMode()
-// maximum screen width (px) for mobile view // keep this in sync with the number in variables.scss ($view-max-width-mobile)
+// maximum screen width (px) for mobile view
 const VIEW_MAX_WIDTH_MOBILE = 800
 
 function trackViewMode() {

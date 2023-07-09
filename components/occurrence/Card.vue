@@ -96,10 +96,21 @@ function rate() {
   background-color: $bg-lighter;
   padding-bottom: calc($main-content-padding * 3);
   height: fit-content;
+
+  [view-mode=desktop] & {
+    border: 1px solid $bg-dark;
+    border-radius: $menu-item-br;
+    padding-bottom: 0;
+  }
 }
 
 .image {
   pointer-events: none;
+
+  [view-mode=desktop] & {
+    overflow: hidden;
+    border-radius: $menu-item-br $menu-item-br 0 0;
+  }
 
   & > * {
     display: block;
@@ -231,19 +242,6 @@ h2 {
 
       &:hover:not(:disabled) { background-color: $color-greenH; }
     }
-  }
-}
-
-@media screen and (min-width: $view-min-width-desktop) {
-  .occurrence {
-    border: 1px solid $bg-dark;
-    border-radius: $menu-item-br;
-    padding-bottom: 0;
-  }
-
-  .image {
-    overflow: hidden;
-    border-radius: $menu-item-br $menu-item-br 0 0;
   }
 }
 </style>

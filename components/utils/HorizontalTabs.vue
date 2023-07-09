@@ -9,6 +9,7 @@
           :data-seperator="tab.seperator && (i !== tabs.length-1)"
           @click="emit('select', i)"
         >
+          <NuxtIcon v-if="tab.icon" :name="tab.icon" />
           <span v-text="tab.name" />
         </div>
       </div>
@@ -23,6 +24,7 @@ export type TabData = {
   id: string
   name: string
   seperator?: boolean
+  icon?: string
 }
 
 const props = defineProps<{
@@ -113,6 +115,11 @@ onMounted(() => {
       z-index: 10;
     }
 
+    .nuxt-icon {
+      font-size: 1.2em;
+      margin-right: .2em;
+    }
+
     &[data-seperator=true] {
       margin-right: 10pt;
     }
@@ -130,7 +137,7 @@ onMounted(() => {
   }
 }
 
-[view-mode="desktop"] .tabs div {
+[view-mode=desktop] .tabs div {
   &::before {
     content: '';
     position: absolute;

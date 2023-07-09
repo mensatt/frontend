@@ -13,6 +13,7 @@ const props = defineProps<{
   modelValue?: number | null
   daysPast?: number
   daysCount?: number
+  showCalendar?: boolean
 }>()
 
 const emit = defineEmits([ 'update:modelValue' ])
@@ -55,6 +56,15 @@ while (listOfDates.length < (props.daysCount ?? 7)) {
     seperator: (date.getDay() === 5) // freitag
   })
   i++
+}
+
+if (props.showCalendar) {
+  listOfDates.at(-1)!.seperator = true
+  listOfDates.push({
+    id: 'calendar',
+    name: i18n.t('desktop_calendar'),
+    icon: 'calendar_outline'
+  })
 }
 
 const selectedDate = useState<number | null>('rel-date-sel--selected-date', () => (isWeekend(new Date()) || TODAY.getHours() < 17) ? 1 : 2)

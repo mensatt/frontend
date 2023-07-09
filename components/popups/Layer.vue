@@ -1,5 +1,5 @@
 <template>
-  <div class="popups">
+  <div class="popups" :view-mode="viewMode">
     <PopupsWrapper
       v-for="popup of popups.state"
       :key="popup.uuid"
@@ -12,6 +12,7 @@
 <script setup lang="ts">
 import { PopupInternally } from '../../utils/popups';
 
+const viewMode = useViewMode()
 const popups = usePopups()
 
 function destruct(popup: PopupInternally) {

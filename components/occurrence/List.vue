@@ -103,8 +103,11 @@ defineExpose({
 .visible-list {
   min-height: calc(100vh - 90pt);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300pt, 1fr));
   gap: $main-content-padding;
+
+  [view-mode=desktop] & {
+    grid-template-columns: repeat(auto-fit, minmax(300pt, 1fr));
+  }
 }
 
 .no-list {
