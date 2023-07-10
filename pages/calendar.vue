@@ -1,5 +1,5 @@
 <template>
-  <HeaderTag ref="headerTagEl">
+  <HeaderTag ref="headerTagEl" :hide-on-view-modes="[ 'desktop' ]">
     <UtilsHorizontalTabs
       :tabs="months"
       :active="selectedMonth"
@@ -45,12 +45,22 @@ type DateType = {
 //
 
 const i18n = useI18n()
+const viewMode = useViewMode()
 
 const globalHeaderFullHeight = useGlobalHeaderFullHeight()
 const globalNavFullHeight = useGlobalNavFullHeight()
 const headerTagEl = ref<HTMLElement | null>(null)
 const { height: headerTagHeight } = useElementSize(headerTagEl)
 const globalOccupiedVerticalSpace = computed(() => (globalHeaderFullHeight.value + globalNavFullHeight.value + headerTagHeight.value))
+
+//
+
+onMounted(handleDesktopView)
+watch(viewMode, handleDesktopView)
+function handleDesktopView() {
+  if (viewMode.value !== 'desktop') return
+  useRouter().push({ path: '/' })
+}
 
 //
 

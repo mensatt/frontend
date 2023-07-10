@@ -114,8 +114,8 @@ h1 {
 }
 
 .location, .profile {
-  font-family: $font-regular;
-  font-size: 10pt;
+  font-family: $font-major;
+  font-size: 9pt;
   color: $color-sub;
   margin: calc($main-content-padding/2);
   padding: calc($main-content-padding/2) $main-content-padding;
@@ -136,7 +136,7 @@ h1 {
   }
 
   .nuxt-icon {
-    font-size: 1.2em;
+    font-size: 1.3em;
     margin: -.2em;
   }
 }

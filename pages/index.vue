@@ -1,5 +1,5 @@
 <template>
-  <HeaderTag>
+  <HeaderTag :hide-on-view-modes="[ 'desktop' ]">
     <UtilsRelativeDateSelect />
   </HeaderTag>
  

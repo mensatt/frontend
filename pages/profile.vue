@@ -75,12 +75,22 @@ import { useThemes } from '../utils/themes'
 
 const popups = usePopups()
 const version = useVersion()
+const viewMode = useViewMode()
 
 const inputPrice = useSettingPrice()
 const inputHideMeat = useSettingHideMeat()
 const inputHideFish = useSettingHideFish()
 const inputHideGluten = useSettingHideGluten()
 
+
+//
+
+onMounted(handleDesktopView)
+watch(viewMode, handleDesktopView)
+function handleDesktopView() {
+  if (viewMode.value !== 'desktop') return
+  useRouter().push({ path: '/' })
+}
 
 //
 
