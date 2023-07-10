@@ -15,11 +15,11 @@
       v-model="selectedDay"
     />
 
-    <div class="location">
-      {{ mensa.name }}
+    <div class="location" @click="clickMensa()">
+      {{ selectedLocation.name }}
     </div>
 
-    <div class="profile">
+    <div class="profile" @click="clickProfile()">
       <NuxtIcon name="person_outline" />
       {{ $t('desktop_profile') }}
     </div>
@@ -29,7 +29,8 @@
 <script setup lang="ts">
 const selectedDay = useState<number | null>(() => 1)
 const router = useRouter()
-const mensa = useSelectedLocation()
+const selectedLocation = useSelectedLocation()
+const popups = usePopups()
 
 const route = useRoute()
 watch(route, val => {
@@ -48,6 +49,19 @@ function gotoIndex() {
     return
   router.push({ path: '/' })
 }
+
+async function clickMensa() {
+  const options = useLocationList().value
+  const mensa = await popups.open('select_mensa', {
+    current: selectedLocation.value,
+    options
+  })
+  if (mensa)
+    selectedLocation.value = mensa
+}
+
+async function clickProfile() {
+}
 </script>
 
 <style scoped lang="scss">
@@ -58,7 +72,7 @@ header {
   user-select: none;
   view-transition-name: header-main;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   box-sizing: border-box;
   height: $global-header-height;

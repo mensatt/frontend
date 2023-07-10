@@ -71,12 +71,15 @@ function toggleFav(location: EntityLocation.Location) {
   border-radius: $menu-item-br;
   display: grid;
   grid-template-columns: 1fr auto;
+  transition: background-color .1s ease;
+  cursor: pointer;
 
   .name {
     font-family: $font-major;
     font-size: 10pt;
     color: $color-regular;
     pointer-events: none;
+    user-select: none;
   }
 
   .fav {
@@ -84,6 +87,7 @@ function toggleFav(location: EntityLocation.Location) {
     margin: -10pt;
     font-size: calc(1em + 2pt);
     color: $color-minor;
+    user-select: none;
   }
 
   &[data-fav=true] {
@@ -96,6 +100,14 @@ function toggleFav(location: EntityLocation.Location) {
     .fav {
       color: $color-green;
     }
+  }
+
+  [view-mode=desktop] &[data-fav=true]:hover {  
+    background-color: $color-green40;
+  }
+
+  [view-mode=desktop] &[data-fav=false]:hover {  
+    background-color: $bg-dark;
   }
 }
 </style>

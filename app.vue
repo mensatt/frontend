@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 // apply color mode
-useColorMode()
+useSettingColorMode()
 
 const viewMode = useViewMode()
 // maximum screen width (px) for mobile view

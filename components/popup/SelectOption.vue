@@ -65,6 +65,7 @@ defineProps<{
     font-size: 10pt;
     color: $color-regular;
     pointer-events: none;
+    user-select: none;
   }
 
   .nuxt-icon {
@@ -72,6 +73,7 @@ defineProps<{
     margin: -10pt;
     font-size: calc(1em + 2pt);
     color: $color-minor;
+    user-select: none;
   }
 
   &[data-selected=true] {
