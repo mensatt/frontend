@@ -66,12 +66,11 @@ async function clickCalendar() {
   const elPos = relDateSelectEl.value?.getBoundingClientRect()
   const popupPos = elPos ? {
     top: elPos.bottom + 5,
-    left: elPos.right - 250,
-    width: 350
+    left: elPos.right - 300,
+    width: 450
   } : undefined
 
-  popups.open('test', {
-    a:1
+  popups.open('calendar', {
   }, popupPos)
 }
 

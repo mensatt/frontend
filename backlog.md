@@ -2,11 +2,11 @@
 
 ## v1.0 (Go Live)
 [ ] Desktop view
-  [ ] fix header
+  [X] fix header
   [ ] fix hidden occurrences
   [ ] add footer to index page
   [ ] add pageover popups (for calendar and profile)
-  [ ] restyle regular popups for desktop (no more drawer)
+  [X] restyle regular popups for desktop (no more drawer)
   [ ] button to admin view?
   [ ] make show details button work or disable for now
 [ ] Make clicking calendar date work
