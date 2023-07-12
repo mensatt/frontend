@@ -10,6 +10,7 @@
   <PageContent :no-padding="true" class="outer" :style="{ '--occupied': `${globalOccupiedVerticalSpace}px` }">
     <UtilsDatePicker
       :month="monthRel"
+      :rows="6"
       @next-month="selectedMonth = Math.min(months.length-1, selectedMonth+1)"
       @prev-month="selectedMonth = Math.max(0, selectedMonth-1)"
       @select=""

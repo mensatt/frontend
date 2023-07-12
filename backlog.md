@@ -2,13 +2,15 @@
 
 ## v1.0 (Go Live)
 [ ] Desktop view
-  [X] fix header
+  [ ] add pageover popups
+    [ ] profile
+    [X] calendar
   [ ] fix hidden occurrences
   [ ] add footer to index page
-  [ ] add pageover popups (for calendar and profile)
-  [X] restyle regular popups for desktop (no more drawer)
   [ ] button to admin view?
   [ ] make show details button work or disable for now
+  [X] restyle regular popups for desktop (no more drawer)
+  [X] fix header
 [ ] Make clicking calendar date work
 [ ] iOS popup scrolling issue
 [X] Localization
@@ -21,7 +23,13 @@
 
 ## v1.1 (Updates)
 
-[ ] Occurrence Detail page
 [ ] Hidden Occurrences button floating if there's only one occurrence -> anchor at bottom somehow
 [ ] Make it so you can swipe left and right on the overview page
 [ ] Make it so you can swipe left and right on the calendar page
+
+
+## v1.2 (Blocked by backend v2)
+
+[ ] Button to rotate uploaded image
+[ ] Only show mensas where visible = true
+[ ] Occurrence Detail page

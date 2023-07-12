@@ -7,10 +7,11 @@
       </h1>
     </NuxtLink>
 
-    <div ref="relDateSelectEl" class="dates">
+    <div ref="relDateSelectOuterEl" class="dates">
       <UtilsRelativeDateSelect
+        ref="relDateSelectInnerEl"
         :days-count="6"
-        :showCalendar="true"
+        :show-calendar="true"
         @click="gotoIndex()"
         @open-calendar="clickCalendar()"
         v-model="selectedDay"
@@ -35,8 +36,10 @@ const selectedDay = useState<number | null>(() => 1)
 const router = useRouter()
 const selectedLocation = useSelectedLocation()
 const popups = usePopups()
+const globalSelectedDate = useGlobalSelectedDate()
 
-const relDateSelectEl = ref<HTMLElement | null>(null)
+const relDateSelectOuterEl = ref<HTMLElement | null>(null)
+const relDateSelectInnerEl = ref<HTMLElement | null>(null)
 const mensaButtonEl = ref<HTMLElement | null>(null)
 const profileButtonEl = ref<HTMLElement | null>(null)
 
@@ -63,15 +66,22 @@ function gotoIndex() {
 //
 
 async function clickCalendar() {
-  const elPos = relDateSelectEl.value?.getBoundingClientRect()
+  const elPos = relDateSelectOuterEl.value?.getBoundingClientRect()
   const popupPos = elPos ? {
     top: elPos.bottom + 5,
     left: elPos.right - 300,
     width: 450
   } : undefined
 
-  popups.open('calendar', {
-  }, popupPos)
+  const date = await popups.open('calendar', {}, popupPos)
+  if (!date) return
+
+  if (!relDateSelectInnerEl.value) return
+  const rds = relDateSelectInnerEl.value as any
+  const index = rds.indexOfDate(date)
+
+  selectedDay.value = (index === -1) ? 6 : index
+  globalSelectedDate.value = date
 }
 
 async function clickMensa() {

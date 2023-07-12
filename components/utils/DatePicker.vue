@@ -1,6 +1,6 @@
 <template>
   <div
-    class="dates"
+    class="date-picker"
     :style="{ '--rows': Math.ceil(dates.length/5) }"
   >
     <span v-text="$t('weekday_mon')" />
@@ -12,6 +12,7 @@
       v-for="date, i of dates"
       :key="i"
       :data-type="date.type"
+      :data-selected="date.selected"
       :data-today="date.today"
       @click="clickDate(date)"
     >
@@ -26,12 +27,15 @@ type DateType = {
   date: Date
   type: 'prev' | 'next' | 'selectable'
   today: boolean
+  selected: boolean
 }
 
 // 
 
 const props = defineProps<{
   month: number
+  rows?: number
+  selected?: Date
 }>()
 
 const emit = defineEmits([ 'nextMonth', 'prevMonth', 'select' ])
@@ -43,6 +47,12 @@ const DAY_MILLIS = 24 * 60 * 60 * 1000
 
 function isWeekend(date: Date): boolean {
   return (date.getDay() === 0) || (date.getDay() === 6)
+}
+
+function sameDay(d1: Date, d2: Date): boolean {
+  return (d1.getDate() === d2.getDate())
+    && (d1.getMonth() === d2.getMonth())
+    && (d1.getFullYear() === d2.getFullYear())
 }
 
 const dates = computed(() => {
@@ -66,26 +76,29 @@ const dates = computed(() => {
     for (let prevMonth = 0; prevMonth < monthOne.getDay(); prevMonth++) {
       const date = new Date(monthOne.getTime() + (prevMonth - monthOne.getDay()) * DAY_MILLIS)
       if (isWeekend(date)) continue
-      out.push({ date, type: 'prev', today: false })
+      out.push({ date, type: 'prev', today: false, selected: false })
     }
   }
 
   for (let counter = 0; counter < monthLength; counter++) {
     const date = new Date(monthOne.getTime() + counter * DAY_MILLIS)
     if (isWeekend(date)) continue
-    const today = (TODAY.getDate() === date.getDate())
-      && (TODAY.getMonth() === date.getMonth())
-      && (TODAY.getFullYear() === date.getFullYear())
-    out.push({ date, type: 'selectable', today })
+
+    const today = sameDay(TODAY, date)
+    const selected = props.selected
+      ? sameDay(props.selected, date)
+      : false
+
+    out.push({ date, type: 'selectable', today, selected })
   }
 
   for (let counter = 0; counter < 14; counter++) {
     const date = new Date(monthOne.getTime() + (monthLength + counter) * DAY_MILLIS)
     if (isWeekend(date)) continue
-    out.push({ date, type: 'next', today: false })
+    out.push({ date, type: 'next', today: false, selected: false })
   }
 
-  return out.slice(0, 5 * 6)
+  return out.slice(0, 5 * (props.rows ?? 5))
 })
 
 function clickDate(date: DateType) {
@@ -99,7 +112,7 @@ function clickDate(date: DateType) {
 </script>
 
 <style scoped lang="scss">
-.dates {
+.date-picker {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: auto repeat(var(--rows), 1fr);
@@ -139,25 +152,23 @@ function clickDate(date: DateType) {
     &[data-type="prev"],
     &[data-type="next"] {
       opacity: .3;
+      span { color: $color-minor; }
+    }
 
-      span {
-        color: $color-minor;
-      }
+    &[data-selected=true] {
+      background-color: $bg-darker;
     }
 
     &[data-today=true] {
       background-color: $color-green40;
-
-      span {
-        color: $color-green;
-      }
+      span { color: $color-green; }
     }
 
     [view-mode=desktop] &[data-type="selectable"]:hover {
       background-color: $bg-darker;
     }
     [view-mode=desktop] &[data-type="selectable"][data-today=true]:hover {
-      background-color: $color-green40;
+      background-color: $color-green60;
     }
   }
 }

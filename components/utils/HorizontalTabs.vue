@@ -10,7 +10,7 @@
           @click="tab.onClickOverride ? tab.onClickOverride() : emit('select', i)"
         >
           <NuxtIcon v-if="tab.icon" :name="tab.icon" />
-          <span v-text="tab.name" />
+          <span v-text="sanitize(tab.name)" />
         </div>
       </div>
 
@@ -22,7 +22,7 @@
 <script setup lang="ts">
 export type TabData = {
   id: string
-  name: string
+  name: string | ComputedRef<string>
   seperator?: boolean
   icon?: string
   onClickOverride?: () => any
@@ -38,6 +38,11 @@ const emit = defineEmits([ 'select' ])
 
 const tabsEl = ref<HTMLElement | null>(null)
 const parentEl = ref<HTMLElement | null>(null)
+
+function sanitize(name: string | ComputedRef<string>) {
+  if (!(name as any).value) return name
+  return (name as ComputedRef<string>).value.replaceAll('"', '')
+}
 
 function mix(a: number, b: number, ratio: number) {
   const min = Math.min(a, b)

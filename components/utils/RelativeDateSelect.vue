@@ -21,6 +21,7 @@ const emit = defineEmits([ 'update:modelValue', 'openCalendar' ])
 //
 
 const i18n = useI18n()
+const globalSelectedDate = useGlobalSelectedDate()
 
 const relativeDayNames: Record<number, string> = {
   [-1]: i18n.t('yesterday'),
@@ -60,9 +61,13 @@ while (listOfDates.length < (props.daysCount ?? 7)) {
 
 if (props.showCalendar) {
   listOfDates.at(-1)!.seperator = true
+  const indexOfCalendar = listOfDates.length
   listOfDates.push({
-    id: 'calendar',
-    name: i18n.t('desktop_calendar'),
+    id: '_calendar',
+    name: computed(() => (selectedDate.value === indexOfCalendar)
+      ? globalSelectedDate.value.toLocaleDateString(i18n.locale.value)
+      : i18n.t('desktop_calendar')
+    ),
     icon: 'calendar_outline',
     onClickOverride() {
       emit('openCalendar')
@@ -75,8 +80,35 @@ watch(selectedDate, val => emit('update:modelValue', val))
 onMounted(() => emit('update:modelValue', selectedDate.value))
 watch(props, val => (val.modelValue !== undefined) ? (selectedDate.value = val.modelValue) : {})
 
-const activeDate = computed(() => new Date(listOfDates[selectedDate.value ?? 0].id))
+const activeDate = computed(() => {
+  const id = listOfDates[selectedDate.value ?? 0].id
+  if (id.startsWith('_')) return null
+  return new Date(id)
+})
 const globalSync = useGlobalSelectedDate()
-watch(activeDate, val => (globalSync.value = val))
-onMounted(() => (globalSync.value = activeDate.value))
+watch(activeDate, val => (val ? (globalSync.value = val) : {}))
+onMounted(() => (activeDate.value ? (globalSync.value = activeDate.value) : {}))
+
+//
+
+/** for a given date, check if that date is part of the options and if it is provide the index. otherwise return -1 */
+function indexOfDate(date: Date): number {
+  for (let i = 0; i < listOfDates.length; i++) {
+    const check = listOfDates[i]
+    if (check.id.startsWith('_')) continue
+
+    const compareTo = new Date(check.id)
+
+    if (date.getFullYear() !== compareTo.getFullYear()) continue
+    if (date.getMonth() !== compareTo.getMonth()) continue
+    if (date.getDate() !== compareTo.getDate()) continue
+
+    return i
+  }
+  return -1
+}
+
+defineExpose({
+  indexOfDate
+})
 </script>
