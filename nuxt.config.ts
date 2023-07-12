@@ -36,7 +36,10 @@ export default defineNuxtConfig({
       ],
       htmlAttrs: {
         lang: 'en'
-      }
+      },
+      script: [
+        { async: true, src: 'https://umami.mensatt.de/script.js', 'data-website-id': '3e757e9e-d5a2-43d8-b62f-73b155f99800' }
+      ]
     },
   },
 

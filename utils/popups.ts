@@ -51,16 +51,24 @@ export const PopupComponents: Record<Popup<any>['id'], DefineComponent<any, any,
   select_option: PopupSelectOption
 }
 
+export type PositionalData = {
+  top?: number
+  left?: number
+  bottom?: number
+  right?: number
+  width?: number
+}
+
 //
 
-export type PopupInternally = Omit<Popup<any>, 'returns'> & { callback: Function, uuid: number, dismissed: boolean }
+export type PopupInternally = Omit<Popup<any>, 'returns'> & { callback: Function, uuid: number, dismissed: boolean, position?: PositionalData }
 
 const getState = () => useState<PopupInternally[]>('popups', () => ([]))
 let uuidCounter = 0
 
 export const usePopups = () => ({
-  open<T extends string, Id extends Popup<T>['id']>(id: Id, data: (Popup<T> & { id: Id })['data']): Promise<(Popup<T> & { id: Id })['returns'] | null> {
-    return new Promise((callback) => getState().value.push({ id, data, callback, uuid: uuidCounter++, dismissed: false }))
+  open<T extends string, Id extends Popup<T>['id']>(id: Id, data: (Popup<T> & { id: Id })['data'], position?: PositionalData): Promise<(Popup<T> & { id: Id })['returns'] | null> {
+    return new Promise((callback) => getState().value.push({ id, data, callback, uuid: uuidCounter++, dismissed: false, position }))
   },
   get state() {
     return getState().value

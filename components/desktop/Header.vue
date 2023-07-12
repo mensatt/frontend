@@ -15,11 +15,11 @@
       v-model="selectedDay"
     />
 
-    <div class="location" @click="clickMensa()">
+    <div ref="mensaButtonEl" class="location" @click="clickMensa()">
       {{ selectedLocation.name }}
     </div>
 
-    <div class="profile" @click="clickProfile()">
+    <div ref="profileButtonEl" class="profile" @click="clickProfile()">
       <NuxtIcon name="person_outline" />
       {{ $t('desktop_profile') }}
     </div>
@@ -31,6 +31,11 @@ const selectedDay = useState<number | null>(() => 1)
 const router = useRouter()
 const selectedLocation = useSelectedLocation()
 const popups = usePopups()
+
+const mensaButtonEl = ref<HTMLElement | null>(null)
+const profileButtonEl = ref<HTMLElement | null>(null)
+
+//
 
 const route = useRoute()
 watch(route, val => {
@@ -51,16 +56,33 @@ function gotoIndex() {
 }
 
 async function clickMensa() {
+  const elPos = mensaButtonEl.value?.getBoundingClientRect()
+  const popupPos = elPos ? {
+    top: elPos.bottom + 5,
+    right: window.innerWidth - elPos.right,
+    width: 350
+  } : undefined
+
   const options = useLocationList().value
   const mensa = await popups.open('select_mensa', {
     current: selectedLocation.value,
     options
-  })
+  }, popupPos)
   if (mensa)
     selectedLocation.value = mensa
 }
 
 async function clickProfile() {
+  const elPos = profileButtonEl.value?.getBoundingClientRect()
+  const popupPos = elPos ? {
+    top: elPos.bottom + 5,
+    right: window.innerWidth - elPos.right,
+    width: 350
+  } : undefined
+
+  popups.open('test', {
+    a: 1
+  }, popupPos)
 }
 </script>
 
