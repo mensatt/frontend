@@ -16,7 +16,7 @@ const props = defineProps<{
   showCalendar?: boolean
 }>()
 
-const emit = defineEmits([ 'update:modelValue' ])
+const emit = defineEmits([ 'update:modelValue', 'openCalendar' ])
 
 //
 
@@ -63,7 +63,10 @@ if (props.showCalendar) {
   listOfDates.push({
     id: 'calendar',
     name: i18n.t('desktop_calendar'),
-    icon: 'calendar_outline'
+    icon: 'calendar_outline',
+    onClickOverride() {
+      emit('openCalendar')
+    }
   })
 }
 

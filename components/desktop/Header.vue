@@ -7,13 +7,17 @@
       </h1>
     </NuxtLink>
 
-    <UtilsRelativeDateSelect
-      class="dates"
-      :days-count="6"
-      :showCalendar="true"
-      @click="gotoIndex()"
-      v-model="selectedDay"
-    />
+    <div ref="relDateSelectEl" class="dates">
+      <UtilsRelativeDateSelect
+        :days-count="6"
+        :showCalendar="true"
+        @click="gotoIndex()"
+        @open-calendar="clickCalendar()"
+        v-model="selectedDay"
+      />
+    </div>
+
+    <div class="spacer" />
 
     <div ref="mensaButtonEl" class="location" @click="clickMensa()">
       {{ selectedLocation.name }}
@@ -32,6 +36,7 @@ const router = useRouter()
 const selectedLocation = useSelectedLocation()
 const popups = usePopups()
 
+const relDateSelectEl = ref<HTMLElement | null>(null)
 const mensaButtonEl = ref<HTMLElement | null>(null)
 const profileButtonEl = ref<HTMLElement | null>(null)
 
@@ -53,6 +58,21 @@ function gotoIndex() {
   if (route.name === 'index')
     return
   router.push({ path: '/' })
+}
+
+//
+
+async function clickCalendar() {
+  const elPos = relDateSelectEl.value?.getBoundingClientRect()
+  const popupPos = elPos ? {
+    top: elPos.bottom + 5,
+    left: elPos.right - 250,
+    width: 350
+  } : undefined
+
+  popups.open('test', {
+    a:1
+  }, popupPos)
 }
 
 async function clickMensa() {
@@ -130,9 +150,14 @@ h1 {
   }
 }
 
+.spacer {
+  flex: 1 1 0%;
+}
+
 .dates {
   width: 30pt;
-  flex: 1 1;
+  max-width: fit-content;
+  flex: 1 1 100%;
 }
 
 .location, .profile {

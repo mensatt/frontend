@@ -7,7 +7,7 @@
           :key="tab.id"
           :style="{ '--active': (active === null) ? 0 : (1 - Math.min(1, Math.abs(active - i))) }"
           :data-seperator="tab.seperator && (i !== tabs.length-1)"
-          @click="emit('select', i)"
+          @click="tab.onClickOverride ? tab.onClickOverride() : emit('select', i)"
         >
           <NuxtIcon v-if="tab.icon" :name="tab.icon" />
           <span v-text="tab.name" />
@@ -25,6 +25,7 @@ export type TabData = {
   name: string
   seperator?: boolean
   icon?: string
+  onClickOverride?: () => any
 }
 
 const props = defineProps<{
@@ -85,7 +86,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .ht {
-  width: 100vw;
+  width: 100%;
   height: 100%;
   overflow-x: scroll;
   
