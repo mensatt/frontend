@@ -14,7 +14,7 @@
   </div>
 
   <div v-else class="occurrences">
-    <div v-if="occurrences.visible.length" class="visible-list">
+    <div v-if="occurrences.visible.length || (showHidden && viewMode === 'desktop' && occurrences.hidden.length)" class="visible-list">
       <OccurrenceCard
         v-for="occ of occurrences.visible"
         :key="occ.id"
@@ -30,7 +30,7 @@
     <div v-else-if="occurrences.hidden.length" class="no-list">
       <img src="~/assets/img/carrocket_down.svg" alt="">
       <span class="title" v-text="$t('occurrence_all_hidden_title')" />
-      <span class="desc" v-text="$t('occurrence_all_hidden_desc')" />
+      <span class="desc" v-text="$t('occurrence_all_hidden_desc_' + viewMode)" />
     </div>
     <div v-else class="no-list">
       <img src="~/assets/img/carrocket_down.svg" alt="">
