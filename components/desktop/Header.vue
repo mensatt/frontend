@@ -109,9 +109,7 @@ async function clickProfile() {
     width: 350
   } : undefined
 
-  popups.open('test', {
-    a: 1
-  }, popupPos)
+  popups.open('profile_settings', {}, popupPos)
 }
 </script>
 

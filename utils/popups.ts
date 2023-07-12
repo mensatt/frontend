@@ -4,6 +4,7 @@ import PopupTest from "~/components/popup/Test.vue"
 import PopupRateDish from "~/components/popup/RateDish.vue"
 import PopupSelectOption from "~/components/popup/SelectOption.vue"
 import PopupCalendar from "~/components/popup/Calendar.vue"
+import PopupProfileSettings from "~/components/popup/ProfileSettings.vue"
 import { EntityLocation } from "./entities/location"
 import { EntityOccurrence } from "./entities/occurrence"
 
@@ -44,9 +45,12 @@ export type Popup<T extends String> = {
   returns: T
 } | {
   id: 'calendar'
-  data: {
-  }
+  data: {}
   returns: Date
+} | {
+  id: 'profile_settings'
+  data: {}
+  returns: any
 }
 
 /** AND HERE */
@@ -55,7 +59,8 @@ export const PopupComponents: Record<Popup<any>['id'], DefineComponent<any, any,
   select_mensa: PopupSelectMensa,
   rate_dish: PopupRateDish,
   select_option: PopupSelectOption,
-  calendar: PopupCalendar
+  calendar: PopupCalendar,
+  profile_settings: PopupProfileSettings
 }
 
 export type PositionalData = {

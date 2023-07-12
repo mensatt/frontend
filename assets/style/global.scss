@@ -129,6 +129,15 @@ label {
   }
 }
 
+hr {
+  border: none;
+  width: 100%;
+  height: 1px;
+  display: block;
+  background-color: $bg-dark;
+  margin: calc($menu-item-padding * 2) 0;
+}
+
 // POPUP DEFAULT STYLING
 
 .popup h2 {
