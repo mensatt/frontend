@@ -25,6 +25,8 @@
 
 [ ] Make it so you can swipe left and right on the overview page
 [ ] Make it so you can swipe left and right on the calendar page
+[ ] Show indicator on every calendar date where there's occurrances for that day
+[ ] Show indicator for every mensa whether open or not
 [X] Hidden Occurrences button floating if there's only one occurrence -> anchor at bottom somehow
 
 

@@ -13,7 +13,7 @@ function getClient() {
 type GqlResponse = _AsyncData<{ occurrences: EntityOccurrence.Occurrence[] }, Error>
 const occurrenceCache: Map<string, GqlResponse> = new Map()
 async function getOccurrences(locationId: string, date: Date): Promise<GqlResponse> {
-  const dateStr = date.toISOString().split('T')[0]
+  const dateStr = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`
   const client = getClient()
   const cacheKey = `${locationId}:${dateStr}:${client}`
 
