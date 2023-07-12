@@ -28,8 +28,6 @@ export default {
   settings_others_dev_app_info: 'App Info',
   settings_others_dev_full_reload: 'Full Reload (PWA)',
   info_header: 'Information',
-  info_privacy: 'Datenschutzbestimmungen',
-  info_credits: 'Mitwirkende',
   theme_auto: 'Automatisch',
   theme_light: 'Hell',
   theme_dark: 'Dunkel',
@@ -86,5 +84,9 @@ export default {
   refresh: 'Aktualisieren',
   desktop_calendar: 'Kalender',
   desktop_profile: 'Profil & Optionen',
+  liability_disclaimer: 'Das ist keine offizielle Seite des Studentenwerks. Alle Angaben ohne Gewähr',
+  page_privacy: 'Datenschutzbestimmungen',
+  page_credits: 'Mitwirkende',
+  page_admin: 'Admin',
 }
 

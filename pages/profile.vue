@@ -10,8 +10,8 @@
     <UtilsSettingsMenu />
 
     <h3 v-text="$t('info_header')" />
-    <UiExternLink text="info_privacy" url="/privacy" />
-    <UiExternLink text="info_credits" url="/credits" />
+    <UiExternLink text="page_privacy" url="/privacy" />
+    <UiExternLink text="page_credits" url="/credits" />
     <div class="socials">
       <NuxtLink to="https://discord.gg/wjeYsQQQ3R" target="_blank" class="social">
         <NuxtIcon name="brands/discord" />

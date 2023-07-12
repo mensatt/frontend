@@ -28,8 +28,6 @@ export default {
   settings_others_dev_app_info: 'App Info',
   settings_others_dev_full_reload: 'Full Reload (PWA)',
   info_header: 'Information',
-  info_privacy: 'Privacy Policy',
-  info_credits: 'Contributors',
   theme_auto: 'Automatic',
   theme_light: 'Light',
   theme_dark: 'Dark',
@@ -85,4 +83,9 @@ export default {
   refresh: 'Refresh',
   desktop_calendar: 'Calendar',
   desktop_profile: 'Profile & Preferences',
+  liability_disclaimer: 'Mensatt ist keine offizielle Seite des Studentenwerks. Alle Angaben ohne Gewähr',
+  liability_disclaimer: 'Mensatt is an unofficial website not affiliated with Studentenwerk. All information is provided without warranty.',
+  page_privacy: 'Privacy Policy',
+  page_credits: 'Contributors',
+  page_admin: 'Admin',
 }

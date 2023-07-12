@@ -2,10 +2,10 @@
 
 ## v1.0 (Go Live)
 [ ] Desktop view
-  [ ] fix hidden occurrences
-  [ ] add footer to index page
-  [ ] button to admin view?
   [ ] make show details button work or disable for now
+  [X] button to admin view?
+  [X] add footer to index page
+  [X] fix hidden occurrences
   [X] add pageover popups
     [X] profile
     [X] calendar
