@@ -28,7 +28,8 @@
       </div>
 
       <div v-if="viewMode === 'desktop'" class="buttons">
-        <button class="details" @click="rate()" v-text="$t('occurrence_show_details')" />
+        <!-- TODO ↓ -->
+        <button class="details" :disabled="true" @click="console.log('TODO')" v-text="$t('occurrence_show_details')" />
         <button class="rate" :disabled="!userCanRate" @click="rate()" v-text="$t('occurrence_add_rating')" />
       </div>
       <button v-else-if="userCanRate" class="rateme" @click="rate()" v-text="$t('occurrence_add_rating')" />
@@ -226,7 +227,12 @@ h2 {
       border: 1pt solid $bg-darker;
       color: $color-minor;
 
-      &:hover {
+      &:disabled {
+        cursor: not-allowed;
+        opacity: .5;
+      }
+
+      &:hover:not(:disabled) {
         background-color: $bg-dark;
       }
     }

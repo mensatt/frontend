@@ -5,6 +5,7 @@ type Filters = {
   noMeat: boolean
   noFish: boolean
   noGluten: boolean
+  noLactose: boolean
 }
 
 type VisibleHidden = {
@@ -33,6 +34,7 @@ function satisfiesFilter(occ: EntityOccurrence.Occurrence, filters: Filters): bo
   if (filters.noMeat && nameDescribesMeat(occ.dish.nameDe)) return false
   if (filters.noFish && occ.tags.some(t => (t.key === 'Fi'))) return false
   if (filters.noGluten && !occ.tags.some(t => (t.key === 'Gf'))) return false
+  if (filters.noLactose && occ.tags.some(t => (t.key === 'Mi'))) return false
   return true
 }
 
@@ -42,7 +44,8 @@ function filterOccurrences(list: EntityOccurrence.Occurrence[]): VisibleHidden {
   const filters: Filters = {
     noMeat: useSettingHideMeat().value,
     noFish: useSettingHideFish().value,
-    noGluten: useSettingHideGluten().value
+    noGluten: useSettingHideGluten().value,
+    noLactose: useSettingHideLactose().value,
   }
 
   for (const item of list) {

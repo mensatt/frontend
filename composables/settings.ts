@@ -8,6 +8,7 @@ export const useSettingColorMode = () => useColorMode<ThemeChoice>({ modes: useT
 export const useSettingHideMeat = () => useLocalStorage<boolean>('usersetting-hide-meat', () => false)
 export const useSettingHideFish = () => useLocalStorage<boolean>('usersetting-hide-fish', () => false)
 export const useSettingHideGluten = () => useLocalStorage<boolean>('usersetting-hide-gluten', () => false)
+export const useSettingHideLactose = () => useLocalStorage<boolean>('usersetting-hide-lactose', () => false)
 
 export const useSettingDevMode = () => useLocalStorage<boolean>('devmode-enabled', () => false)
 export const useSettingDevBackend = () => useLocalStorage<'prod' | 'dev' | 'local'>('devmode-backend', () => 'prod')

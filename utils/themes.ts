@@ -16,8 +16,8 @@ const themes = [
   { id: 'dark', name: 'theme_dark', icon: 'theme_dark', primary: true },
 
   // funky custom themes
-  { id: 'amoled', name: 'theme_amoled', icon: 'theme_dark' },
-  { id: 'green', name: 'theme_green', icon: 'labs' },
+  // { id: 'amoled', name: 'theme_amoled', icon: 'theme_dark' },
+  // { id: 'green', name: 'theme_green', icon: 'labs' },
 ] as const satisfies readonly ThemeObject[]
 
 // ↑ ADD YOUR THEME HERE ↑

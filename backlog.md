@@ -1,8 +1,10 @@
 # The Backlog
 
 ## v1.0 (Go Live)
-[ ] Desktop view
-  [ ] make show details button work or disable for now
+[ ] Make clicking calendar date work (mobile)
+[ ] iOS popup scrolling issue
+[X] Desktop view
+  [X] make show details button work or disable for now
   [X] button to admin view?
   [X] add footer to index page
   [X] fix hidden occurrences
@@ -11,8 +13,6 @@
     [X] calendar
   [X] restyle regular popups for desktop (no more drawer)
   [X] fix header
-[ ] Make clicking calendar date work (mobile)
-[ ] iOS popup scrolling issue
 [X] Localization
 [X] 404 page
 [X] Fix image upload. Right now it just crashes because the file does not get attached to the request properly.
@@ -32,6 +32,7 @@
 
 ## v1.2 (Blocked by backend v2)
 
+[ ] Switch to NuxtImage for optimized image fetching
 [ ] Button to rotate uploaded image
 [ ] Only show mensas where visible = true
 [ ] Occurrence Detail page

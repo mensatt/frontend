@@ -22,6 +22,7 @@
     <UiToggle text="settings_preferences_hide_meat" v-model="inputHideMeat" />
     <UiToggle text="settings_preferences_hide_fish" v-model="inputHideFish" />
     <UiToggle text="settings_preferences_hide_gluten" v-model="inputHideGluten" />
+    <UiToggle text="settings_preferences_hide_lactose" v-model="inputHideLactose" />
   </div>
 
   <label for="others" v-text="$t('settings_others_header')" />
@@ -44,6 +45,7 @@ const inputPrice = useSettingPrice()
 const inputHideMeat = useSettingHideMeat()
 const inputHideFish = useSettingHideFish()
 const inputHideGluten = useSettingHideGluten()
+const inputHideLactose = useSettingHideLactose()
 
 //
 

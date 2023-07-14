@@ -94,10 +94,6 @@ footer {
     &:first-of-type { align-self: flex-end; }
     &:last-of-type { align-self: flex-start; }
   }
-
-  &:hover > span {
-    opacity: 1;
-  }
 }
 
 .socials {

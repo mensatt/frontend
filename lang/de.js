@@ -21,6 +21,7 @@ export default {
   settings_preferences_hide_meat: 'Fleischgerichte ausblenden',
   settings_preferences_hide_fish: 'Fischgerichte ausblenden',
   settings_preferences_hide_gluten: 'Glutenhaltiges ausblenden',
+  settings_preferences_hide_lactose: 'Laktosehaltiges ausblenden',
   settings_others_header: 'Sonstiges',
   settings_others_devmode: 'Entwicklermodus',
   settings_others_dev_backend: 'Backend',
