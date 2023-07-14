@@ -13,7 +13,7 @@
       :rows="6"
       @next-month="selectedMonth = Math.min(months.length-1, selectedMonth+1)"
       @prev-month="selectedMonth = Math.max(0, selectedMonth-1)"
-      @select=""
+      @select="openDay"
     />
   </PageContent>
 </template>
@@ -23,6 +23,7 @@ import { TabData } from '../components/utils/HorizontalTabs.vue'
 
 const viewMode = useViewMode()
 const i18n = useI18n()
+const popups = usePopups()
 
 const globalHeaderFullHeight = useGlobalHeaderFullHeight()
 const globalNavFullHeight = useGlobalNavFullHeight()
@@ -63,6 +64,12 @@ for (let i = -MONTHS_PAST; i <= MONTHS_FUTURE; i++) {
 
 const selectedMonth = useState('calendar--sel-month', () => MONTHS_PAST)
 const monthRel = computed(() => (currentMonth - MONTHS_PAST + selectedMonth.value))
+
+//
+
+function openDay(date: Date) {
+  popups.open('occurrences_for_day', { date })
+}
 </script>
 
 <style scoped lang="scss">

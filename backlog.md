@@ -1,8 +1,7 @@
 # The Backlog
 
 ## v1.0 (Go Live)
-[ ] Make clicking calendar date work (mobile)
-[ ] iOS popup scrolling issue
+[X] Make clicking calendar date work (mobile)
 [X] Desktop view
   [X] make show details button work or disable for now
   [X] button to admin view?
