@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading">
+  <div v-if="loading" class="visible-list">
     <SkeletonOccurrence
       v-for="i in 3"
       :key="i"

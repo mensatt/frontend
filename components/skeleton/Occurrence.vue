@@ -12,11 +12,15 @@
         />
       </div>
       <div
-      v-for="i in Math.floor(Math.sin(seed + 20) * 2) + 2"
+        v-for="i in Math.floor(Math.sin(seed + 20) * 2) + 2"
         :key="i"
         class="comment"
         v-text="'a'.repeat(Math.floor((Math.sin(i*2 + seed) + 2) * 20))"
       />
+      <div class="buttons">
+        <div class="button" />
+        <div class="button" />
+      </div>
     </div>
   </div>
 </template>
@@ -37,6 +41,14 @@ const { seed } = defineProps<{
   overflow: hidden;
   background-color: $bg-lighter;
   padding-bottom: calc($main-content-padding * 3);
+  height: fit-content;
+  box-sizing: border-box;
+
+  [view-mode=desktop] & {
+    border-radius: $menu-item-br;
+    border: 1px solid $bg-dark;
+    padding-bottom: 0;
+  }
 }
 
 .image {
@@ -47,6 +59,10 @@ const { seed } = defineProps<{
   background-color: $bg-dark;
   box-sizing: border-box;
   margin: 0;
+
+  [view-mode=desktop] & {
+    border-radius: $menu-item-br $menu-item-br 0 0;
+  }
 }
 
 .details {
@@ -88,5 +104,25 @@ const { seed } = defineProps<{
   color: transparent;
   word-break: break-all;
   margin-bottom: 5pt;
+}
+
+.buttons {
+  display: none;
+
+  [view-mode=desktop] & {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: $menu-item-margin;
+    gap: $menu-item-margin;
+  }
+
+  .button {
+    height: 28pt;
+    border-radius: 999pt;
+    box-sizing: border-box;
+
+    &:first-child { border: 1px solid $bg-dark; }
+    &:last-child { background-color: $bg-dark; }
+  }
 }
 </style>
