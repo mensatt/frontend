@@ -32,6 +32,7 @@ export namespace EntityOccurrence {
         nameDe
       }
       date
+      kcal
       priceStudent
       priceStaff
       priceGuest
@@ -88,6 +89,7 @@ export namespace EntityOccurrence {
     dish: Dish
     sideDishes: Dish[]
     date: string
+    kcal: number
     priceStudent: number
     priceStaff: number
     priceGuest: number

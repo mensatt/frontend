@@ -15,6 +15,7 @@
   <div class="visual">
     <UiSelectable text="settings_visual_language" :iconFilled="true" :selected="selectedLanguage" :skip-value-t="true" @open="openLanguageSelector" />
     <UiSelectable text="settings_visual_theme" :selected="selectedTheme" @open="openThemeSelector" />
+    <UiToggle text="settings_visual_show_calories" v-model="inputShowCalories" />
   </div>
 
   <label for="preferences" v-text="$t('settings_preferences_header')" />
@@ -46,6 +47,7 @@ const inputHideMeat = useSettingHideMeat()
 const inputHideFish = useSettingHideFish()
 const inputHideGluten = useSettingHideGluten()
 const inputHideLactose = useSettingHideLactose()
+const inputShowCalories = useSettingShowCalories()
 
 //
 

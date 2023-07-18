@@ -9,11 +9,12 @@
       <h2 v-text="dishName" />
 
       <div class="pills">
-        <OccurrencePriceTag :data="data" />
-        <OccurrenceStarRating
+        <OccurrencePricePill :data="data" />
+        <OccurrenceRatingPill
           :stars="data.dish.reviewData.metadata.averageStars || 0"
           :count="data.dish.reviewData.metadata.reviewCount"
         />
+        <OccurrenceCaloriesPill v-if="showCalories" :data="data" />
         <OccurrenceTagPill v-for="tag of displayTags" :key="tag.key" :data="tag" />
       </div>
 
@@ -44,6 +45,8 @@ const api = useApi()
 const popups = usePopups()
 const i18n = useI18n()
 const viewMode = useViewMode()
+
+const showCalories = useSettingShowCalories()
 
 const { data } = defineProps<{
   data: EntityOccurrence.Occurrence

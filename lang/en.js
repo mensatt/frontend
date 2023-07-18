@@ -17,6 +17,7 @@ export default {
   settings_visual_language_select: 'Select language',
   settings_visual_theme: 'Color scheme',
   settings_visual_theme_select: 'Select color scheme',
+  settings_visual_show_calories: 'Show calories per €',
   settings_preferences_header: 'Diet preferences',
   settings_preferences_hide_meat: 'Hide dishes containing meat',
   settings_preferences_hide_fish: 'Hide dishes containing fish',

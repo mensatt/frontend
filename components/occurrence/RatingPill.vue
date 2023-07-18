@@ -46,5 +46,4 @@ span {
   margin-left: calc($content-pills-height * 0.25);
   margin-right: calc($content-pills-height * 0.15);
 }
-
 </style>

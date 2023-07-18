@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <span v-text="`${price}€`" />
+  <div v-if="priceRaw">
+    <span v-text="text" />
   </div>
 </template>
 
@@ -22,22 +22,14 @@ const priceRaw = computed(() => {
     return data.priceGuest
   return 0
 })
-const price = computed(() => {
-  if (priceRaw === null)
-    return '-- '
-  
-  return (priceRaw.value / 100)
-    .toLocaleString(
-      undefined,
-      { minimumFractionDigits: 2, maximumFractionDigits: 2 }
-    )
-})
+
+const text = computed(() => `${Math.round(data.kcal / (priceRaw.value / 100))} kcal/€`)
 </script>
 
 <style scoped lang="scss">
 div {
   height: $content-pills-height;
-  background-color: $color-blue20;
+  background-color: $color-green40;
   border-radius: $card-item-br;
   width: fit-content;
   display: flex;
@@ -48,7 +40,7 @@ div {
 }
 
 span {
-  color: $color-blue;
+  color: $color-greenH;
   font-family: $font-major;
   font-size: 11pt;
 }
