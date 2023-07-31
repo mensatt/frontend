@@ -36,6 +36,7 @@ const optionsSorted = useState<EntityLocation.Location[]>(
 
 onMounted(() => {
   optionsSorted.value = props.options
+    .filter(o => (o.visible !== false))
     .map(o => ([ o, favourites.value.includes(o.id) ]) as const)
     .sort((a, b) => (a[1] && !b[1])
       ? -1
