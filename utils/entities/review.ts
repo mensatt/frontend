@@ -26,9 +26,12 @@ export namespace EntityReview {
   export type AddVariables = {
     stars: number
     occId: string
-    author?: string
-    comment?: string
-    images?: { image: File }[]
+    author: string | null
+    comment: string | null
+    images?: {
+      image: File
+      rotation?: 0 | 90 | 180 | 270
+    }[]
   }
 
 }

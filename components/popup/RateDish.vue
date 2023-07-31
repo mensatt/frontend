@@ -1,7 +1,7 @@
 <template>
   <div class="outer" :data-loading="submittedLoading">
     <h2>{{ dishName }}</h2>
-    
+
     <label for="stars" v-text="$t('rate_dish_stars')" />
     <div class="stars" :data-error-below="errorRequireStars">
       <div
@@ -17,9 +17,14 @@
     <span v-if="errorRequireStars" class="error" v-text="$t('rate_dish_stars_error')" />
 
     <label for="image" optional v-text="$t('rate_dish_image')" />
-    <div class="image" :data-uploaded="!!fileUploadPreview" @click="open()">
-      <img v-if="fileUploadPreview" :src="fileUploadPreview" />
-      <p v-else v-text="$t('rate_dish_image_upload')" />
+    <div class="image" :data-uploaded="!!fileUploadPreview">
+      <img v-if="fileUploadPreview" :src="fileUploadPreview" :style="imagePreviewCss" @click="open()" />
+      <p v-else v-text="$t('rate_dish_image_upload')" @click="open()" />
+
+      <div class="buttons" v-if="fileUploadPreview">
+        <NuxtIcon name="close" @click="inputImage = null" />
+        <NuxtIcon name="rotate_90" @click="rotateImage()" />
+      </div>
     </div>
     <span v-if="fileUploadPreview" class="info" v-text="$t('rate_dish_image_disclaimer')" />
 
@@ -73,6 +78,7 @@ const dishName = computed(() => {
 
 const inputStars = useState(`rate-dish-${props.occurrence.id}--stars`, () => 0)
 const inputImage = useState<File | null>(`rate-dish-${props.occurrence.id}--image`, () => null)
+const inputImageRotation = useState<0 | 90 | 180 | 270>(`rate-dish-${props.occurrence.id}--image-rot`, () => 0)
 const inputReview = useState(`rate-dish-${props.occurrence.id}--review`, () => '')
 const inputNickname = useLocalStorage(`rate-dish--nickname`, () => '')
 
@@ -89,6 +95,16 @@ onChange((files) => {
 })
 const fileUploadPreview = computed(() => inputImage.value ? URL.createObjectURL(inputImage.value) : null)
 
+function rotateImage() {
+  inputImageRotation.value += 90
+  if (inputImageRotation.value >= 360)
+    inputImageRotation.value = 0
+}
+
+const imagePreviewCss = computed(() => ({
+  rotate: `${inputImageRotation.value}deg`
+}))
+
 async function submit() {
   if (!inputStars.value)
     return errorRequireStars.value = true
@@ -97,9 +113,11 @@ async function submit() {
   const success = await api.postRating({
     occId: props.occurrence.id,
     stars: inputStars.value,
-    author: inputNickname.value,
-    comment: inputReview.value,
-    images: inputImage.value ? [ { image: inputImage.value } ] : []
+    author: inputNickname.value || null,
+    comment: inputReview.value || null,
+    images: inputImage.value
+      ? [ { image: inputImage.value, rotation: inputImageRotation.value } ]
+      : []
   })
 
   if (success) {
@@ -107,6 +125,7 @@ async function submit() {
       submittedLoading.value = false
       inputStars.value = 0
       inputImage.value = null
+      inputImageRotation.value = 0
       inputReview.value = ''
     }, 1000)
 
@@ -211,6 +230,7 @@ label {
   overflow: hidden;
   background-color: $bg-dark;
   cursor: pointer;
+  position: relative;
 
   &[data-uploaded=true] {
     border-radius: $menu-item-br $menu-item-br 3pt 3pt;
@@ -237,6 +257,27 @@ label {
     display: grid;
     place-items: center;
     user-select: none;
+  }
+
+  .buttons {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    padding: 5pt;
+    gap: 5pt;
+
+    & > * {
+      width: 28pt;
+      height: 28pt;
+      display: grid;
+      place-items: center;
+      background-color: #00000044;
+      border-radius: $card-item-br;
+      backdrop-filter: blur(3px);
+      color: #ffffff;
+      font-size: 16pt;
+    }
   }
 }
 

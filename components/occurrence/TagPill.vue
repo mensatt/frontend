@@ -11,7 +11,8 @@ const { data } = defineProps<{
   data: EntityOccurrence.Tag
 }>()
 
-const display = data.shortName || data.name
+// const display = data.shortName || data.name
+const display = data.name
 </script>
 
 <style scoped lang="scss">
