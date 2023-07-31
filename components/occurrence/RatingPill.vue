@@ -13,10 +13,10 @@ const props = defineProps<{
 
 const starValues = computed(() => {
   const out: number[] = []
-  for (let i = 0; i < 5; i++) {
-    if (props.stars < i) out.push(0)
-    else if (props.stars > i+1) out.push(1)
-    else out.push(props.stars % 1)
+  for (let i = 1; i <= 5; i++) {
+    if (i <= props.stars) out.push(1)
+    else if (i <= props.stars + 1) out.push(props.stars % 1)
+    else out.push(0)
   }
   return out
 })
