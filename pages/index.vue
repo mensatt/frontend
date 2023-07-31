@@ -71,7 +71,7 @@ footer {
   display: grid;
   align-items: center;
   grid-template-columns: 1fr auto;
-  margin: calc($menu-item-margin * 2) calc($menu-item-margin * -1) calc($menu-item-margin * -1) calc($menu-item-margin * -1);
+  margin: calc($menu-item-margin * -1);
   padding: $menu-item-margin;
 
   & > span {
