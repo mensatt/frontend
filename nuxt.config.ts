@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   modules: [
     'nuxt-icons',
     '@maanex/nuxt-apollo-upload',
+    '@nuxt/image',
     '@nuxtjs/i18n',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
@@ -150,5 +151,22 @@ export default defineNuxtConfig({
         name: 'English'
       },
     ]
+  },
+
+  image: {
+    screens: {
+      mobile: 800,
+      onecol: 848,
+      twocol: 1268,
+      xl: 1400,
+      xxl: 1500
+    },
+    providers: {
+      mensatt: {
+        name: 'mensatt',
+        provider: '~/lib/providers/mensatt',
+        options: {}
+      }
+    }
   }
 })

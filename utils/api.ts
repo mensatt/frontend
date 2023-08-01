@@ -52,13 +52,29 @@ async function postRating(variables: EntityReview.AddVariables): Promise<boolean
   return !!res?.data
 }
 
-function getImageUrl(image: EntityOccurrence.Image): string {
+type ImageOptions = {
+  width?: number
+  height?: number
+  quality?: number
+}
+function buildOptions(opts?: ImageOptions) {
+  if (!opts) return ''
+  if (!opts.width && !opts.height) return ''
+
+  return '?' + [
+    `width=${opts.width ?? 0}`,
+    `height=${opts.height ?? 0}`,
+    `quality=${opts.quality ?? 0}`,
+  ].join('&')
+}
+function getImageUrl(id: string, opts?: ImageOptions): string {
   const backend = getClient()
+  const optStr = buildOptions(opts)
   return (backend === 'local')
-    ? `https://localhost:4000${image.imageUrl}`
+    ? `https://localhost:4000${id}${optStr}`
     : (backend === 'dev')
-      ? `https://dev-api.mensatt.de${image.imageUrl}`
-      : `https://api.mensatt.de${image.imageUrl}`
+      ? `https://dev-api.mensatt.de${id}${optStr}`
+      : `https://api.mensatt.de${id}${optStr}`
 }
 
 //

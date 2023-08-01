@@ -33,6 +33,6 @@
 ## v1.2 (Blocked by backend v2)
 
 [ ] Switch to NuxtImage for optimized image fetching
-[ ] Button to rotate uploaded image
-[ ] Only show mensas where visible = true
+[X] Button to rotate uploaded image
+[X] Only show mensas where visible = true
 [ ] Occurrence Detail page

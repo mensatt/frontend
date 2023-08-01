@@ -1,7 +1,13 @@
 <template>
   <div class="occurrence">
     <div class="image">
-      <img v-if="imageUrl" :src="imageUrl" />
+      <!-- <img v-if="imageUrl" :src="imageUrl" /> -->
+      <NuxtImg
+        v-if="randomImage"
+        :src="randomImage.imageUrl"
+        provider="mensatt"
+        sizes="mobile:100vw onecol:96vw twocol:49vw xl:500px xxl:800px"
+      />
       <p v-else v-text="$t('occurrence_no_image')" />
     </div>
 
@@ -66,9 +72,6 @@ const imageReviews = data.dish.reviewData.reviews
 const randomImage = imageReviews.length
   ? imageReviews[~~(Math.random() * imageReviews.length)].images[0]
   : null
-const imageUrl = randomImage
-  ? api.getImageUrl(randomImage)
-  : null
 
 const comments = data.dish.reviewData.reviews
   .filter(rev => rev.text)
@@ -112,6 +115,7 @@ function rate() {
   pointer-events: none;
 
   [view-mode=desktop] & {
+    pointer-events: unset;
     overflow: hidden;
     border-radius: $menu-item-br $menu-item-br 0 0;
   }
