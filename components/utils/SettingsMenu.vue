@@ -21,6 +21,7 @@
   <label for="preferences" v-text="$t('settings_preferences_header')" />
   <div class="preferences">
     <UiToggle text="settings_preferences_hide_meat" v-model="inputHideMeat" />
+    <UiToggle text="settings_preferences_hide_meat_dairy" v-model="inputHideMeatDairy" />
     <UiToggle text="settings_preferences_hide_fish" v-model="inputHideFish" />
     <UiToggle text="settings_preferences_hide_gluten" v-model="inputHideGluten" />
     <UiToggle text="settings_preferences_hide_lactose" v-model="inputHideLactose" />
@@ -44,6 +45,7 @@ const popups = usePopups()
 
 const inputPrice = useSettingPrice()
 const inputHideMeat = useSettingHideMeat()
+const inputHideMeatDairy = useSettingHideMeatDairy()
 const inputHideFish = useSettingHideFish()
 const inputHideGluten = useSettingHideGluten()
 const inputHideLactose = useSettingHideLactose()

@@ -20,6 +20,7 @@ export default {
   settings_visual_show_calories: 'Kalorien pro € anzeigen',
   settings_preferences_header: 'Gerichtspräferenzen',
   settings_preferences_hide_meat: 'Fleischgerichte ausblenden',
+  settings_preferences_hide_meat_dairy: 'Nicht-vegane Gerichte ausblenden',
   settings_preferences_hide_fish: 'Fischgerichte ausblenden',
   settings_preferences_hide_gluten: 'Glutenhaltiges ausblenden',
   settings_preferences_hide_lactose: 'Laktosehaltiges ausblenden',
@@ -92,4 +93,3 @@ export default {
   page_credits: 'Mitwirkende',
   page_admin: 'Admin',
 }
-
