@@ -19,7 +19,7 @@ const meatTags = [ 'S', 'R', 'G', 'L', 'W', 'F', 'MSC', 'Kr', 'We' ]
 const meatDairyTags = [ ...meatTags, 'Ei', 'Mi' ]
 
 function arrayContainsAny(array: Array<string>, ...contains: Array<string>): boolean {
-  return array.some(contains.includes)
+  return contains.some(v => array.includes(v))
 }
 
 function satisfiesFilter(occ: EntityOccurrence.Occurrence, filters: Filters): boolean {
