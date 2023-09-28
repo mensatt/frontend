@@ -13,17 +13,40 @@ type VisibleHidden = {
   hidden: EntityOccurrence.Occurrence[]
 }
 
-const meatTags = ['S', 'R', 'G', 'L', 'W', 'F', 'MSC', 'Kr', 'We']
-const meatDairyTags = meatTags.concat(['Ei', 'Mi'])
+//
+
+const meatTags = [ 'S', 'R', 'G', 'L', 'W', 'F', 'MSC', 'Kr', 'We' ]
+const meatDairyTags = [ ...meatTags, 'Ei', 'Mi' ]
+
+function arrayContainsAny(array: Array<string>, ...contains: Array<string>): boolean {
+  return array.some(contains.includes)
+}
 
 function satisfiesFilter(occ: EntityOccurrence.Occurrence, filters: Filters): boolean {
-  if (filters.noMeat && (intersect(occ.tags.map(t => t.key), meatTags).length > 0
-                        || !occ.tags.some(t => (t.key === 'Veg') || (t.key == 'V')))) return false
-  if (filters.noMeatDairy && (intersect(occ.tags.map(t => t.key), meatDairyTags).length > 0
-                        || !occ.tags.some(t => (t.key == 'Veg')))) return false
-  if (filters.noFish && occ.tags.some(t => (t.key === 'Fi'))) return false
-  if (filters.noGluten && !occ.tags.some(t => (t.key === 'Gf'))) return false
-  if (filters.noLactose && occ.tags.some(t => (t.key === 'Mi'))) return false
+  const tagKeys = occ.tags.map(t => t.key)
+
+  if (filters.noMeat) {
+    if (arrayContainsAny(tagKeys, ...meatTags)) return false
+    if (!arrayContainsAny(tagKeys, 'Veg', 'V')) return false
+  }
+
+  if (filters.noMeatDairy) {
+    if (arrayContainsAny(tagKeys, ...meatDairyTags)) return false
+    if (!arrayContainsAny(tagKeys, 'Veg')) return false
+  }
+
+  if (filters.noFish) {
+    if (arrayContainsAny(tagKeys, 'Fi')) return false
+  }
+
+  if (filters.noGluten) {
+    if (!arrayContainsAny(tagKeys, 'Gf')) return false
+  }
+
+  if (filters.noLactose) {
+    if (arrayContainsAny(tagKeys, 'Mi')) return false
+  }
+
   return true
 }
 
@@ -46,11 +69,6 @@ function filterOccurrences(list: EntityOccurrence.Occurrence[]): VisibleHidden {
   }
 
   return out
-}
-
-function intersect(a: Array<string>, b: Array<string>): Array<string> {
-  var setB = new Set(b);
-  return [...new Set(a)].filter(x => setB.has(x));
 }
 
 export const useFilters = () => ({
