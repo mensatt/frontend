@@ -2,7 +2,7 @@ import { EntityOccurrence } from "./entities/occurrence"
 
 type Filters = {
   noMeat: boolean
-    noMeatDairy: boolean
+  noMeatDairy: boolean
   noFish: boolean
   noGluten: boolean
   noLactose: boolean
