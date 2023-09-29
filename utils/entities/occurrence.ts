@@ -36,6 +36,7 @@ export namespace EntityOccurrence {
       priceStudent
       priceStaff
       priceGuest
+      notAvailableAfter
       tags {
         key
         name
@@ -93,6 +94,7 @@ export namespace EntityOccurrence {
     priceStudent: number
     priceStaff: number
     priceGuest: number
+    notAvailableAfter: string
     tags: Tag[]
   }
 

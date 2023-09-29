@@ -81,7 +81,11 @@ const showHidden = useState(`occurrence-list--${props.mensa}-${props.date}-sh`, 
 
 const occurrences = computed(() => {
   if (loading.value) return { visible: [], hidden: [] }
-  return filters.filterOccurrences(data.value.occurrences)
+
+  let unavailable = data.value.occurrences.filter(o => o.notAvailableAfter != null)
+  // Only filter the available occurrences, as the other ones will be hidden anyway
+  let {visible, hidden} = filters.filterOccurrences(data.value.occurrences.filter(o => o.notAvailableAfter == null))
+  return { visible, hidden: hidden.concat(unavailable) }
 })
 
 function toggleHiddenItems() {
