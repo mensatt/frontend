@@ -1,7 +1,6 @@
 <template>
   <div class="occurrence">
     <div class="image">
-      <!-- <img v-if="imageUrl" :src="imageUrl" /> -->
       <NuxtImg
         v-if="randomImage"
         :src="randomImage.imageUrl"
@@ -12,9 +11,9 @@
     </div>
 
     <div class="details">
-      <h2 v-text="dishName" />
+      <h2 @click="showDetails(true)" v-text="dishName" />
 
-      <div class="pills">
+      <div class="pills" @click="showDetails(true)">
         <OccurrencePricePill :data="data" />
         <OccurrenceRatingPill
           :stars="data.dish.reviewData.metadata.averageStars || 0"
@@ -24,7 +23,7 @@
         <OccurrenceTagPill v-for="tag of displayTags" :key="tag.key" :data="tag" />
       </div>
 
-      <div class="comments">
+      <div class="comments" @click="showDetails(true)">
         <div v-for="review of comments" :key="review.id" class="comment">
           <span class="name" v-text="review.displayName || $t('occurrence_comment_author_anon')" />
           <span class="text" v-text="trimText(review.text)" />
@@ -36,6 +35,7 @@
 
       <div v-if="viewMode === 'desktop'" class="buttons">
         <!-- TODO ↓ -->
+        <!-- <button class="details" @click="showDetails(false)" v-text="$t('occurrence_show_details')" /> -->
         <button class="details" :disabled="true" @click="console.log('TODO')" v-text="$t('occurrence_show_details')" />
         <button class="rate" :disabled="!userCanRate" @click="rate()" v-text="$t('occurrence_add_rating')" />
       </div>
@@ -47,7 +47,7 @@
 <script setup lang="ts">
 import { EntityOccurrence } from '~/utils/entities/occurrence'
 
-const api = useApi()
+const router = useRouter()
 const popups = usePopups()
 const i18n = useI18n()
 const viewMode = useViewMode()
@@ -89,6 +89,16 @@ function trimText(text: string): string {
 
 function rate() {
   popups.open('rate_dish', { occurrence: data })
+}
+
+function showDetails(mobileOnly: boolean) {
+  if (mobileOnly && viewMode.value !== 'mobile')
+    return
+
+  // TODO remove for release
+  if (!useSettingDevMode().value) return
+
+  router.push(`/details/${data.id}`)
 }
 </script>
 

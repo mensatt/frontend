@@ -2,51 +2,62 @@
 
 export namespace EntityOccurrence {
 
-  export const queryByDate = gql`
-  query getOccurrencesByDate($date: Date!, $locationId: UUID!) {
-    occurrences(filter: { startDate: $date, endDate: $date, location: $locationId }) {
+  const occurrenceData = `
+    id
+    dish {
       id
-      dish {
-        id
-        nameDe
-        nameEn
-        reviewData(filter: { approved: true }) {
-          reviews {
+      nameDe
+      nameEn
+      reviewData(filter: { approved: true }) {
+        reviews {
+          id
+          displayName
+          text
+          createdAt
+          stars
+          images {
             id
-            displayName
-            text
-            createdAt
-            images {
-              id
-              imageUrl
-            }
-          }
-          metadata {
-            averageStars
-            reviewCount
+            imageUrl
           }
         }
-      }
-      sideDishes {
-        id
-        nameDe
-      }
-      date
-      kcal
-      priceStudent
-      priceStaff
-      priceGuest
-      notAvailableAfter
-      tags {
-        key
-        name
-        description
-        shortName
-        priority
-        isAllergy
+        metadata {
+          averageStars
+          reviewCount
+        }
       }
     }
-  }`
+    sideDishes {
+      id
+      nameDe
+    }
+    date
+    kcal
+    priceStudent
+    priceStaff
+    priceGuest
+    notAvailableAfter
+    tags {
+      key
+      name
+      description
+      shortName
+      priority
+      isAllergy
+    }`
+
+  export const queryByDate = gql`
+    query getOccurrencesByDate($date: Date!, $locationId: UUID!) {
+      occurrences(filter: { startDate: $date, endDate: $date, location: $locationId }) {
+        ${occurrenceData}
+      }
+    }`
+
+  export const queryById = gql`
+    query getOccurrencesById($occurrenceId: UUID!) {
+      occurrences(filter: { occurrences: [ $occurrenceId ] }) {
+        ${occurrenceData}
+      }
+    }`
 
   export type Image = {
     id: string
@@ -58,6 +69,7 @@ export namespace EntityOccurrence {
     displayName: string
     text: string
     createdAt: string
+    stars: number
     images: Image[]
   }
 

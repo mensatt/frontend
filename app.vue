@@ -10,6 +10,13 @@
 // apply color mode
 useSettingColorMode()
 
+// load dayjs + plugins
+import dayjs from 'dayjs'
+import 'dayjs/locale/de'
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime)
+
+// viewport info
 const viewMode = useViewMode()
 // maximum screen width (px) for mobile view
 const VIEW_MAX_WIDTH_MOBILE = 800

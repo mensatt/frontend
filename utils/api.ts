@@ -12,10 +12,11 @@ function getClient() {
 
 type GqlResponse = _AsyncData<{ occurrences: EntityOccurrence.Occurrence[] }, Error>
 const occurrenceCache: Map<string, GqlResponse> = new Map()
+
 async function getOccurrences(locationId: string, date: Date): Promise<GqlResponse> {
   const dateStr = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`
   const client = getClient()
-  const cacheKey = `${locationId}:${dateStr}:${client}`
+  const cacheKey = `ld:${client}:${locationId}:${dateStr}`
 
   if (occurrenceCache.has(cacheKey))
     return occurrenceCache.get(cacheKey)!
@@ -26,11 +27,24 @@ async function getOccurrences(locationId: string, date: Date): Promise<GqlRespon
     clientId: client
   })
   occurrenceCache.set(cacheKey, res)
+  // TODO fill all occurrences loaded here into the cache with their own occurrenceId key so we don't need to re-fetch this data if a user clicks on details
   return res
 }
 
 async function getOccurrence(occurrenceId: string): Promise<GqlResponse> {
-  return null as any // TODO
+  const client = getClient()
+  const cacheKey = `id:${client}:${occurrenceId}`
+
+  if (occurrenceCache.has(cacheKey))
+    return occurrenceCache.get(cacheKey)!
+
+  const res = await useLazyAsyncQuery<{ occurrences: EntityOccurrence.Occurrence[] }>({
+    query: EntityOccurrence.queryById,
+    variables: { occurrenceId },
+    clientId: client
+  })
+  occurrenceCache.set(cacheKey, res)
+  return res
 }
 
 /** @returns a list of all found locations or null if network error */

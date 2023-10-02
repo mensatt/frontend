@@ -40,7 +40,7 @@ onMounted(handleDesktopView)
 watch(viewMode, handleDesktopView)
 function handleDesktopView() {
   if (viewMode.value !== 'desktop') return
-  useRouter().push({ path: '/' })
+  navigateTo('/')
 }
 </script>
 
