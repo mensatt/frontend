@@ -199,7 +199,7 @@ defineExpose({
   display: grid;
   grid-template-columns: 1fr auto;
   width: 100%;
-  gap: $menu-item-margin;
+  gap: $main-content-padding;
   margin-top: calc($menu-item-margin * 3);
 
   .toggle {

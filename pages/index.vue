@@ -100,15 +100,17 @@ footer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   width: 100%;
-  gap: $menu-item-margin;
+  gap: 3pt;
   grid-row: 1 / span 2;
   grid-column: 2;
-  
+  border-radius: $menu-item-br;
+  overflow: hidden;
+
   .social {
     height: $menu-item-outer-height;
     width: $menu-item-outer-height;
     background-color: $bg-light;
-    border-radius: $menu-item-br;
+    border-radius: $card-item-br;
     display: grid;
     place-items: center;
     color: $color-minor;
