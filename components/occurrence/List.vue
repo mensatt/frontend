@@ -63,11 +63,12 @@
 </template>
 
 <script setup lang="ts">
-import { EntityOccurrence } from '../../utils/entities/occurrence'
+import {useOccurrenceSorting} from "~/utils/score";
 
 const api = useApi()
 const filters = useFilters()
 const viewMode = useViewMode()
+const sorting = useOccurrenceSorting()
 
 const props = defineProps<{
   mensa: string
@@ -90,8 +91,9 @@ const occurrences = computed(() => {
     return filters.filterOccurrences(data.value.occurrences)
 
   const unavailable = data.value.occurrences.filter(o => o.notAvailableAfter !== null)
-  const { visible, hidden } = filters.filterOccurrences(data.value.occurrences.filter(o => o.notAvailableAfter === null))
-  return { visible, hidden: [...hidden, ...unavailable] }
+  const {visible, hidden} = filters.filterOccurrences(data.value.occurrences.filter(o => o.notAvailableAfter === null))
+
+  return {visible: sorting.sortOccurrences(visible), hidden: sorting.sortOccurrences([...hidden, ...unavailable])}
 })
 
 function toggleHiddenItems() {
