@@ -1,28 +1,22 @@
 <template>
   <div class="dish-breakdown">
-    <!-- <div class="pills">
-      <OccurrencePricePill :data="data" />
-      <OccurrenceRatingPill
-        :stars="data.dish.reviewData.metadata.averageStars || 0"
-        :count="data.dish.reviewData.metadata.reviewCount"
-      />
-      <OccurrenceCaloriesPill :data="data" />
-      <OccurrenceTagPill v-for="tag of displayTags" :key="tag.key" :data="tag" />
-    </div> -->
-
     <div class="rating">
       <div class="rows">
         <template v-for="i of [ 5, 4, 3, 2, 1 ]" :key="i">
-          <span class="name" v-text="`${i} star`" />
+          <span class="name" v-text="$t('n_star', i)" />
           <div class="progress">
             <div class="inner" :style="{ width: `${reviewsCounted[i]*100}%` }" />
           </div>
           <span class="count" v-text="`${Math.round(reviewsCounted[i]*100)}%`" />
         </template>
       </div>
-      <div class="stars">
-        Average: {{ data.dish.reviewData.metadata.averageStars?.toPrecision(2) }} / 5 stars ({{ data.dish.reviewData.metadata.reviewCount }} ratings)
-      </div>
+      <div
+        class="stars"
+        v-text="$t('stars_summary', {
+          score: data.dish.reviewData.metadata.averageStars?.toPrecision(2),
+          count: data.dish.reviewData.metadata.reviewCount
+        })"
+      />
     </div>
 
     <div class="prices">

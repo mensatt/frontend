@@ -105,4 +105,6 @@ export default {
   ingredient_fiber: 'Fiber',
   ingredient_protein: 'Proteins',
   ingredient_salt: 'Salt',
+  n_star: '{n} star',
+  stars_summary: 'Average: {score} / 5 stars ({count} ratings)',
 }
