@@ -63,12 +63,11 @@
 </template>
 
 <script setup lang="ts">
-import {useOccurrenceSorting} from "~/utils/score";
 
 const api = useApi()
 const filters = useFilters()
 const viewMode = useViewMode()
-const sorting = useOccurrenceSorting()
+const sorting = useScore()
 
 const props = defineProps<{
   mensa: string
@@ -87,13 +86,15 @@ const occurrences = computed(() => {
 
   // only hide no longer available dishes if we're looking at today or at upcoming days. If we're looking at past days don't hide.
   const thisWasYesterdayOrEarlier = new Date(props.date.toDateString()).getTime() < new Date(new Date().toDateString()).getTime()
-  if (thisWasYesterdayOrEarlier)
-    return filters.filterOccurrences(data.value.occurrences)
+  if (thisWasYesterdayOrEarlier) {
+    const { visible, hidden } = filters.filterOccurrences(data.value.occurrences)
+    return { visible: sorting.sortOccurrences(visible), hidden: sorting.sortOccurrences(hidden) }
+  }
 
   const unavailable = data.value.occurrences.filter(o => o.notAvailableAfter !== null)
-  const {visible, hidden} = filters.filterOccurrences(data.value.occurrences.filter(o => o.notAvailableAfter === null))
+  const { visible, hidden } = filters.filterOccurrences(data.value.occurrences.filter(o => o.notAvailableAfter === null))
 
-  return {visible: sorting.sortOccurrences(visible), hidden: sorting.sortOccurrences([...hidden, ...unavailable])}
+  return { visible: sorting.sortOccurrences(visible), hidden: sorting.sortOccurrences([...hidden, ...unavailable]) }
 })
 
 function toggleHiddenItems() {

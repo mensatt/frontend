@@ -1,23 +1,23 @@
-import {EntityOccurrence} from "~/utils/entities/occurrence";
-import Occurrence = EntityOccurrence.Occurrence;
+import { EntityOccurrence } from "~/utils/entities/occurrence"
+import Occurrence = EntityOccurrence.Occurrence
 
 const commonDishes = ["pizza", "suppe", "salat", "bowl", "kühltheke"]
 
 function scoreOccurrence(occ: Occurrence): number {
-    let score = 10;
+    let score = 10
 
-    const reviewData = occ.dish.reviewData;
+    const reviewData = occ.dish.reviewData
 
     // Bump occurrences with more reviews
-    score += reviewData.metadata.reviewCount;
+    score += reviewData.metadata.reviewCount
 
     // Bump occurrences with any image
-    if (reviewData.reviews.find(r => r.images.length > 0))
-        score += 1;
+    if (reviewData.reviews.some(r => r.images.length > 0))
+        score += 1
 
     // Punish "always" available dishes
-    if (commonDishes.find(c => occ.dish.nameDe.toLowerCase().includes(c)))
-        score -= 1;
+    if (commonDishes.some(c => occ.dish.nameDe.toLowerCase().includes(c)))
+        score -= 1
 
     return score
 }
@@ -28,6 +28,6 @@ function sortOccurrences(occurrences: Occurrence[]): Occurrence[] {
     return scored
 }
 
-export const useOccurrenceSorting = () => ({
+export const useScore = () => ({
     sortOccurrences
 })
