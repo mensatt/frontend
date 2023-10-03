@@ -21,15 +21,15 @@
 
     <div class="prices">
       <div class="price">
-        <span v-text="(data.priceStudent/100).toFixed(2) + '€'" />
+        <span v-text="formatPrice(data.priceStudent) + '€'" />
         <span v-text="$t('settings_price_group1')" />
       </div>
       <div class="price">
-        <span v-text="(data.priceStaff/100).toFixed(2) + '€'" />
+        <span v-text="formatPrice(data.priceStaff) + '€'" />
         <span v-text="$t('settings_price_group2')" />
       </div>
       <div class="price">
-        <span v-text="(data.priceGuest/100).toFixed(2) + '€'" />
+        <span v-text="formatPrice(data.priceGuest) + '€'" />
         <span v-text="$t('settings_price_group3')" />
       </div>
     </div>
@@ -57,6 +57,7 @@
 
 <script setup lang=ts>
 import { EntityOccurrence } from '~/utils/entities/occurrence'
+import {formatPrice} from "~/utils/price";
 
 
 const ingredients: Array<{ name: keyof EntityOccurrence.Occurrence, unit: string, factor: number }> = [
