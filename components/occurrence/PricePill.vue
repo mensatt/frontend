@@ -1,17 +1,17 @@
 <template>
   <div>
-    <span v-text="`${price}€`" />
+    <span v-text="`${prices.format(priceRaw)}€`" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { EntityOccurrence } from '../../utils/entities/occurrence'
-import {formatPrice} from "~/utils/price";
 
 const { data } = defineProps<{
   data: EntityOccurrence.Occurrence
 }>()
 
+const prices = usePrices()
 const settingPrice = useSettingPrice()
 
 const priceRaw = computed(() => {
@@ -22,10 +22,6 @@ const priceRaw = computed(() => {
   if (settingPrice.value === 'guest')
     return data.priceGuest
   return null
-})
-
-const price = computed(() => {
-  return formatPrice(priceRaw.value)
 })
 </script>
 

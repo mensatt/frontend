@@ -16,7 +16,7 @@ type VisibleHidden = {
 //
 
 const fishTags = [ 'Fi', 'F', 'MSC' ]
-const meatTags = [ ...fishTags, 'S', 'R', 'G', 'L', 'W', 'Kr', 'We' ]
+const meatTags = [ 'S', 'R', 'G', 'L', 'W', 'Kr', 'We' ]
 const meatDairyTags = [ ...meatTags, 'Ei', 'Mi' ]
 
 function arrayContainsAny(array: Array<string>, ...contains: Array<string>): boolean {
