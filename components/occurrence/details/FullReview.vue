@@ -14,6 +14,7 @@
         />
       </div>
     </div>
+    <DevId :id="data.id" />
     <p v-if="data.text" class="text" v-text="data.text" />
     <div v-if="data.images.length" class="image">
       <NuxtImg

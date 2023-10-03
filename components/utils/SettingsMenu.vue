@@ -33,6 +33,7 @@
     <UiSelectable v-if="inputDevMode" text="settings_others_dev_backend" :selected="selectedBackend" :skip-value-t="true" @open="openBackendSelector" />
     <UiExternLink v-if="inputDevMode" text="settings_others_dev_app_info" url="/dev/info" />
     <UiSelectable v-if="inputDevMode" text="settings_others_dev_full_reload" :selected="{ name: '', icon: 'refresh' }" :skip-value-t="true" @open="devFullReload" />
+    <UiToggle v-if="inputDevMode" text="settings_others_dev_show_ids" v-model="inputDevShowIds" />
   </div>
 </template>
 
@@ -100,6 +101,7 @@ async function openThemeSelector() {
 
 const inputDevMode = useSettingDevMode()
 const inputDevBackend = useSettingDevBackend()
+const inputDevShowIds = useSettingDevShowIds()
 
 const backendList = [
   { id: 'prod', name: 'api.mensatt.de (prod)', icon: 'rocket' },

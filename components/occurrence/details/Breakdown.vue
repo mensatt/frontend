@@ -41,6 +41,7 @@
           <NuxtIcon v-else name="questionmark" />
         </div>
         <span class="name" v-text="tag.name" />
+        <DevId :id="tag.key" />
       </div>
     </div>
 

@@ -12,6 +12,7 @@
 
     <div class="details">
       <h2 @click="showDetails(true)" v-text="dishName" />
+      <DevId :id="data.id" />
 
       <div class="pills" @click="showDetails(true)">
         <OccurrencePricePill :data="data" />

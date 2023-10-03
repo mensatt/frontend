@@ -11,6 +11,7 @@
     <h2 v-if="headerText" v-text="headerText" />
     <div v-else-if="mobileTabSelected === 0">
       <h2 v-text="dishName" />
+      <DevId :id="occ.id" />
       <OccurrenceDetailsBreakdown :data="occ" />
     </div>
     <div v-else-if="mobileTabSelected === 1">
