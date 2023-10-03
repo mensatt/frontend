@@ -15,7 +15,8 @@ type VisibleHidden = {
 
 //
 
-const meatTags = [ 'S', 'R', 'G', 'L', 'W', 'F', 'MSC', 'Kr', 'We' ]
+const fishTags = [ 'Fi', 'F', 'MSC' ]
+const meatTags = [ ...fishTags, 'S', 'R', 'G', 'L', 'W', 'Kr', 'We' ]
 const meatDairyTags = [ ...meatTags, 'Ei', 'Mi' ]
 
 function arrayContainsAny(array: Array<string>, ...contains: Array<string>): boolean {
@@ -36,7 +37,7 @@ function satisfiesFilter(occ: EntityOccurrence.Occurrence, filters: Filters): bo
   }
 
   if (filters.noFish) {
-    if (arrayContainsAny(tagKeys, 'Fi')) return false
+    if (arrayContainsAny(tagKeys, ...fishTags)) return false
   }
 
   if (filters.noGluten) {

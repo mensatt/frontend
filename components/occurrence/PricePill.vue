@@ -6,6 +6,7 @@
 
 <script setup lang="ts">
 import { EntityOccurrence } from '../../utils/entities/occurrence'
+import {formatPrice} from "~/utils/price";
 
 const { data } = defineProps<{
   data: EntityOccurrence.Occurrence
@@ -20,18 +21,11 @@ const priceRaw = computed(() => {
     return data.priceStaff
   if (settingPrice.value === 'guest')
     return data.priceGuest
-  return 0
+  return null
 })
 
 const price = computed(() => {
-  if (priceRaw === null)
-    return '-- '
-  
-  return (priceRaw.value / 100)
-    .toLocaleString(
-      undefined,
-      { minimumFractionDigits: 2, maximumFractionDigits: 2 }
-    )
+  return formatPrice(priceRaw.value)
 })
 </script>
 
