@@ -32,6 +32,13 @@ export namespace EntityOccurrence {
     }
     date
     kcal
+    kj
+    saturatedFat
+    carbohydrates
+    sugar
+    fiber
+    protein
+    salt
     priceStudent
     priceStaff
     priceGuest
@@ -103,6 +110,13 @@ export namespace EntityOccurrence {
     sideDishes: Dish[]
     date: string
     kcal: number
+    kj: number
+    saturatedFat: number
+    carbohydrates: number
+    sugar: number
+    fiber: number
+    protein: number
+    salt: number
     priceStudent: number
     priceStaff: number
     priceGuest: number

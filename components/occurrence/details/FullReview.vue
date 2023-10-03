@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang=ts>
-import { EntityOccurrence } from '../../utils/entities/occurrence'
+import { EntityOccurrence } from '~/utils/entities/occurrence'
 import dayjs from 'dayjs'
 
 const i18n = useI18n()
@@ -63,6 +63,7 @@ const createdText = computed(() => dayjs()
   display: grid;
   place-items: center;
   font-size: 14pt;
+  color: $color-minor;
 }
 
 .name {

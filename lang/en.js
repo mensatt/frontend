@@ -97,4 +97,12 @@ export default {
   page_privacy: 'Privacy Policy',
   page_credits: 'Contributors',
   page_admin: 'Admin',
+  ingredient_kcal: 'Calories',
+  ingredient_kj: 'Energy',
+  ingredient_saturatedFat: 'Saturated Fats',
+  ingredient_carbohydrates: 'Carbohydrates',
+  ingredient_sugar: 'Sugar',
+  ingredient_fiber: 'Fiber',
+  ingredient_protein: 'Proteins',
+  ingredient_salt: 'Salt',
 }

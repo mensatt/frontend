@@ -11,26 +11,11 @@
     <h2 v-if="headerText" v-text="headerText" />
     <div v-else-if="mobileTabSelected === 0">
       <h2 v-text="dishName" />
-
-      <div class="pills">
-        <OccurrencePricePill :data="occ" />
-        <OccurrenceRatingPill
-          :stars="occ.dish.reviewData.metadata.averageStars || 0"
-          :count="occ.dish.reviewData.metadata.reviewCount"
-        />
-        <OccurrenceCaloriesPill :data="occ" />
-        <OccurrenceTagPill v-for="tag of displayTags" :key="tag.key" :data="tag" />
-      </div>
-
-      <hr>
-
-      <p style="white-space: pre;overflow: scroll;">
-        {{ data }}
-      </p>
+      <OccurrenceDetailsBreakdown :data="occ" />
     </div>
     <div v-else-if="mobileTabSelected === 1">
       <template v-for="review of reviews" :key="review.id">
-        <OccurrenceFullReview :data="review" />
+        <OccurrenceDetailsFullReview :data="review" />
         <div class="review-divider" />
       </template>
     </div>
@@ -42,7 +27,8 @@ const api = useApi()
 const route = useRoute()
 const i18n = useI18n()
 
-const mobileTabList = [ 'details', 'reviews', 'history' ]
+// const mobileTabList = [ 'details', 'reviews', 'history' ]
+const mobileTabList = [ 'details', 'reviews' ]
 const mobileTabSelected = useState(() => 0)
 
 //
@@ -72,9 +58,6 @@ const dishName = computed(() => {
   return occ.value.dish.nameDe ?? occ.value.dish.nameEn
 })
 
-const displayTags = computed(() => occ.value?.tags
-  .filter(tag => tag.priority !== 'HIDE') ?? [])
-
 // reviews, sorted by time, new to old
 const reviews = computed(() => occ.value?.dish
   .reviewData.reviews
@@ -85,14 +68,7 @@ const reviews = computed(() => occ.value?.dish
 
 <style scoped lang="scss">
 h2 {
-  margin: 0;
-}
-
-.pills {
-  margin: $main-content-padding 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: calc($main-content-padding / 4);
+  margin: 0 0 $main-content-padding 0;
 }
 
 .review-divider:not(:last-child) {
