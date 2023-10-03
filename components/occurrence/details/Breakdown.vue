@@ -81,6 +81,10 @@ const displayTags = computed(() => props.data.tags
 
 const reviewsCounted = computed(() => {
   const out = [ 0, 0, 0, 0, 0, 0 ]
+
+  if (props.data.dish.reviewData.metadata.reviewCount === 0)
+    return out
+
   for (const review of props.data.dish.reviewData.reviews)
     out[review.stars]++
   return out.map(r => (r / props.data.dish.reviewData.metadata.reviewCount))

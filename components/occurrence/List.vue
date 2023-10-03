@@ -63,6 +63,8 @@
 </template>
 
 <script setup lang="ts">
+import { EntityOccurrence } from '../../utils/entities/occurrence'
+
 const api = useApi()
 const filters = useFilters()
 const viewMode = useViewMode()
@@ -82,9 +84,13 @@ const showHidden = useState(`occurrence-list--${props.mensa}-${props.date}-sh`, 
 const occurrences = computed(() => {
   if (loading.value) return { visible: [], hidden: [] }
 
-  const unavailable = data.value.occurrences.filter(o => o.notAvailableAfter != null)
-  // Only filter the available occurrences, as the other ones will be hidden anyway
-  const {visible, hidden} = filters.filterOccurrences(data.value.occurrences.filter(o => o.notAvailableAfter == null))
+  // only hide no longer available dishes if we're looking at today or at upcoming days. If we're looking at past days don't hide.
+  const thisWasYesterdayOrEarlier = new Date(props.date.toDateString()).getTime() < new Date(new Date().toDateString()).getTime()
+  if (thisWasYesterdayOrEarlier)
+    return filters.filterOccurrences(data.value.occurrences)
+
+  const unavailable = data.value.occurrences.filter(o => o.notAvailableAfter !== null)
+  const { visible, hidden } = filters.filterOccurrences(data.value.occurrences.filter(o => o.notAvailableAfter === null))
   return { visible, hidden: [...hidden, ...unavailable] }
 })
 
