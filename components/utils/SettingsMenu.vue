@@ -120,6 +120,7 @@ async function openBackendSelector() {
   })
   if (sel)
     inputDevBackend.value = sel
+  devFullReload()
 }
 
 function devFullReload() {
