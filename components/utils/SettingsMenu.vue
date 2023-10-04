@@ -118,9 +118,10 @@ async function openBackendSelector() {
     skipNameT: true,
     selected: inputDevBackend.value
   })
-  if (sel)
+  if (sel) {
     inputDevBackend.value = sel
-  devFullReload()
+    devFullReload()
+  }
 }
 
 function devFullReload() {
