@@ -3,6 +3,7 @@ import PopupSelectMensa from "~/components/popup/SelectMensa.vue"
 import PopupTest from "~/components/popup/Test.vue"
 import PopupRateDish from "~/components/popup/RateDish.vue"
 import PopupSelectOption from "~/components/popup/SelectOption.vue"
+import PopupToggleOptions from "~/components/popup/ToggleOptions.vue"
 import PopupCalendar from "~/components/popup/Calendar.vue"
 import PopupProfileSettings from "~/components/popup/ProfileSettings.vue"
 import PopupOccurrencesForDay from "~/components/popup/OccurrencesForDay.vue"
@@ -45,6 +46,21 @@ export type Popup<T extends String> = {
   }
   returns: T
 } | {
+  id: 'toggle_options'
+  data: {
+    title: string
+    options: ({
+      id: T
+      name: string
+      icon?: string
+      iconFilled?: boolean
+    } | null)[]
+    /** skips localizing the name -> name will get shown without $t function call */
+    skipNameT?: boolean
+    selected?: T[]
+  }
+  returns: T[]
+} | {
   id: 'calendar'
   data: {}
   returns: Date
@@ -66,6 +82,7 @@ export const PopupComponents: Record<Popup<any>['id'], DefineComponent<any, any,
   select_mensa: PopupSelectMensa,
   rate_dish: PopupRateDish,
   select_option: PopupSelectOption,
+  toggle_options: PopupToggleOptions,
   calendar: PopupCalendar,
   profile_settings: PopupProfileSettings,
   occurrences_for_day: PopupOccurrencesForDay

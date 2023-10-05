@@ -63,11 +63,9 @@
 </template>
 
 <script setup lang="ts">
-
 const api = useApi()
 const filters = useFilters()
 const viewMode = useViewMode()
-const sorting = useScore()
 
 const props = defineProps<{
   mensa: string
@@ -86,15 +84,11 @@ const occurrences = computed(() => {
 
   // only hide no longer available dishes if we're looking at today or at upcoming days. If we're looking at past days don't hide.
   const thisWasYesterdayOrEarlier = new Date(props.date.toDateString()).getTime() < new Date(new Date().toDateString()).getTime()
-  if (thisWasYesterdayOrEarlier) {
-    const { visible, hidden } = filters.filterOccurrences(data.value.occurrences)
-    return { visible: sorting.sortOccurrences(visible), hidden: sorting.sortOccurrences(hidden) }
-  }
 
-  const unavailable = data.value.occurrences.filter(o => o.notAvailableAfter !== null)
-  const { visible, hidden } = filters.filterOccurrences(data.value.occurrences.filter(o => o.notAvailableAfter === null))
-
-  return { visible: sorting.sortOccurrences(visible), hidden: sorting.sortOccurrences([...hidden, ...unavailable]) }
+  return filters.filterOccurrences(data.value.occurrences, {
+    sort: true,
+    hideUnavailable: !thisWasYesterdayOrEarlier
+  })
 })
 
 function toggleHiddenItems() {
@@ -136,6 +130,22 @@ defineExpose({
   [view-mode=desktop] & {
     grid-template-columns: repeat(auto-fill, minmax(300pt, 1fr));
     min-height: calc(100vh - 100pt);
+  }
+}
+
+[view-mode=desktop][experiments~="alt_layout_desktop"] .visible-list {
+  min-height: calc(100vh - 100pt);
+  display: block;
+  column-count: auto;
+  column-width: 300pt;
+  column-gap: $main-content-padding;
+  column-fill: balance;
+  max-width: 1200pt !important;
+  margin: 0 auto;
+
+  .occurrence {
+    margin-bottom: $main-content-padding;
+    break-inside: avoid-column;
   }
 }
 

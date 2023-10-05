@@ -35,9 +35,7 @@
       </div>
 
       <div v-if="viewMode === 'desktop'" class="buttons">
-        <!-- TODO ↓ -->
-        <!-- <button class="details" @click="showDetails(false)" v-text="$t('occurrence_show_details')" /> -->
-        <button class="details" :disabled="true" @click="console.log('TODO')" v-text="$t('occurrence_show_details')" />
+        <button class="details" @click="showDetails(false)" v-text="$t('occurrence_show_details')" />
         <button class="rate" :disabled="!userCanRate" @click="rate()" v-text="$t('occurrence_add_rating')" />
       </div>
       <button v-else-if="userCanRate" class="rateme" @click="rate()" v-text="$t('occurrence_add_rating')" />
@@ -95,9 +93,6 @@ function rate() {
 function showDetails(mobileOnly: boolean) {
   if (mobileOnly && viewMode.value !== 'mobile')
     return
-
-  // TODO remove for release
-  if (!useSettingDevMode().value) return
 
   router.push(`/details/${data.id}`)
 }

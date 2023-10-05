@@ -52,7 +52,6 @@ const createdText = computed(() => dayjs()
   grid-template-rows: auto auto;
   column-gap: $menu-item-padding;
   justify-content: center;
-  margin-bottom: $menu-item-padding;
 }
 
 .avatar {
@@ -97,14 +96,19 @@ const createdText = computed(() => dayjs()
 }
 
 .text {
-  margin-bottom: $menu-item-padding;
+  margin: $menu-item-padding 0 0 0;
 }
 
 .image {
   width: 100%;
-  border-radius: $menu-item-br;
   overflow: hidden;
   background-color: $bg-dark;
+  margin-top: $menu-item-padding;
+  border-radius: $menu-item-br;
+
+  [view-mode="desktop"] & {
+    border-radius: $card-item-br;
+  }
 
   img {
     display: block;

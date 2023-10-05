@@ -51,7 +51,13 @@ function satisfiesFilter(occ: EntityOccurrence.Occurrence, filters: Filters): bo
   return true
 }
 
-function filterOccurrences(list: EntityOccurrence.Occurrence[]): VisibleHidden {
+type FilterOptions = {
+  sort: boolean
+  hideUnavailable: boolean
+}
+function filterOccurrences(list: EntityOccurrence.Occurrence[], opts: Partial<FilterOptions> = {}): VisibleHidden {
+  const { sort = false, hideUnavailable = false } = opts
+
   const out: VisibleHidden = { visible: [], hidden: [] }
 
   const filters: Filters = {
@@ -63,13 +69,22 @@ function filterOccurrences(list: EntityOccurrence.Occurrence[]): VisibleHidden {
   }
 
   for (const item of list) {
-    if (satisfiesFilter(item, filters))
+    if (hideUnavailable && item.notAvailableAfter)
+      out.hidden.push(item)
+    else if (satisfiesFilter(item, filters))
       out.visible.push(item)
     else
       out.hidden.push(item)
   }
 
-  return out
+  if (!sort)
+    return out
+ 
+  const score = useScore()
+  return {
+    visible: score.sortOccurrences(out.visible),
+    hidden: score.sortOccurrences(out.hidden)
+  }
 }
 
 export const useFilters = () => ({

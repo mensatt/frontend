@@ -17,11 +17,11 @@ const props = defineProps<{
   triggerWhileDisabled?: boolean
 }>()
 
-const emit = defineEmits([ 'bclick' ])
+const emit = defineEmits([ 'click' ])
 
 function click() {
   if (!props.disabled || props.triggerWhileDisabled)
-    emit('bclick')
+    emit('click')
 }
 </script>
 

@@ -76,9 +76,6 @@ const props = defineProps<{
   data: EntityOccurrence.Occurrence
 }>()
 
-const displayTags = computed(() => props.data.tags
-  .filter(tag => tag.priority !== 'HIDE') ?? [])
-
 const reviewsCounted = computed(() => {
   const out = [ 0, 0, 0, 0, 0, 0 ]
 

@@ -1,5 +1,5 @@
 <template>
-  <HeaderTag>
+  <HeaderTag :hide-on-view-modes="[ 'desktop' ]">
     <UtilsHorizontalTabs
       :tabs="mobileTabList.map(id => ({ id, name: $t(`occurrence_details_tab_${id}`) }))"
       :active="mobileTabSelected"
@@ -7,7 +7,7 @@
     />
   </HeaderTag>
 
-  <PageContent>
+  <PageContent v-if="viewMode === 'mobile'">
     <h2 v-if="headerText" v-text="headerText" />
     <div v-else-if="mobileTabSelected === 0">
       <h2 v-text="dishName" />
@@ -21,14 +21,31 @@
       </template>
     </div>
   </PageContent>
+
+  <!-- <PageContent v-else class="page-desktop"> -->
+  <PageContent v-else-if="occ" class="page-desktop">
+    <div class="details">
+      <h2 v-if="headerText" v-text="headerText" />
+      <h2 v-else v-text="dishName" />
+      <DevId :id="occ.id" />
+      <OccurrenceDetailsBreakdown :data="occ" />
+    </div>
+    <div class="reviews">
+      <OccurrenceDetailsFullReview
+        v-for="review of reviews"
+        :key="review.id"
+        :data="review"
+      />
+    </div>
+  </PageContent>
 </template>
 
 <script setup lang="ts">
 const api = useApi()
 const route = useRoute()
 const i18n = useI18n()
+const viewMode = useViewMode()
 
-// const mobileTabList = [ 'details', 'reviews', 'history' ]
 const mobileTabList = [ 'details', 'reviews' ]
 const mobileTabSelected = useState(() => 0)
 
@@ -77,5 +94,36 @@ h2 {
   width: calc(100% + $main-content-padding*2);
   background-color: $bg-dark;
   margin: $main-content-padding calc($main-content-padding * -1);
+}
+
+.page-desktop {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: $main-content-padding;
+  max-width: 1200pt !important;
+  margin: 0 auto;
+
+  .reviews {
+    column-count: 2;
+    column-gap: $main-content-padding;
+    column-fill: balance;
+
+    & > * {
+      border: 1px solid $bg-dark;
+      border-radius: $menu-item-br;
+      padding: $menu-item-padding;
+      margin-bottom: $main-content-padding;
+      height: fit-content;
+      break-inside: avoid-column;
+    }
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .page-desktop {
+    grid-template-columns: 1fr 1fr;
+
+    .reviews { column-count: 1; }
+  }
 }
 </style>

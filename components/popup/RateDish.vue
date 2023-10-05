@@ -51,7 +51,7 @@
       :loading="submittedLoading"
       :disabled="!readyToSubmit"
       :triggerWhileDisabled="true"
-      @bclick="submit()"
+      @click="submit()"
     />
   </div>
 </template>

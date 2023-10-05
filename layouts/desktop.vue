@@ -1,5 +1,5 @@
 <template>
-  <div class="app" view-mode="desktop">
+  <div class="app" view-mode="desktop" :experiments="devMode ? devExperiments.join(' ') : false">
     <DesktopHeader />
     <div ref="scrollcont" class="content" :data-scrollblocked="globalScrollBlock > 0">
       <slot />
@@ -12,6 +12,9 @@ const scrollcont = ref<HTMLElement | null>(null)
 
 const globalScroll = useGlobalScroll()
 const globalScrollBlock = useGlobalScrollBlock()
+
+const devMode = useSettingDevMode()
+const devExperiments = useSettingDevExperiments()
 
 const { y } = useScroll(scrollcont)
 watch(y, val => (globalScroll.value = val))
