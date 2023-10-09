@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div :data-count="props.count">
     <UtilsStarIcon v-for="val of starValues" :percentage="val*100" />
-    <span v-text="props.count" />
+    <span v-text="props.count || '-'" />
   </div>
 </template>
 
@@ -45,5 +45,9 @@ span {
   font-size: 11pt;
   margin-left: calc($content-pills-height * 0.25);
   margin-right: calc($content-pills-height * 0.15);
+
+  [data-count="0"] & {
+    color: $color-yellow60;
+  }
 }
 </style>

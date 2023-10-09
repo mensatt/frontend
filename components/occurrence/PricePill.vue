@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :data-has-price="!!priceRaw">
     <span v-text="`${prices.format(priceRaw)}€`" />
   </div>
 </template>
@@ -28,7 +28,7 @@ const priceRaw = computed(() => {
 <style scoped lang="scss">
 div {
   height: $content-pills-height;
-  background-color: $color-blue20;
+  background-color: $color-blue40;
   border-radius: $card-item-br;
   width: fit-content;
   display: flex;
@@ -42,5 +42,9 @@ span {
   color: $color-blue;
   font-family: $font-major;
   font-size: 11pt;
+
+  [data-has-price=false] & {
+    color: $color-blue40;
+  }
 }
 </style>
