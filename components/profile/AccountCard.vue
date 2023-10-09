@@ -5,6 +5,10 @@
     </div>
     <span class="name" v-text="$t('profile_guest_name')" />
     <span class="subtitle" v-text="$t('profile_guest_subtitle')" />
+    <!-- <div class="buttons">
+      <UiButton :text="$t('register')" :slim="true" :secondary="true" />
+      <UiButton :text="$t('login')" :slim="true" />
+    </div> -->
   </div>
 </template>
 
@@ -40,6 +44,14 @@
     font-size: 10pt;
     color: $color-sub;
     grid-row: 3;
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $menu-item-margin;
+    margin-top: $main-content-padding;
+    grid-column: 1 / span 2;
   }
 }
 </style>

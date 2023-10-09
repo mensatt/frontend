@@ -110,4 +110,7 @@ export default {
   ingredient_salt: 'Salz',
   n_star: '{n} Stern | {n} Sterne',
   stars_summary: 'Durchschnitt: {score} / 5 Sterne ({count} Bewertung) | Durchschnitt: {score} / 5 Sterne ({count} Bewertungen)',
+  register: 'Registrieren',
+  login: 'Anmelden',
+  login_or_register: 'Anmelden / Registrieren',
 }

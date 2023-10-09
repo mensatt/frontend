@@ -35,8 +35,10 @@
       </div>
 
       <div v-if="viewMode === 'desktop'" class="buttons">
-        <button class="details" @click="showDetails(false)" v-text="$t('occurrence_show_details')" />
-        <button class="rate" :disabled="!userCanRate" @click="rate()" v-text="$t('occurrence_add_rating')" />
+        <!-- <button class="details" @click="showDetails(false)" v-text="$t('occurrence_show_details')" />
+        <button class="rate" :disabled="!userCanRate" @click="rate()" v-text="$t('occurrence_add_rating')" /> -->
+        <UiButton :slim="true" :secondary="true" @click="showDetails(false)" :text="$t('occurrence_show_details')" />
+        <UiButton :slim="true" :disabled="!userCanRate" @click="rate()" :text="$t('occurrence_add_rating')" />
       </div>
       <button v-else-if="userCanRate" class="rateme" @click="rate()" v-text="$t('occurrence_add_rating')" />
     </div>
@@ -220,47 +222,6 @@ h2 {
   display: flex;
   gap: $menu-item-margin;
   justify-content: space-between;
-
-  button {
-    all: unset;
-    flex: 1 1;
-    padding: 8pt 10pt;
-    font-size: 10pt;
-    margin-top: 10pt;
-    box-sizing: border-box;
-    font-family: $font-major;
-    color: $bg-lighter;
-    text-align: center;
-    border-radius: 999pt;
-    cursor: pointer;
-    transition: background-color .1s ease;
-
-    &.details {
-      padding: 7pt 9pt;
-      border: 1pt solid $bg-darker;
-      color: $color-minor;
-
-      &:disabled {
-        cursor: not-allowed;
-        opacity: .5;
-      }
-
-      &:hover:not(:disabled) {
-        background-color: $bg-dark;
-      }
-    }
-
-    &.rate {
-      background-color: $color-green;
-
-      &:disabled {
-        background-color: $bg-dark;
-        cursor: not-allowed;
-        color: $bg-darker;
-      }
-
-      &:hover:not(:disabled) { background-color: $color-greenH; }
-    }
-  }
+  margin-top: 10pt;
 }
 </style>
