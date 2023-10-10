@@ -5,12 +5,16 @@
     </div>
     <span class="name" v-text="$t('profile_guest_name')" />
     <span class="subtitle" v-text="$t('profile_guest_subtitle')" />
-    <!-- <div class="buttons">
+    <div v-if="experiments.isEnabled('account_ui')" class="buttons">
       <UiButton :text="$t('register')" :slim="true" :secondary="true" />
       <UiButton :text="$t('login')" :slim="true" />
-    </div> -->
+    </div>
   </div>
 </template>
+
+<script setup lang=ts>
+const experiments = useExperiments()
+</script>
 
 <style scoped lang="scss">
 .account-card {

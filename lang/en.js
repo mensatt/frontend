@@ -31,6 +31,7 @@ export default {
   settings_others_dev_app_info: 'App Info',
   settings_others_dev_full_reload: 'Full Reload (PWA)',
   settings_others_dev_show_ids: 'Show Ids',
+  settings_others_dev_experiments: 'Experiments',
   info_header: 'Information',
   theme_auto: 'Automatic',
   theme_light: 'Light',

@@ -10,7 +10,7 @@
   <PageContent v-if="viewMode === 'mobile'">
     <h2 v-if="headerText" v-text="headerText" />
     <div v-else-if="mobileTabSelected === 0">
-      <h2 v-text="dishName" />
+      <h2 v-text="formatters.localizeDishName(occ.dish)" />
       <DevId :id="occ.id" />
       <OccurrenceDetailsBreakdown :data="occ" />
     </div>
@@ -26,7 +26,7 @@
   <PageContent v-else-if="occ" class="page-desktop">
     <div class="details">
       <h2 v-if="headerText" v-text="headerText" />
-      <h2 v-else v-text="dishName" />
+      <h2 v-else v-text="formatters.localizeDishName(occ.dish)" />
       <DevId :id="occ.id" />
       <OccurrenceDetailsBreakdown :data="occ" />
     </div>
@@ -45,9 +45,10 @@ const api = useApi()
 const route = useRoute()
 const i18n = useI18n()
 const viewMode = useViewMode()
+const formatters = useFormatters()
 
 const mobileTabList = [ 'details', 'reviews' ]
-const mobileTabSelected = useState(() => 0)
+const mobileTabSelected = useState(`occdetails-${route.params.id}-tab`, () => 0)
 
 //
 
@@ -61,19 +62,6 @@ const headerText = computed(() => {
   if (error.value) return i18n.t('occurrence_details_error')
   if (!data.value?.occurrences?.length) return i18n.t('occurrence_details_not_found')
   return null
-})
-
-//
-
-const dishName = computed(() => {
-  if (!occ.value?.dish) return ''
-
-  if (i18n.locale.value === 'de' && occ.value.dish.nameDe)
-    return occ.value.dish.nameDe
-  if (i18n.locale.value === 'en' && occ.value.dish.nameEn)
-    return occ.value.dish.nameEn
-
-  return occ.value.dish.nameDe ?? occ.value.dish.nameEn
 })
 
 // reviews, sorted by time, new to old

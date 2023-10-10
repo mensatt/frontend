@@ -7,6 +7,7 @@ import PopupToggleOptions from "~/components/popup/ToggleOptions.vue"
 import PopupCalendar from "~/components/popup/Calendar.vue"
 import PopupProfileSettings from "~/components/popup/ProfileSettings.vue"
 import PopupOccurrencesForDay from "~/components/popup/OccurrencesForDay.vue"
+import PopupOccurrenceDetails from "~/components/popup/OccurrenceDetails.vue"
 import { EntityLocation } from "./entities/location"
 import { EntityOccurrence } from "./entities/occurrence"
 
@@ -74,6 +75,12 @@ export type Popup<T extends String> = {
     date: Date
   }
   returns: any
+} | {
+  id: 'occurrence_details'
+  data: {
+    occurrence: EntityOccurrence.Occurrence
+  }
+  returns: any
 }
 
 /** AND HERE */
@@ -85,7 +92,8 @@ export const PopupComponents: Record<Popup<any>['id'], DefineComponent<any, any,
   toggle_options: PopupToggleOptions,
   calendar: PopupCalendar,
   profile_settings: PopupProfileSettings,
-  occurrences_for_day: PopupOccurrencesForDay
+  occurrences_for_day: PopupOccurrencesForDay,
+  occurrence_details: PopupOccurrenceDetails
 }
 
 export type PositionalData = {

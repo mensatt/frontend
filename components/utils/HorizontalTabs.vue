@@ -103,6 +103,9 @@ onMounted(() => {
 .tabs {
   display: flex;
   width: fit-content;
+  min-width: 100%;
+  justify-content: space-around;
+  box-sizing: border-box;
   padding: 0 10pt;
   height: 100%;
 

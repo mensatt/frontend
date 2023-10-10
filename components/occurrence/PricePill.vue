@@ -1,6 +1,6 @@
 <template>
   <div :data-has-price="!!priceRaw">
-    <span v-text="`${prices.format(priceRaw)}€`" />
+    <span v-text="`${formatters.formatPrice(priceRaw)}€`" />
   </div>
 </template>
 
@@ -11,7 +11,7 @@ const { data } = defineProps<{
   data: EntityOccurrence.Occurrence
 }>()
 
-const prices = usePrices()
+const formatters = useFormatters()
 const settingPrice = useSettingPrice()
 
 const priceRaw = computed(() => {

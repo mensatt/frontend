@@ -21,15 +21,15 @@
 
     <div class="prices">
       <div class="price">
-        <span v-text="prices.format(data.priceStudent) + '€'" />
+        <span v-text="formatters.formatPrice(data.priceStudent) + '€'" />
         <span v-text="$t('settings_price_group1')" />
       </div>
       <div class="price">
-        <span v-text="prices.format(data.priceStaff) + '€'" />
+        <span v-text="formatters.formatPrice(data.priceStaff) + '€'" />
         <span v-text="$t('settings_price_group2')" />
       </div>
       <div class="price">
-        <span v-text="prices.format(data.priceGuest) + '€'" />
+        <span v-text="formatters.formatPrice(data.priceGuest) + '€'" />
         <span v-text="$t('settings_price_group3')" />
       </div>
     </div>
@@ -70,7 +70,7 @@ const ingredients: Array<{ name: keyof EntityOccurrence.Occurrence, unit: string
   { name: 'salt', unit: 'g', factor: 10 },
 ]
 
-const prices = usePrices()
+const formatters = useFormatters()
 
 const props = defineProps<{
   data: EntityOccurrence.Occurrence

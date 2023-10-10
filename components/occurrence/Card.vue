@@ -11,7 +11,7 @@
     </div>
 
     <div class="details">
-      <h2 @click="showDetails(true)" v-text="dishName" />
+      <h2 @click="showDetails(true)" v-text="formatters.localizeDishName(data.dish)" />
       <DevId :id="data.id" />
 
       <div class="pills" @click="showDetails(true)">
@@ -48,25 +48,17 @@
 <script setup lang="ts">
 import { EntityOccurrence } from '~/utils/entities/occurrence'
 
+const route = useRoute()
 const router = useRouter()
 const popups = usePopups()
-const i18n = useI18n()
 const viewMode = useViewMode()
+const formatters = useFormatters()
 
 const showCalories = useSettingShowCalories()
 
 const { data } = defineProps<{
   data: EntityOccurrence.Occurrence
 }>()
-
-const dishName = computed(() => {
-  if (i18n.locale.value === 'de' && data.dish.nameDe)
-    return data.dish.nameDe
-  if (i18n.locale.value === 'en' && data.dish.nameEn)
-    return data.dish.nameEn
-
-  return data.dish.nameDe ?? data.dish.nameEn
-})
 
 const imageReviews = data.dish.reviewData.reviews
   .filter(rev => rev.images.length)
@@ -92,11 +84,15 @@ function rate() {
   popups.open('rate_dish', { occurrence: data })
 }
 
-function showDetails(mobileOnly: boolean) {
-  if (mobileOnly && viewMode.value !== 'mobile')
-    return
-
-  router.push(`/details/${data.id}`)
+async function showDetails(mobileOnly: boolean) {
+  if (viewMode.value === 'mobile') {
+    const currentRoute = route.fullPath
+    history.pushState({}, '', `/details/${data.id}`)
+    await popups.open('occurrence_details', { occurrence: data })
+    history.pushState({}, '', currentRoute)
+  } else if (!mobileOnly) {
+    router.push(`/details/${data.id}`)
+  }
 }
 </script>
 
