@@ -5,7 +5,7 @@
     </div>
     <span class="name" v-text="$t('profile_guest_name')" />
     <span class="subtitle" v-text="$t('profile_guest_subtitle')" />
-    <div v-if="experiments.isEnabled('account_ui')" class="buttons">
+    <div v-if="false" class="buttons">
       <UiButton :text="$t('register')" :slim="true" :secondary="true" />
       <UiButton :text="$t('login')" :slim="true" />
     </div>
@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang=ts>
-const experiments = useExperiments()
+// const experiments = useExperiments()
 </script>
 
 <style scoped lang="scss">
