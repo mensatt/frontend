@@ -25,18 +25,21 @@ const experiments = [
 
 export type ExperimentIds = typeof experiments[number]['id']
 
-export const useExperiments = () => ({
-  list: [...experiments],
-  asChoicesList() {
-    return experiments.map(e => ({
-      id: e.id,
-      name: e.name
-    }))
-  },
-  isEnabled(id: ExperimentIds) {
-    const devMode = useSettingDevMode()
-    if (!devMode.value) return false
-    const enabled = useSettingDevExperiments()
-    return enabled.value.includes(id)
+export const useExperiments = () => {
+  const devMode = useSettingDevMode()
+  const devExperiments = useSettingDevExperiments()
+
+  return {
+    list: [...experiments],
+    asChoicesList() {
+      return experiments.map(e => ({
+        id: e.id,
+        name: e.name
+      }))
+    },
+    isEnabled(id: ExperimentIds) {
+      if (!devMode.value) return false
+      return devExperiments.value.includes(id)
+    }
   }
-})
+}
