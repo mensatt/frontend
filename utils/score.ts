@@ -2,11 +2,11 @@ import { EntityOccurrence } from "~/utils/entities/occurrence"
 import Occurrence = EntityOccurrence.Occurrence
 
 const commonDishPenalty = {
-    'pizza': 1,
+    'kühltheke': 4,
     'suppe': 3,
     'salat': 3,
     'bowl': 2,
-    'kühltheke': 4,
+    'pizza': 1,
 }
 
 function scoreOccurrence(occ: Occurrence): number {
@@ -21,16 +21,11 @@ function scoreOccurrence(occ: Occurrence): number {
   if (reviewData.reviews.some(r => r.images.length > 0))
     score += 1
 
-  let highestPenalty = 0
-  for (const commonKey in commonDishPenalty) {
-    if (occ.dish.nameDe.toLowerCase().includes(commonKey)) {
-        const penalty = commonDishPenalty[commonKey]
-        if (penalty > highestPenalty)
-            highestPenalty = penalty
-    }
-  }
+  const highestPenaltyDish = Object.entries(commonDishPenalty).sort((a, b) => b[1] - a[1])
+    .find(([key, _]) => occ.dish.nameDe.toLowerCase().includes(key))
 
-  score -= highestPenalty
+  if(highestPenaltyDish)
+    score -= highestPenaltyDish[1]
 
   return score
 }
