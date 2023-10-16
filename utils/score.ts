@@ -1,7 +1,7 @@
 import { EntityOccurrence } from "~/utils/entities/occurrence"
 import Occurrence = EntityOccurrence.Occurrence
 
-const commonDishPenalty: any= {
+const commonDishPenalty = {
     'pizza': 1,
     'suppe': 3,
     'salat': 3,
@@ -21,13 +21,16 @@ function scoreOccurrence(occ: Occurrence): number {
   if (reviewData.reviews.some(r => r.images.length > 0))
     score += 1
 
+  let highestPenalty = 0
   for (const commonKey in commonDishPenalty) {
     if (occ.dish.nameDe.toLowerCase().includes(commonKey)) {
-      score -= commonDishPenalty[commonKey]
-      // Only apply one penalty
-      break
+        const penalty = commonDishPenalty[commonKey]
+        if (penalty > highestPenalty)
+            highestPenalty = penalty
     }
   }
+
+  score -= highestPenalty
 
   return score
 }
