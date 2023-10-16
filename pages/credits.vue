@@ -37,7 +37,7 @@ const specialThanks = [
 
 const weLove = [
   'Nuxt, Vue & VueUse',
-  'Bun & Elysia & Drizzle',
+  'Bun, Elysia & Drizzle',
   'GraphQl',
   'Spezi',
 ].sort(shuffle)
