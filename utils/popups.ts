@@ -107,18 +107,38 @@ export type PositionalData = {
 //
 
 export type PopupInternally = Omit<Popup<any>, 'returns'> & { callback: Function, uuid: number, dismissed: boolean, position?: PositionalData }
+type PopupStateManagement = {
+  strat: 'push' | 'replace' | 'none'
+  url?: string
+  revertOnClose?: boolean
+}
 
 const getState = () => useState<PopupInternally[]>('popups', () => ([]))
 let uuidCounter = 1
 
 export const usePopups = () => {
   const state = getState()
+  const route = useRoute()
   return {
-    open<T extends string, Id extends Popup<T>['id']>(id: Id, data: (Popup<T> & { id: Id })['data'], position?: PositionalData): Promise<(Popup<T> & { id: Id })['returns'] | null> {
-      return new Promise((callback) => {
+    open<T extends string, Id extends Popup<T>['id']>(id: Id, data: (Popup<T> & { id: Id })['data'], position?: PositionalData, stateManagement?: PopupStateManagement): Promise<(Popup<T> & { id: Id })['returns'] | null> {
+      const prevRoute = route.fullPath
+      const promise = new Promise((callback) => {
         state.value.push({ id, data, callback, uuid: uuidCounter++, dismissed: false, position })
-        window.history.pushState({ ...window.history.state, $popups: state.value.map(p => p.uuid) }, null as any, null)
+        
+        const strat = stateManagement ? stateManagement.strat : 'push'
+        if (strat !== 'none')
+          window.history[strat === 'push' ? 'pushState' : 'replaceState']({ ...window.history.state, $popups: state.value.map(p => p.uuid) }, null as any, stateManagement?.url ?? null)
       })
+
+      if (stateManagement?.revertOnClose) {
+        return new Promise(async (res) => {
+          const out = await promise
+          window.history.replaceState(window.history.state, null as any, prevRoute)
+          res(out)
+        })
+      }
+
+      return promise
     },
     get state() {
       return state.value

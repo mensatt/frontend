@@ -86,10 +86,12 @@ function rate() {
 
 async function showDetails(mobileOnly: boolean) {
   if (viewMode.value === 'mobile') {
-    const currentRoute = route.fullPath
-    window.history.replaceState(window.history.state, null as any, `/details/${data.id}`)
-    await popups.open('occurrence_details', { occurrence: data })
-    window.history.replaceState(window.history.state, null as any, currentRoute)
+    popups.open(
+      'occurrence_details',
+      { occurrence: data },
+      undefined, // no positioning needed on mobile
+      { strat: 'push', url: `/details/${data.id}`, revertOnClose: true } // we're changing the url to reflect the id
+    )
   } else if (!mobileOnly) {
     router.push(`/details/${data.id}`)
   }

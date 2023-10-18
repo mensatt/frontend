@@ -63,7 +63,8 @@ useEventListener('popstate', (e) => {
   for (const popup of popups.state) {
     if (allowedPopups.includes(popup.uuid)) continue
 
-    popup.callback(null)
+    if (!popup.dismissed)
+      popup.callback(null)
     popup.dismissed = true
     setTimeout(() => {
       const index = popups.state.findIndex(search => search.uuid === popup.uuid)
