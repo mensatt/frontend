@@ -56,6 +56,21 @@ onMounted(() => {
   else
     backgroundTasks()
 })
+
+const popups = usePopups()
+useEventListener('popstate', (e) => {
+  const allowedPopups = e.state.$popups ?? []
+  for (const popup of popups.state) {
+    if (allowedPopups.includes(popup.uuid)) continue
+
+    popup.callback(null)
+    popup.dismissed = true
+    setTimeout(() => {
+      const index = popups.state.findIndex(search => search.uuid === popup.uuid)
+      popups.state.splice(index, 1)
+    }, 1000)
+  }
+})
 </script>
 
 <!-- THIS IS GLOBAL CSS, NOT SCOPED. DO NOT ADD STYLES HERE! -->

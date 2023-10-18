@@ -109,13 +109,19 @@ export type PositionalData = {
 export type PopupInternally = Omit<Popup<any>, 'returns'> & { callback: Function, uuid: number, dismissed: boolean, position?: PositionalData }
 
 const getState = () => useState<PopupInternally[]>('popups', () => ([]))
-let uuidCounter = 0
+let uuidCounter = 1
 
-export const usePopups = () => ({
-  open<T extends string, Id extends Popup<T>['id']>(id: Id, data: (Popup<T> & { id: Id })['data'], position?: PositionalData): Promise<(Popup<T> & { id: Id })['returns'] | null> {
-    return new Promise((callback) => getState().value.push({ id, data, callback, uuid: uuidCounter++, dismissed: false, position }))
-  },
-  get state() {
-    return getState().value
-  } 
-})
+export const usePopups = () => {
+  const state = getState()
+  return {
+    open<T extends string, Id extends Popup<T>['id']>(id: Id, data: (Popup<T> & { id: Id })['data'], position?: PositionalData): Promise<(Popup<T> & { id: Id })['returns'] | null> {
+      return new Promise((callback) => {
+        state.value.push({ id, data, callback, uuid: uuidCounter++, dismissed: false, position })
+        window.history.pushState({ ...window.history.state, $popups: state.value.map(p => p.uuid) }, null as any, null)
+      })
+    },
+    get state() {
+      return state.value
+    } 
+  }
+}
