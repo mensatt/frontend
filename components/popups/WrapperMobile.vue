@@ -119,6 +119,7 @@ const innerCss = computed(() => ({
 .inner {
   pointer-events: all;
   width: 100%;
+  overflow: hidden;
   background-color: $bg-lighter;
   height: fit-content;
   min-height: 30vh;
