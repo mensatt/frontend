@@ -21,15 +21,17 @@ const popups = usePopups()
 const WrapperComponent = computed(() => (viewMode.value === 'mobile') ? PopupsWrapperMobile : PopupsWrapperDesktop)
 
 function destruct(popup: PopupInternally) {
+  popup.callback(null)
   popup.dismissed = true
-  window.history.replaceState({
-    ...window.history.state,
-    $popups: popups.state.map(s => s.uuid).filter(uuid => uuid !== popup.uuid)
-  }, '')
+  window.history.back()
+
+  // the below should be taken care of by the time the function runs
+  // but in case it wasn't, we're cleaning up anyway
   setTimeout(() => {
     const index = popups.state.findIndex(search => search.uuid === popup.uuid)
-    popups.state.splice(index, 1)
-  }, 1000)
+    if (index >= 0)
+      popups.state.splice(index, 1)
+  }, 2000)
 }
 </script>
 
