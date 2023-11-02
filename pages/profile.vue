@@ -25,7 +25,7 @@
     </div>
 
     <div class="footer">
-      <span>Copyright &copy; {{ new Date().getFullYear() }} Mensatt<br>v{{version.version}}</span>
+      <span>Copyright &copy; {{ new Date().getFullYear() }} Mensatt<br>v{{ version.version }}</span>
     </div>
   </PageContent>
 </template>
