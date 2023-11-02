@@ -35,10 +35,8 @@
       </div>
 
       <div v-if="viewMode === 'desktop'" class="buttons">
-        <!-- <button class="details" @click="showDetails(false)" v-text="$t('occurrence_show_details')" />
-        <button class="rate" :disabled="!userCanRate" @click="rate()" v-text="$t('occurrence_add_rating')" /> -->
-        <UiButton :slim="true" :secondary="true" @click="showDetails(false)" :text="$t('occurrence_show_details')" />
-        <UiButton :slim="true" :disabled="!userCanRate" @click="rate()" :text="$t('occurrence_add_rating')" />
+        <UiButton :slim="true" :secondary="true" :text="$t('occurrence_show_details')" @click="showDetails(false)" />
+        <UiButton :slim="true" :disabled="!userCanRate" :text="$t('occurrence_add_rating')" @click="rate()" />
       </div>
       <button v-else-if="userCanRate" class="rateme" @click="rate()" v-text="$t('occurrence_add_rating')" />
     </div>
@@ -48,7 +46,6 @@
 <script setup lang="ts">
 import { EntityOccurrence } from '~/utils/entities/occurrence'
 
-const route = useRoute()
 const router = useRouter()
 const popups = usePopups()
 const viewMode = useViewMode()
@@ -84,7 +81,7 @@ function rate() {
   popups.open('rate_dish', { occurrence: data })
 }
 
-async function showDetails(mobileOnly: boolean) {
+function showDetails(mobileOnly: boolean) {
   if (viewMode.value === 'mobile') {
     popups.open(
       'occurrence_details',

@@ -1,9 +1,9 @@
 <template>
   <div class="popups" :view-mode="viewMode">
     <component
+      :is="WrapperComponent"
       v-for="popup of popups.state"
       :key="popup.uuid"
-      :is="WrapperComponent"
       :data="popup"
       @destruct="destruct(popup)"
     />
@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { PopupInternally } from '../../utils/popups';
+import { PopupInternally } from '../../utils/popups'
 import PopupsWrapperMobile from './WrapperMobile.vue'
 import PopupsWrapperDesktop from './WrapperDesktop.vue'
 

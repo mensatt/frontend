@@ -1,4 +1,5 @@
-import { EntityOccurrence } from "./entities/occurrence"
+/* eslint-disable curly */
+import { EntityOccurrence } from './entities/occurrence'
 
 type Filters = {
   noMeat: boolean
@@ -79,7 +80,7 @@ function filterOccurrences(list: EntityOccurrence.Occurrence[], opts: Partial<Fi
 
   if (!sort)
     return out
- 
+
   const score = useScore()
   return {
     visible: score.sortOccurrences(out.visible),

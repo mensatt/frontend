@@ -2,7 +2,7 @@
   <HeaderTag :hide-on-view-modes="[ 'desktop' ]">
     <UtilsRelativeDateSelect />
   </HeaderTag>
- 
+
   <PageContent v-if="viewMode === 'desktop'">
     <OccurrenceList
       :key="mensa.id + activeDate"
@@ -13,16 +13,30 @@
         <footer>
           <span>Copyright &copy; {{ new Date().getFullYear() }} Mensatt. {{ $t('liability_disclaimer') }}</span>
           <span>
-            v{{version.version}} &mdash; <NuxtLink v-for="link of desktopFooterLinks" :key="link.url" :to="link.url" v-text="$t(link.text)" />
+            v{{ version.version }}
+            &mdash;
+            <NuxtLink v-for="link of desktopFooterLinks" :key="link.url" :to="link.url">{{ $t(link.text) }}</NuxtLink>
           </span>
           <div class="socials">
-            <NuxtLink to="https://discord.gg/wjeYsQQQ3R" target="_blank" class="social">
+            <NuxtLink
+              to="https://discord.gg/wjeYsQQQ3R"
+              target="_blank"
+              class="social"
+            >
               <NuxtIcon name="brands/discord" />
             </NuxtLink>
-            <NuxtLink to="https://github.com/mensatt" target="_blank" class="social">
+            <NuxtLink
+              to="https://github.com/mensatt"
+              target="_blank"
+              class="social"
+            >
               <NuxtIcon name="brands/github" />
             </NuxtLink>
-            <NuxtLink href="mailto:hello@mensatt.de" target="_blank" class="social">
+            <NuxtLink
+              href="mailto:hello@mensatt.de"
+              target="_blank"
+              class="social"
+            >
               <NuxtIcon name="brands/mail" />
             </NuxtLink>
           </div>
@@ -31,10 +45,16 @@
     </OccurrenceList>
   </PageContent>
 
-  <PageContent v-else-if="viewMode === 'mobile'" :no-padding="true">
+  <PageContent
+    v-else-if="viewMode === 'mobile'"
+    :no-padding="true"
+  >
     <UtilsSwipePages>
       <template #active>
-        <UtilsPullDownRefresh :disabled="!!activeList?.loading" @refresh="refresh()">
+        <UtilsPullDownRefresh
+          :disabled="!!activeList?.loading"
+          @refresh="refresh()"
+        >
           <OccurrenceList
             ref="activeList"
             :key="mensa.id + activeDate"

@@ -183,7 +183,7 @@ const reviewsCounted = computed(() => {
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 10pt;
-    
+
     &:not(:last-child) {
       margin-bottom: 2pt;
     }

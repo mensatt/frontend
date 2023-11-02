@@ -51,7 +51,7 @@ function handleDesktopView() {
   grid-template-columns: repeat(3, 1fr);
   width: 100%;
   gap: $menu-item-margin;
-  
+
   .social {
     background-color: $bg-light;
     border-radius: $menu-item-br;

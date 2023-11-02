@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang=ts>
-const props = defineProps<{
+const _props = defineProps<{
   disabled?: boolean
 }>()
 
@@ -20,8 +20,8 @@ const emit = defineEmits([ 'direction', 'percent' ])
 const threshold = 50
 
 const swiper = ref<HTMLElement | null>(null)
-const globalScrollBlock = useGlobalScrollBlock()
-const globalGestureTracked = useGlobalGestureTracked()
+const _globalScrollBlock = useGlobalScrollBlock()
+const _globalGestureTracked = useGlobalGestureTracked()
 
 const swipeValid = useState('sp-swipe-valid', () => false)
 const adjustToThreshold = useState('sp-adjust-threshold', () => 0)
@@ -50,17 +50,17 @@ const visualDistance = computed(() => {
 })
 
 const outDirection = computed(() => (lengthX.value - adjustToThreshold.value) > 0 ? 1 : -1)
-watch(outDirection, (dir) => emit('direction', dir))
+watch(outDirection, dir => emit('direction', dir))
 
 const outPercent = computed(() => (-visualDistance.value / (window?.innerWidth ?? 1)))
-watch(outPercent, (per) => emit('percent', per))
+watch(outPercent, per => emit('percent', per))
 
-watch(direction, (dir) => {
+watch(direction, (_dir) => {
   // if (dir !== 'left' && dir !== 'right') return
   // if (props.disabled) return
   // if (swipeValid.value) return // swiping was already initialized
   // if (globalGestureTracked.value > 0) return // another gesture is already happening
-  
+
   // globalGestureTracked.value++
   // globalScrollBlock.value++
   // swipeValid.value = true

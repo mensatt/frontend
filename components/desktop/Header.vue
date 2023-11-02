@@ -46,7 +46,7 @@ const profileButtonEl = ref<HTMLElement | null>(null)
 //
 
 const route = useRoute()
-watch(route, val => {
+watch(route, (val) => {
   if (val.name !== 'index')
     selectedDay.value = null
   else if (selectedDay.value === null)
@@ -101,7 +101,7 @@ async function clickMensa() {
     selectedLocation.value = mensa
 }
 
-async function clickProfile() {
+function clickProfile() {
   const elPos = profileButtonEl.value?.getBoundingClientRect()
   const popupPos = elPos ? {
     top: elPos.bottom + 5,

@@ -68,8 +68,8 @@ const headerText = computed(() => {
 const reviews = computed(() => occ.value?.dish
   .reviewData.reviews
   .map(r => ([ r, new Date(r.createdAt).getTime() ] as const))
-  .sort(([,a], [,b]) => b - a)
-  .map(([r]) => r))
+  .sort(([ , a ], [ , b ]) => b - a)
+  .map(([ r ]) => r))
 </script>
 
 <style scoped lang="scss">

@@ -30,7 +30,7 @@ export const useExperiments = () => {
   const devExperiments = useSettingDevExperiments()
 
   return {
-    list: [...experiments],
+    list: [ ...experiments ],
     asChoicesList() {
       return experiments.map(e => ({
         id: e.id,

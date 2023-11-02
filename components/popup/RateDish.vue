@@ -18,10 +18,10 @@
 
     <label for="image" optional v-text="$t('rate_dish_image')" />
     <div class="image" :data-uploaded="!!fileUploadPreview">
-      <img v-if="fileUploadPreview" :src="fileUploadPreview" :style="imagePreviewCss" @click="open()" />
-      <p v-else v-text="$t('rate_dish_image_upload')" @click="open()" />
+      <img v-if="fileUploadPreview" :src="fileUploadPreview" :style="imagePreviewCss" @click="open()">
+      <p v-else @click="open()" v-text="$t('rate_dish_image_upload')" />
 
-      <div class="buttons" v-if="fileUploadPreview">
+      <div v-if="fileUploadPreview" class="buttons">
         <NuxtIcon name="close" @click="inputImage = null" />
         <NuxtIcon name="rotate_90" @click="rotateImage()" />
       </div>
@@ -40,17 +40,17 @@
     <label for="nickname" optional v-text="$t('rate_dish_nickname')" />
     <div class="nickname">
       <input
-        type="text"
         v-model="inputNickname"
+        type="text"
         :placeholder="$t('rate_dish_nickname_placeholder')"
-      />
+      >
     </div>
 
     <UiButton
       :text="$t('rate_dish_submit')"
       :loading="submittedLoading"
       :disabled="!readyToSubmit"
-      :triggerWhileDisabled="true"
+      :trigger-while-disabled="true"
       @click="submit()"
     />
   </div>
@@ -80,7 +80,7 @@ const inputStars = useState(`rate-dish-${props.occurrence.id}--stars`, () => 0)
 const inputImage = useState<File | null>(`rate-dish-${props.occurrence.id}--image`, () => null)
 const inputImageRotation = useState<0 | 90 | 180 | 270>(`rate-dish-${props.occurrence.id}--image-rot`, () => 0)
 const inputReview = useState(`rate-dish-${props.occurrence.id}--review`, () => '')
-const inputNickname = useLocalStorage(`rate-dish--nickname`, () => '')
+const inputNickname = useLocalStorage('rate-dish--nickname', () => '')
 
 const errorRequireStars = useState(`rate-dish-${props.occurrence.id}--error-stars`, () => false)
 const submittedLoading = useState(`rate-dish-${props.occurrence.id}--submitted-loading`, () => false)

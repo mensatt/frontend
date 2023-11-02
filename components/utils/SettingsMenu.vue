@@ -10,7 +10,7 @@
       v-model="inputPrice"
     />
   </div>
-  
+
   <label for="visual" v-text="$t('settings_visual_header')" />
   <div class="visual">
     <UiSelectable text="settings_visual_language" :iconFilled="true" :selected="selectedLanguage" :skip-value-t="true" @open="openLanguageSelector" />
@@ -72,7 +72,7 @@ const selectedLanguage = computed(() => languageList.value.find(search => (searc
 async function openLanguageSelector() {
   const sel = await popups.open('select_option', {
     title: 'settings_visual_language_select',
-    options: [...languageList.value],
+    options: [ ...languageList.value ],
     skipNameT: true,
     selected: locale.value
   })
@@ -91,7 +91,7 @@ const selectedTheme = computed(() => themeList.find(search => (search?.id === in
 async function openThemeSelector() {
   const sel = await popups.open('select_option', {
     title: 'settings_visual_theme_select',
-    options: [...themeList],
+    options: [ ...themeList ],
     selected: inputTheme.value
   })
   if (sel)
@@ -116,7 +116,7 @@ const selectedBackend = computed(() => backendList.find(search => (search.id ===
 async function openBackendSelector() {
   const sel = await popups.open('select_option', {
     title: 'settings_others_dev_backend_select',
-    options: [...backendList],
+    options: [ ...backendList ],
     skipNameT: true,
     selected: inputDevBackend.value
   })

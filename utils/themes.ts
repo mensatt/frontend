@@ -25,7 +25,7 @@ const themes = [
 export type ThemeChoice = typeof themes[number]['id']
 
 export const useThemes = () => ({
-  list: [...themes],
+  list: [ ...themes ],
   asConfigObject(): Record<ThemeChoice, ThemeChoice> {
     const out = {} as any
     for (const theme of themes)

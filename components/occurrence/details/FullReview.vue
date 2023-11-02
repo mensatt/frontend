@@ -27,8 +27,8 @@
 </template>
 
 <script setup lang=ts>
-import { EntityOccurrence } from '~/utils/entities/occurrence'
 import dayjs from 'dayjs'
+import { EntityOccurrence } from '~/utils/entities/occurrence'
 
 const i18n = useI18n()
 

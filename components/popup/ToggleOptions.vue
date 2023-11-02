@@ -105,11 +105,11 @@ function toggle(opt: { id: T }) {
     }
   }
 
-  [view-mode=desktop] &[data-selected=true][data-divider=false]:hover {  
+  [view-mode=desktop] &[data-selected=true][data-divider=false]:hover {
     background-color: $color-green40;
   }
 
-  [view-mode=desktop] &[data-selected=false][data-divider=false]:hover {  
+  [view-mode=desktop] &[data-selected=false][data-divider=false]:hover {
     background-color: $bg-dark;
   }
 }

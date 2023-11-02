@@ -103,11 +103,11 @@ function toggleFav(location: EntityLocation.Location) {
     }
   }
 
-  [view-mode=desktop] &[data-fav=true]:hover {  
+  [view-mode=desktop] &[data-fav=true]:hover {
     background-color: $color-green40;
   }
 
-  [view-mode=desktop] &[data-fav=false]:hover {  
+  [view-mode=desktop] &[data-fav=false]:hover {
     background-color: $bg-dark;
   }
 }

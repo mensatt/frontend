@@ -7,14 +7,14 @@
 </template>
 
 <script setup lang="ts">
-// apply color mode
-useSettingColorMode()
-
 // load dayjs + plugins
 import dayjs from 'dayjs'
 import 'dayjs/locale/de'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
+
+// apply color mode
+useSettingColorMode()
 
 // viewport info
 const viewMode = useViewMode()

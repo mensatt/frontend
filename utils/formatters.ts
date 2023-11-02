@@ -1,4 +1,4 @@
-import { EntityOccurrence } from "./entities/occurrence"
+import { EntityOccurrence } from './entities/occurrence'
 
 function formatPrice(price: number | null): string {
   if (price === null) return '-- '

@@ -1,6 +1,6 @@
 <template>
   <div :data-count="props.count">
-    <UtilsStarIcon v-for="val of starValues" :percentage="val*100" />
+    <UtilsStarIcon v-for="val,i of starValues" :key="i" :percentage="val*100" />
     <span v-text="props.count || '-'" />
   </div>
 </template>

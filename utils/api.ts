@@ -1,7 +1,7 @@
-import { _AsyncData } from "nuxt/dist/app/composables/asyncData"
-import { EntityOccurrence } from "./entities/occurrence"
-import { EntityLocation } from "./entities/location"
-import { EntityReview } from "./entities/review"
+import { _AsyncData } from 'nuxt/dist/app/composables/asyncData'
+import { EntityOccurrence } from './entities/occurrence'
+import { EntityLocation } from './entities/location'
+import { EntityReview } from './entities/review'
 
 function getClient() {
   return useSettingDevMode().value

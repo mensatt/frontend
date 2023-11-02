@@ -1,15 +1,15 @@
-import { DefineComponent } from "nuxt/dist/app/compat/capi"
-import PopupSelectMensa from "~/components/popup/SelectMensa.vue"
-import PopupTest from "~/components/popup/Test.vue"
-import PopupRateDish from "~/components/popup/RateDish.vue"
-import PopupSelectOption from "~/components/popup/SelectOption.vue"
-import PopupToggleOptions from "~/components/popup/ToggleOptions.vue"
-import PopupCalendar from "~/components/popup/Calendar.vue"
-import PopupProfileSettings from "~/components/popup/ProfileSettings.vue"
-import PopupOccurrencesForDay from "~/components/popup/OccurrencesForDay.vue"
-import PopupOccurrenceDetails from "~/components/popup/OccurrenceDetails.vue"
-import { EntityLocation } from "./entities/location"
-import { EntityOccurrence } from "./entities/occurrence"
+import { DefineComponent } from 'nuxt/dist/app/compat/capi'
+import { EntityLocation } from './entities/location'
+import { EntityOccurrence } from './entities/occurrence'
+import PopupSelectMensa from '~/components/popup/SelectMensa.vue'
+import PopupTest from '~/components/popup/Test.vue'
+import PopupRateDish from '~/components/popup/RateDish.vue'
+import PopupSelectOption from '~/components/popup/SelectOption.vue'
+import PopupToggleOptions from '~/components/popup/ToggleOptions.vue'
+import PopupCalendar from '~/components/popup/Calendar.vue'
+import PopupProfileSettings from '~/components/popup/ProfileSettings.vue'
+import PopupOccurrencesForDay from '~/components/popup/OccurrencesForDay.vue'
+import PopupOccurrenceDetails from '~/components/popup/OccurrenceDetails.vue'
 
 
 /** REGISTER YOUR POPUP HERE */
@@ -124,7 +124,7 @@ export const usePopups = () => {
       const prevRoute = route.fullPath
       const promise = new Promise((callback) => {
         state.value.push({ id, data, callback, uuid: uuidCounter++, dismissed: false, position })
-        
+
         const strat = stateManagement ? stateManagement.strat : 'push'
         if (strat !== 'none')
           window.history[strat === 'push' ? 'pushState' : 'replaceState']({ ...window.history.state, $popups: state.value.map(p => p.uuid) }, null as any, stateManagement?.url ?? null)
@@ -142,6 +142,6 @@ export const usePopups = () => {
     },
     get state() {
       return state.value
-    } 
+    }
   }
 }

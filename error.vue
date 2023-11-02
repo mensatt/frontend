@@ -6,13 +6,12 @@
     </div>
     <div class="details">
       <h2>An error occurred!</h2>
-      <span v-for="[k,v] of Object.entries(error ?? {})">
-        <b>{{ k }}:</b> {{v}}
+      <span v-for="[k,v] of Object.entries(error ?? {})" :key="k">
+        <b>{{ k }}:</b> {{ v }}
       </span>
     </div>
     <NuxtLink to="/">Go Back</NuxtLink>
   </div>
-
 </template>
 
 <script setup lang="ts">

@@ -25,7 +25,7 @@ const globalFullHeightTracker = useGlobalHeaderFullHeight()
 
 const commonEl = ref(null)
 const { height: commonElHeight } = useElementSize(commonEl)
-watch(commonElHeight, val => {
+watch(commonElHeight, (val) => {
   globalFullHeightTracker.value = val
   globalHeightTracker.value = (val - commonOffset.value)
 })
@@ -63,7 +63,7 @@ async function clickMensa() {
     selectedLocation.value = mensa
 }
 
-async function clickTest() {
+function clickTest() {
   popups.open('test', { a: 1 })
 }
 </script>

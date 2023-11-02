@@ -1,4 +1,4 @@
-import { EntityLocation } from "../utils/entities/location"
+import { EntityLocation } from '../utils/entities/location'
 
 /** default locations so we don't have to wait for gql to render the page layout */
 const defaultLocations: EntityLocation.Location[] = [

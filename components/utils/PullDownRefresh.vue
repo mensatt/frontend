@@ -9,7 +9,7 @@
       <span v-text="$t('refresh')" />
     </div>
     <slot />
-  </div>  
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -55,7 +55,7 @@ function mix(a: number, b: number, ratio: number) {
 const triggerUpdate = useState('horizontal-tabs--trigger', () => 0)
 
 const indicatorCss = computed(() => {
-  triggerUpdate.value;
+  triggerUpdate.value
 
   if (!parentEl.value) return {}
   if (!tabsEl.value) return {}
@@ -94,7 +94,7 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   overflow-x: scroll;
-  
+
   & > div {
     height: 100%;
   }

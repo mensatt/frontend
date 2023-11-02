@@ -6,13 +6,13 @@
   <PageContent>
     <p>Mensatt &lt;3</p>
     <h3 v-text="$t('credits_core_team')" />
-    <p v-for="name of coreTeam">- {{ name }}</p>
+    <p v-for="name,i of coreTeam" :key="i">- {{ name }}</p>
 
     <h3 v-text="$t('credits_special_thanks')" />
-    <p v-for="name of specialThanks">- {{ name }}</p>
+    <p v-for="name,i of specialThanks" :key="i">- {{ name }}</p>
 
     <h3 v-text="$t('credits_we_love')" />
-    <p v-for="name of weLove">- {{ name }}</p>
+    <p v-for="name,i of weLove" :key="i">- {{ name }}</p>
   </PageContent>
 </template>
 
