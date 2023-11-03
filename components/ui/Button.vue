@@ -1,17 +1,17 @@
 <template>
   <button
-    @click="click()"
     :disabled="!!disabled"
     :data-loading="!!loading"
     :data-secondary="secondary"
     :data-slim="slim"
+    @click="click()"
   >
     <NuxtIcon v-if="loading" name="animated/loading" filled />
     <span v-else v-text="text" />
   </button>
 </template>
 
-<script setup lang=ts>
+<script setup lang="ts">
 const props = defineProps<{
   text: string
   loading?: boolean
@@ -29,7 +29,7 @@ function click() {
 }
 </script>
 
-<style scoped lang=scss>
+<style scoped lang="scss">
 button {
   background-color: $color-green;
   text-align: center;

@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script setup lang=ts>
+<script setup lang="ts">
 defineProps<{
   text: string
   modelValue: boolean
@@ -20,7 +20,7 @@ defineProps<{
 const emit = defineEmits([ 'update:modelValue' ])
 </script>
 
-<style scoped lang=scss>
+<style scoped lang="scss">
 .toggle {
   display: flex;
   justify-content: space-between;

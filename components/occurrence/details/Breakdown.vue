@@ -55,7 +55,7 @@
   </div>
 </template>
 
-<script setup lang=ts>
+<script setup lang="ts">
 import { EntityOccurrence } from '~/utils/entities/occurrence'
 
 

@@ -31,7 +31,7 @@ defineProps<{
 const emit = defineEmits([ 'update:modelValue' ])
 </script>
 
-<style scoped lang=scss>
+<style scoped lang="scss">
 .switch {
   display: grid;
   grid-template-columns: repeat(var(--optcount), 1fr);

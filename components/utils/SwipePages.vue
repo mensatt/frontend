@@ -10,7 +10,7 @@
   </div>
 </template>
 
-<script setup lang=ts>
+<script setup lang="ts">
 const _props = defineProps<{
   disabled?: boolean
 }>()

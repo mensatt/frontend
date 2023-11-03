@@ -5,7 +5,7 @@
   </NuxtLink>
 </template>
 
-<script setup lang=ts>
+<script setup lang="ts">
 defineProps<{
   text: string
   url: string
@@ -14,7 +14,7 @@ defineProps<{
 const localePath = useLocalePath()
 </script>
 
-<style scoped lang=scss>
+<style scoped lang="scss">
 .external-link {
   display: flex;
   justify-content: space-between;

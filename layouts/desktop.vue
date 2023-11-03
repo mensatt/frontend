@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script setup lang=ts>
+<script setup lang="ts">
 const scrollcont = ref<HTMLElement | null>(null)
 
 const globalScroll = useGlobalScroll()

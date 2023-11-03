@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script setup lang=ts>
+<script setup lang="ts">
 import dayjs from 'dayjs'
 import { EntityOccurrence } from '~/utils/entities/occurrence'
 

@@ -30,7 +30,7 @@ defineProps<{
 const emit = defineEmits([ 'open' ])
 </script>
 
-<style scoped lang=scss>
+<style scoped lang="scss">
 .selectable {
   display: grid;
   grid-template-columns: 1fr auto auto;
