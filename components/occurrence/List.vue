@@ -72,27 +72,12 @@ const props = defineProps<{
   date: Date
 }>()
 
-const loading = computed(() => pending.value || !data.value || dataCleared.value)
-defineExpose({
-  loading,
-  refresh() {
-    // why we're waiting half a second before actually refreshing?
-    // mensatt api is so fast you don't even realise that the data was refreshed since there was no loading screen or anything
-    // that's why we give it a bit of time to properly communicate to the user that we're fetching new data now
-    // this does NOT impact first page load, that's still instant, we're just delaying data refreshing by a bit
-    dataCleared.value = true
-    setTimeout(() => {
-      apiRefresh()
-      nextTick(() => (dataCleared.value = false))
-    }, 500)
-  }
-})
-
 //
 
 const dataCleared = useState(`occurrence-list--${props.mensa}-${props.date}-dc`, () => false)
 const { data, pending, error, refresh: apiRefresh } = await api.getOccurrences(props.mensa, props.date)
 
+const loading = computed(() => pending.value || !data.value || dataCleared.value)
 const showHidden = useState(`occurrence-list--${props.mensa}-${props.date}-sh`, () => false)
 
 const occurrences = computed(() => {
@@ -117,12 +102,26 @@ function toggleHiddenItems() {
       useGlobalScrollContainer().value?.scrollBy({ top: -1, behavior: 'smooth' })
   })
 }
+
+// cry about it @eslint
+// eslint-disable-next-line vue/no-expose-after-await
+defineExpose({
+  loading,
+  refresh() {
+    // why we're waiting half a second before actually refreshing?
+    // mensatt api is so fast you don't even realise that the data was refreshed since there was no loading screen or anything
+    // that's why we give it a bit of time to properly communicate to the user that we're fetching new data now
+    // this does NOT impact first page load, that's still instant, we're just delaying data refreshing by a bit
+    dataCleared.value = true
+    setTimeout(() => {
+      apiRefresh()
+      nextTick(() => (dataCleared.value = false))
+    }, 500)
+  }
+})
 </script>
 
 <style scoped lang="scss">
-.occurrences {
-}
-
 .visible-list {
   min-height: calc(100vh - 90pt);
   display: grid;
