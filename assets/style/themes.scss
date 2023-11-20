@@ -17,7 +17,7 @@
   --color-yellow20: #ffda3330;
   --color-yellow40: #ffda3352;
   --color-yellow60: #ffda33da;
-  --color-blue: #375aa5;
+  --color-blue: #223e7a;
   --color-blue20: #375aa52f;
   --color-blue40: #375aa556;
   --color-red: #ec3960;
@@ -32,8 +32,8 @@
 }
 
 @mixin theme-dark {
-  --bg-darker: #60656e;
-  --bg-dark: #323234;
+  --bg-darker: #393a3b;
+  --bg-dark: #1e1e1e;
   --bg-light: #1b1b1c;
   --bg-lighter: #101010;
   --color-green: #77b255;
@@ -46,7 +46,7 @@
   --color-yellow20: #ffda3320;
   --color-yellow40: #ffda3340;
   --color-yellow60: #ffda3360;
-  --color-blue: #7898dd;
+  --color-blue: #89aaf1;
   --color-blue20: #7898dd37;
   --color-blue40: #7898dd62;
   --color-red: #ec3960;

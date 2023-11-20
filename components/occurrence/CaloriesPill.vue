@@ -30,7 +30,7 @@ const text = computed(() => `${Math.round(data.kcal / (priceRaw.value / 100))} k
 div {
   height: $content-pills-height;
   background-color: $color-green40;
-  border-radius: $card-item-br;
+  border-radius: $dish-tag-br;
   width: fit-content;
   display: flex;
   align-items: center;
@@ -40,8 +40,8 @@ div {
 }
 
 span {
-  color: $color-greenH;
-  font-family: $font-major;
-  font-size: 11pt;
+  color: $color-green;
+  font-family: $font-regular;
+  font-size: 10pt;
 }
 </style>

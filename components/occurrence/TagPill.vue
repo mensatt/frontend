@@ -19,7 +19,7 @@ const display = data.name
 div {
   height: $content-pills-height;
   background-color: $bg-dark;
-  border-radius: $card-item-br;
+  border-radius: $dish-tag-br;
   width: fit-content;
   display: flex;
   align-items: center;
@@ -29,8 +29,8 @@ div {
 }
 
 span {
-  color: $color-minor;
-  font-family: $font-major;
-  font-size: 9pt;
+  color: $color-regular;
+  font-family: $font-regular;
+  font-size: 10pt;
 }
 </style>

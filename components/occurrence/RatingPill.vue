@@ -26,7 +26,7 @@ const starValues = computed(() => {
 div {
   height: $content-pills-height;
   background-color: $color-yellow40;
-  border-radius: $card-item-br;
+  border-radius: $dish-tag-br;
   width: fit-content;
   display: flex;
   align-items: center;
@@ -41,8 +41,8 @@ svg {
 
 span {
   color: $color-yellow;
-  font-family: $font-major;
-  font-size: 11pt;
+  font-family: $font-regular;
+  font-size: 10pt;
   margin-left: calc($content-pills-height * 0.25);
   margin-right: calc($content-pills-height * 0.15);
 

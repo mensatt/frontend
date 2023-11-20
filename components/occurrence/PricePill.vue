@@ -29,7 +29,7 @@ const priceRaw = computed(() => {
 div {
   height: $content-pills-height;
   background-color: $color-blue40;
-  border-radius: $card-item-br;
+  border-radius: $dish-tag-br;
   width: fit-content;
   display: flex;
   align-items: center;
@@ -40,8 +40,8 @@ div {
 
 span {
   color: $color-blue;
-  font-family: $font-major;
-  font-size: 11pt;
+  font-family: $font-regular;
+  font-size: 10pt;
 
   [data-has-price=false] & {
     color: $color-blue40;
