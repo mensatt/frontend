@@ -95,7 +95,7 @@ export default {
   refresh: 'Refresh',
   desktop_calendar: 'Calendar',
   desktop_profile: 'Profile & Preferences',
-  liability_disclaimer: 'Mensatt is an unofficial website not affiliated with Studentenwerk. All information is provided without warranty.',
+  liability_disclaimer: 'Mensatt is an unofficial website not affiliated with Studierendenwerk. All information is provided without warranty.',
   page_privacy: 'Privacy Policy',
   page_credits: 'Contributors',
   page_admin: 'Admin',
