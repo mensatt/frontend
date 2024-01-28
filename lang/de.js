@@ -112,5 +112,5 @@ export default {
   stars_summary: 'Durchschnitt: {score} / 5 Sterne ({count} Bewertung) | Durchschnitt: {score} / 5 Sterne ({count} Bewertungen)',
   register: 'Registrieren',
   login: 'Anmelden',
-  login_or_register: 'Anmelden / Registrieren TEST',
+  login_or_register: 'Anmelden / Registrieren',
 }
