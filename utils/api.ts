@@ -87,7 +87,7 @@ function getImageUrl(id: string, opts?: ImageOptions): string {
   return (backend === 'local')
     ? `https://localhost:4000${id}${optStr}`
     : (backend === 'dev')
-      ? `https://dev-api.mensatt.de${id}${optStr}`
+      ? `https://dev-img.mensatt.de/image${id}${optStr}`
       : `https://api.mensatt.de${id}${optStr}`
 }
 
