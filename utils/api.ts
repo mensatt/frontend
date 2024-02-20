@@ -66,6 +66,16 @@ async function postRating(variables: EntityReview.AddVariables): Promise<boolean
   return !!res?.data
 }
 
+async function uploadImage(file: File): Promise<string> {
+  const formData = new FormData()
+  formData.append('file', file)
+  const res = await fetch(`${getImageBaseUrl()}/upload`, {
+    method: 'POST',
+    body: formData
+  }).catch((err) => { console.error(err); return null })
+  return res!.text()
+}
+
 type ImageOptions = {
   width?: number
   height?: number
@@ -82,13 +92,17 @@ function buildOptions(opts?: ImageOptions) {
   ].join('&')
 }
 function getImageUrl(id: string, opts?: ImageOptions): string {
-  const backend = getClient()
   const optStr = buildOptions(opts)
+  return `${getImageBaseUrl()}${id}${optStr}`
+}
+
+function getImageBaseUrl(): string {
+  const backend = getClient()
   return (backend === 'local')
-    ? `https://localhost:4000${id}${optStr}`
+    ? 'https://localhost:4000/content'
     : (backend === 'dev')
-      ? `https://dev-api.mensatt.de${id}${optStr}`
-      : `https://api.mensatt.de${id}${optStr}`
+      ? 'https://dev-api.mensatt.de/content'
+      : 'https://api.mensatt.de/content'
 }
 
 //
@@ -98,5 +112,6 @@ export const useApi = () => ({
   getOccurrence,
   getLocations,
   postRating,
+  uploadImage,
   getImageUrl
 })
