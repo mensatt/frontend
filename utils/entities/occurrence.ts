@@ -17,7 +17,6 @@ export namespace EntityOccurrence {
           stars
           images {
             id
-            imageUrl
           }
         }
         metadata {
@@ -68,7 +67,6 @@ export namespace EntityOccurrence {
 
   export type Image = {
     id: string
-    imageUrl: string
   }
 
   export type Review = {

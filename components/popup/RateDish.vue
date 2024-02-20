@@ -22,7 +22,7 @@
       <p v-else @click="open()" v-text="$t('rate_dish_image_upload')" />
 
       <div v-if="fileUploadPreview" class="buttons">
-        <NuxtIcon name="close" @click="inputImage = null" />
+        <NuxtIcon name="close" @click="inputImage = null; currentImageId = null" />
         <NuxtIcon name="rotate_90" @click="rotateImage()" />
       </div>
     </div>
@@ -45,6 +45,8 @@
         :placeholder="$t('rate_dish_nickname_placeholder')"
       >
     </div>
+
+    <label v-if="currentImageId === 'uploading'" class="info" v-text="$t('rate_dish_image_uploading')" />
 
     <UiButton
       :text="$t('rate_dish_submit')"
@@ -84,14 +86,20 @@ const inputNickname = useLocalStorage('rate-dish--nickname', () => '')
 
 const errorRequireStars = useState(`rate-dish-${props.occurrence.id}--error-stars`, () => false)
 const submittedLoading = useState(`rate-dish-${props.occurrence.id}--submitted-loading`, () => false)
-const readyToSubmit = computed(() => !!inputStars.value)
+const readyToSubmit = computed(() => !!inputStars.value && currentImageId.value !== 'uploading')
 
 watch(inputStars, () => errorRequireStars.value = false)
 
+const currentImageId = useState<string | null>(`rate-dish-${props.occurrence.id}--current-image-id`, () => null)
+
 const { open, onChange } = useFileDialog()
-onChange((files) => {
-  if (files?.length)
+onChange(async (files) => {
+  if (files?.length) {
     inputImage.value = files[0]
+
+    currentImageId.value = 'uploading'
+    currentImageId.value = await api.uploadImage(files[0])
+  }
 })
 const fileUploadPreview = computed(() => inputImage.value ? URL.createObjectURL(inputImage.value) : null)
 
@@ -106,6 +114,10 @@ const imagePreviewCss = computed(() => ({
 }))
 
 async function submit() {
+  if(currentImageId.value === 'uploading') {
+    return
+  }
+
   if (!inputStars.value)
     return errorRequireStars.value = true
 
@@ -115,9 +127,7 @@ async function submit() {
     stars: inputStars.value,
     author: inputNickname.value || null,
     comment: inputReview.value || null,
-    images: inputImage.value
-      ? [ { image: inputImage.value, rotation: inputImageRotation.value } ]
-      : []
+    images: currentImageId.value ? [ currentImageId.value ] : []
   })
 
   if (success) {
