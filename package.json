@@ -13,7 +13,6 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@maanex/nuxt-apollo-upload": "^5.0.0",
     "@nuxt/image": "rc",
     "@nuxtjs/i18n": "^8.0.0-beta.13",
     "@types/node": "^18",
