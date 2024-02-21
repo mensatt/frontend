@@ -99,7 +99,7 @@ export function getImageServingUrl(id: string, opts?: ImageOptions): string {
   return `${getImageBaseUrl()}/image${id}${optStr}`
 }
 
-function getImageUploadUrl(rotation: number?) {
+function getImageUploadUrl(rotation?: number) {
   const params = rotation ? `?angle=${rotation}` : ''
   return `${getImageBaseUrl()}/upload${params}`
 }
