@@ -101,7 +101,6 @@ onChange(async (files) => {
     return
 
   inputImage.value = files[0]
-
   inputImageIsUploading.value = true
   inputImageUploadError.value = false
 
