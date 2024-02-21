@@ -88,6 +88,7 @@ export default {
   rate_dish_image: 'Bild vom Gericht:',
   rate_dish_image_upload: 'Bild hochladen',
   rate_dish_image_uploading: 'Bild wird hochgeladen...',
+  rate_dish_image_upload_error: 'Fehler beim Hochladen des Bildes!',
   rate_dish_image_disclaimer: 'Durch Abschicken deiner Bewertung erlaubst du Mensatt dieses Bild in jeglicher Form zu verwenden.',
   rate_dish_review: 'Platz für Worte:',
   rate_dish_review_placeholder: 'Zwar nur Brei, aber dafür echt lecker! Kann ich weiter empfehlen.',

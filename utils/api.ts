@@ -66,14 +66,14 @@ async function postRating(variables: EntityReview.AddVariables): Promise<boolean
   return !!res?.data
 }
 
-async function uploadImage(file: File): Promise<string> {
+async function uploadImage(file: File, rotation: number | null = null): Promise<string | null> {
   const formData = new FormData()
   formData.append('file', file)
-  const res = await fetch(`${getImageBaseUrl()}/upload`, {
+  const res = await fetch(getImageUploadUrl(rotation), {
     method: 'POST',
     body: formData
-  }).catch((err) => { console.error(err); return null })
-  return res!.text()
+  }).catch((err) => { console.error(err) })
+  return res?.text() ?? null
 }
 
 type ImageOptions = {
@@ -83,17 +83,24 @@ type ImageOptions = {
 }
 function buildOptions(opts?: ImageOptions) {
   if (!opts) return ''
-  if (!opts.width && !opts.height) return ''
 
-  return '?' + [
-    `width=${opts.width ?? 0}`,
-    `height=${opts.height ?? 0}`,
-    `quality=${opts.quality ?? 0}`,
-  ].join('&')
+  // Image service does not like 0 values behaving as "not set"
+  const params = Object.entries(opts)
+    .filter(([ _, v ]) => v)
+    .map(([ k, v ]) => `${k}=${v}`)
+    .join('&')
+
+  return params ? `?${params}` : ''
 }
-function getImageUrl(id: string, opts?: ImageOptions): string {
+export function getImageServingUrl(id: string, opts?: ImageOptions): string {
   const optStr = buildOptions(opts)
-  return `${getImageBaseUrl()}${id}${optStr}`
+  return `${getImageBaseUrl()}/image${id}${optStr}`
+}
+
+function getImageUploadUrl(rotation: number | null) {
+  let base = `${getImageBaseUrl()}/upload`
+  if (rotation) base += `?angle=${rotation}`
+  return base
 }
 
 function getImageBaseUrl(): string {
@@ -113,5 +120,5 @@ export const useApi = () => ({
   getLocations,
   postRating,
   uploadImage,
-  getImageUrl
+  getImageServingUrl
 })

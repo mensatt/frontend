@@ -22,7 +22,7 @@
       <p v-else @click="open()" v-text="$t('rate_dish_image_upload')" />
 
       <div v-if="fileUploadPreview" class="buttons">
-        <NuxtIcon name="close" @click="inputImage = null; currentImageId = null" />
+        <NuxtIcon name="close" @click="inputImage = null; inputImageId = null" />
         <NuxtIcon name="rotate_90" @click="rotateImage()" />
       </div>
     </div>
@@ -46,7 +46,8 @@
       >
     </div>
 
-    <label v-if="currentImageId === 'uploading'" class="info" v-text="$t('rate_dish_image_uploading')" />
+    <label v-if="inputImageIsUploading" class="info" v-text="$t('rate_dish_image_uploading')" />
+    <label v-if="inputImageUploadError" class="error" v-text="$t('rate_dish_image_upload_error')" />
 
     <UiButton
       :text="$t('rate_dish_submit')"
@@ -86,19 +87,31 @@ const inputNickname = useLocalStorage('rate-dish--nickname', () => '')
 
 const errorRequireStars = useState(`rate-dish-${props.occurrence.id}--error-stars`, () => false)
 const submittedLoading = useState(`rate-dish-${props.occurrence.id}--submitted-loading`, () => false)
-const readyToSubmit = computed(() => !!inputStars.value && currentImageId.value !== 'uploading')
+const readyToSubmit = computed(() => !!inputStars.value && !inputImageIsUploading.value)
 
 watch(inputStars, () => errorRequireStars.value = false)
 
-const currentImageId = useState<string | null>(`rate-dish-${props.occurrence.id}--current-image-id`, () => null)
+const inputImageId = useState<string | null>(`rate-dish-${props.occurrence.id}--current-image-id`, () => null)
+const inputImageIsUploading = useState<boolean>(`rate-dish-${props.occurrence.id}--image-uploading`, () => false)
+const inputImageUploadError = useState<boolean>(`rate-dish-${props.occurrence.id}--image-upload-error`, () => false)
 
 const { open, onChange } = useFileDialog()
 onChange(async (files) => {
   if (files?.length) {
     inputImage.value = files[0]
 
-    currentImageId.value = 'uploading'
-    currentImageId.value = await api.uploadImage(files[0])
+    inputImageIsUploading.value = true
+    inputImageUploadError.value = false
+
+    const uploadResult = await api.uploadImage(files[0])
+    if(uploadResult === null) {
+      inputImageIsUploading.value = false
+      inputImageUploadError.value = true
+      return
+    }
+
+    inputImageId.value = uploadResult
+    inputImageIsUploading.value = false
   }
 })
 const fileUploadPreview = computed(() => inputImage.value ? URL.createObjectURL(inputImage.value) : null)
@@ -114,7 +127,7 @@ const imagePreviewCss = computed(() => ({
 }))
 
 async function submit() {
-  if(currentImageId.value === 'uploading') {
+  if(inputImageIsUploading.value) {
     return
   }
 
@@ -122,12 +135,26 @@ async function submit() {
     return errorRequireStars.value = true
 
   submittedLoading.value = true
+
+  // If the image was rotated, we need to re-upload it
+  // As this should be a rare case, we do it here instead of repeatedly uploading it onRotate.
+  if(inputImage.value && inputImageRotation.value) {
+    const uploadResult = await api.uploadImage(inputImage.value, inputImageRotation.value)
+    if(uploadResult === null) {
+      submittedLoading.value = false
+      inputImageUploadError.value = true
+      return
+    }
+
+    inputImageId.value = uploadResult
+  }
+
   const success = await api.postRating({
     occId: props.occurrence.id,
     stars: inputStars.value,
     author: inputNickname.value || null,
     comment: inputReview.value || null,
-    images: currentImageId.value ? [ currentImageId.value ] : []
+    images: inputImageId.value ? [ inputImageId.value ] : []
   })
 
   if (success) {
