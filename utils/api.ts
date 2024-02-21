@@ -73,7 +73,7 @@ async function uploadImage(file: File, rotation?: number): Promise<string | null
   const res = await fetch(
     getImageUploadUrl(rotation),
     { method: 'POST', body: formData }
-  ).catch(console.error(err))
+  ).catch(console.error)
 
   return res?.text() ?? null
 }
