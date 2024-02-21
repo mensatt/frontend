@@ -22,7 +22,7 @@
       <p v-else @click="open()" v-text="$t('rate_dish_image_upload')" />
 
       <div v-if="fileUploadPreview" class="buttons">
-        <NuxtIcon name="close" @click="inputImage = null; inputImageId = null" />
+        <NuxtIcon name="close" @click="clearImage()" />
         <NuxtIcon name="rotate_90" @click="rotateImage()" />
       </div>
     </div>
@@ -97,22 +97,23 @@ const inputImageUploadError = useState<boolean>(`rate-dish-${props.occurrence.id
 
 const { open, onChange } = useFileDialog()
 onChange(async (files) => {
-  if (files?.length) {
-    inputImage.value = files[0]
+  if (!files?.length)
+    return
 
-    inputImageIsUploading.value = true
-    inputImageUploadError.value = false
+  inputImage.value = files[0]
 
-    const uploadResult = await api.uploadImage(files[0])
-    if(uploadResult === null) {
-      inputImageIsUploading.value = false
-      inputImageUploadError.value = true
-      return
-    }
+  inputImageIsUploading.value = true
+  inputImageUploadError.value = false
 
-    inputImageId.value = uploadResult
+  const uploadResult = await api.uploadImage(files[0])
+  if (!uploadResult) {
     inputImageIsUploading.value = false
+    inputImageUploadError.value = true
+    return
   }
+
+  inputImageId.value = uploadResult
+  inputImageIsUploading.value = false
 })
 const fileUploadPreview = computed(() => inputImage.value ? URL.createObjectURL(inputImage.value) : null)
 
@@ -122,14 +123,20 @@ function rotateImage() {
     inputImageRotation.value = 0
 }
 
+function clearImage() {
+  inputImage.value = null
+  inputImageId.value = null
+  inputImageIsUploading.value = false
+  inputImageUploadError.value = false
+}
+
 const imagePreviewCss = computed(() => ({
   rotate: `${inputImageRotation.value}deg`
 }))
 
 async function submit() {
-  if(inputImageIsUploading.value) {
+  if (inputImageIsUploading.value)
     return
-  }
 
   if (!inputStars.value)
     return errorRequireStars.value = true
@@ -138,9 +145,9 @@ async function submit() {
 
   // If the image was rotated, we need to re-upload it
   // As this should be a rare case, we do it here instead of repeatedly uploading it onRotate.
-  if(inputImage.value && inputImageRotation.value) {
+  if (inputImage.value && inputImageRotation.value) {
     const uploadResult = await api.uploadImage(inputImage.value, inputImageRotation.value)
-    if(uploadResult === null) {
+    if (uploadResult === null) {
       submittedLoading.value = false
       inputImageUploadError.value = true
       return

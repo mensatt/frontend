@@ -66,13 +66,15 @@ async function postRating(variables: EntityReview.AddVariables): Promise<boolean
   return !!res?.data
 }
 
-async function uploadImage(file: File, rotation: number | null = null): Promise<string | null> {
+async function uploadImage(file: File, rotation?: number): Promise<string | null> {
   const formData = new FormData()
   formData.append('file', file)
-  const res = await fetch(getImageUploadUrl(rotation), {
-    method: 'POST',
-    body: formData
-  }).catch((err) => { console.error(err) })
+
+  const res = await fetch(
+    getImageUploadUrl(rotation),
+    { method: 'POST', body: formData }
+  ).catch(console.error(err))
+
   return res?.text() ?? null
 }
 
@@ -97,10 +99,9 @@ export function getImageServingUrl(id: string, opts?: ImageOptions): string {
   return `${getImageBaseUrl()}/image${id}${optStr}`
 }
 
-function getImageUploadUrl(rotation: number | null) {
-  let base = `${getImageBaseUrl()}/upload`
-  if (rotation) base += `?angle=${rotation}`
-  return base
+function getImageUploadUrl(rotation: number?) {
+  const params = rotation ? `?angle=${rotation}` : ''
+  return `${getImageBaseUrl()}/upload${params}`
 }
 
 function getImageBaseUrl(): string {
