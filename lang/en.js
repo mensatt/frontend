@@ -87,6 +87,7 @@ export default {
   rate_dish_image: 'Picture of the dish:',
   rate_dish_image_upload: 'Upload image',
   rate_dish_image_uploading: 'Image is being uploaded...',
+  rate_dish_image_upload_error: 'An error occurred while uploading the image!',
   rate_dish_image_disclaimer: 'By submitting your rating you grant Mensatt full permission to use your image in any way.',
   rate_dish_review: 'Room for thoughts:',
   rate_dish_review_placeholder: 'The usual porridge but oddly tasty today. Can recommend!',
