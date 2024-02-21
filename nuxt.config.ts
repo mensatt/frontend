@@ -2,7 +2,6 @@
 export default defineNuxtConfig({
   modules: [
     'nuxt-icons',
-    '@maanex/nuxt-apollo-upload',
     '@nuxt/image',
     '@nuxtjs/i18n',
     '@vite-pwa/nuxt',
