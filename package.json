@@ -14,7 +14,8 @@
   },
   "devDependencies": {
     "@nuxt/image": "rc",
-    "@nuxtjs/i18n": "^8.0.0-beta.13",
+    "@nuxtjs/apollo": "5.0.0-alpha.11",
+    "@nuxtjs/i18n": "^8.1.1",
     "@types/node": "^18",
     "@typescript-eslint/parser": "^6.9.1",
     "@vite-pwa/nuxt": "^0.1.0",

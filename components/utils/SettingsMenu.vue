@@ -2,45 +2,45 @@
   <label for="prices" v-text="$t('settings_price_header')" />
   <div class="prices">
     <UiSwitch
+      v-model="inputPrice"
       :options="[
         { name: 'settings_price_group1', iconText: '€', value: 'student' },
         { name: 'settings_price_group2', iconText: '€€', value: 'staff' },
         { name: 'settings_price_group3', iconText: '€€€', value: 'guest' }
       ]"
-      v-model="inputPrice"
     />
   </div>
 
   <label for="visual" v-text="$t('settings_visual_header')" />
   <div class="visual">
-    <UiSelectable text="settings_visual_language" :iconFilled="true" :selected="selectedLanguage" :skip-value-t="true" @open="openLanguageSelector" />
+    <UiSelectable text="settings_visual_language" :icon-filled="true" :selected="selectedLanguage" :skip-value-t="true" @open="openLanguageSelector" />
     <UiSelectable text="settings_visual_theme" :selected="selectedTheme" @open="openThemeSelector" />
-    <UiToggle text="settings_visual_show_calories" v-model="inputShowCalories" />
+    <UiToggle v-model="inputShowCalories" text="settings_visual_show_calories" />
   </div>
 
   <label for="preferences" v-text="$t('settings_preferences_header')" />
   <div class="preferences">
-    <UiToggle text="settings_preferences_hide_meat" v-model="inputHideMeat" />
-    <UiToggle text="settings_preferences_hide_meat_dairy" v-model="inputHideMeatDairy" />
-    <UiToggle text="settings_preferences_hide_fish" v-model="inputHideFish" />
-    <UiToggle text="settings_preferences_hide_gluten" v-model="inputHideGluten" />
-    <UiToggle text="settings_preferences_hide_lactose" v-model="inputHideLactose" />
+    <UiToggle v-model="inputHideMeat" text="settings_preferences_hide_meat" />
+    <UiToggle v-model="inputHideMeatDairy" text="settings_preferences_hide_meat_dairy" />
+    <UiToggle v-model="inputHideFish" text="settings_preferences_hide_fish" />
+    <UiToggle v-model="inputHideGluten" text="settings_preferences_hide_gluten" />
+    <UiToggle v-model="inputHideLactose" text="settings_preferences_hide_lactose" />
   </div>
 
   <label for="others" v-text="$t('settings_others_header')" />
   <div class="others">
-    <UiToggle text="settings_others_devmode" v-model="inputDevMode" />
+    <UiToggle v-model="inputDevMode" text="settings_others_devmode" />
     <UiSelectable v-if="inputDevMode" text="settings_others_dev_backend" :selected="selectedBackend" :skip-value-t="true" @open="openBackendSelector" />
     <UiExternLink v-if="inputDevMode" text="settings_others_dev_app_info" url="/dev/info" />
     <UiSelectable v-if="inputDevMode" text="settings_others_dev_full_reload" :selected="{ name: '', icon: 'refresh' }" :skip-value-t="true" @open="devFullReload" />
     <UiSelectable v-if="inputDevMode" text="settings_others_dev_experiments" :selected="{ name: `${inputDevExperiments.length} enabled`, icon: 'labs' }" :skip-value-t="true" @open="openExperimentMenu" />
-    <UiToggle v-if="inputDevMode" text="settings_others_dev_show_ids" v-model="inputDevShowIds" />
+    <UiToggle v-if="inputDevMode" v-model="inputDevShowIds" text="settings_others_dev_show_ids" />
   </div>
 </template>
 
 
 <script setup lang="ts">
-import { LocaleObject } from '@nuxtjs/i18n/dist/runtime/composables'
+import type { LocaleObject } from '@nuxtjs/i18n'
 import { useThemes } from '../../utils/themes'
 
 const popups = usePopups()
