@@ -142,25 +142,14 @@ async function submit() {
 
   submittedLoading.value = true
 
-  // If the image was rotated, we need to re-upload it
-  // As this should be a rare case, we do it here instead of repeatedly uploading it onRotate.
-  if (inputImage.value && inputImageRotation.value) {
-    const uploadResult = await api.uploadImage(inputImage.value, inputImageRotation.value)
-    if (uploadResult === null) {
-      submittedLoading.value = false
-      inputImageUploadError.value = true
-      return
-    }
-
-    inputImageId.value = uploadResult
-  }
-
   const success = await api.postRating({
     occId: props.occurrence.id,
     stars: inputStars.value,
     author: inputNickname.value || null,
     comment: inputReview.value || null,
-    images: inputImageId.value ? [ inputImageId.value ] : []
+    images: inputImageId.value
+        ? [ { image: inputImageId.value, rotation: inputImageRotation.value } ]
+        : []
   })
 
   if (success) {

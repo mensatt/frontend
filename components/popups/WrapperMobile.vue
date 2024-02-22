@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { PopupInternally } from '../../utils/popups'
+import type { PopupInternally } from '#imports'
 
 const { data } = defineProps<{
   data: PopupInternally
