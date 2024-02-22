@@ -1,7 +1,7 @@
-import { _AsyncData } from 'nuxt/dist/app/composables/asyncData'
 import { EntityOccurrence } from './entities/occurrence'
 import { EntityLocation } from './entities/location'
 import { EntityReview } from './entities/review'
+import type {AsyncData} from "#app";
 
 function getClient() {
   return useSettingDevMode().value
@@ -10,7 +10,7 @@ function getClient() {
 }
 
 
-type GqlResponse = _AsyncData<{ occurrences: EntityOccurrence.Occurrence[] }, Error>
+type GqlResponse = AsyncData<{ occurrences: EntityOccurrence.Occurrence[] }, Error>
 const occurrenceCache: Map<string, GqlResponse> = new Map()
 
 async function getOccurrences(locationId: string, date: Date): Promise<GqlResponse> {

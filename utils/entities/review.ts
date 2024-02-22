@@ -6,7 +6,7 @@ export namespace EntityReview {
   mutation addReview(
     $occId: UUID!,
     $author: String,
-    $images: [UUID!],
+    $images: [ImageInput!],
     $stars: Int!,
     $comment: String
   ) {
@@ -28,7 +28,10 @@ export namespace EntityReview {
     occId: string
     author: string | null
     comment: string | null
-    images?: string[]
+    images?: {
+      image: string
+      rotation?: 0 | 90 | 180 | 270
+    }[]
   }
 
 }
