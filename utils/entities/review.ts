@@ -29,7 +29,7 @@ export namespace EntityReview {
     author: string | null
     comment: string | null
     images?: {
-      image: string
+      id: string
       rotation?: 0 | 90 | 180 | 270
     }[]
   }
