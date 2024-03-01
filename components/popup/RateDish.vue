@@ -148,7 +148,7 @@ async function submit() {
     author: inputNickname.value || null,
     comment: inputReview.value || null,
     images: inputImageId.value
-        ? [ { image: inputImageId.value, rotation: inputImageRotation.value } ]
+        ? [ { id: inputImageId.value, rotation: inputImageRotation.value } ]
         : []
   })
 
