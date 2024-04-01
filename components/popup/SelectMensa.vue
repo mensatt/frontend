@@ -93,7 +93,7 @@ function toggleFav(location: EntityLocation.Location) {
 
   &[data-fav=true] {
     .fav {
-      color: $color-red;
+      color: $color-green;
     }
   }
 
