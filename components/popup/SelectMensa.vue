@@ -92,18 +92,16 @@ function toggleFav(location: EntityLocation.Location) {
   }
 
   &[data-fav=true] {
-    background-color: $color-green20;
-
-    .name {
-      color: $color-major;
-    }
-
     .fav {
-      color: $color-green;
+      color: $color-red;
     }
   }
 
-  [view-mode=desktop] &[data-fav=true]:hover {
+  &[data-selected=true] {
+    background-color: $color-green20;
+  }
+
+  [view-mode=desktop] &[data-selected=true]:hover {
     background-color: $color-green40;
   }
 
