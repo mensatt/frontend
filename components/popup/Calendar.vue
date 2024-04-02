@@ -86,8 +86,11 @@ const monthName = computed(() => {
     background-color: $color-green;
     border: none;
     outline: none;
+    display: grid;
+    place-items: center;
     border-radius: 99pt;
     font-size: 18pt;
+    padding: 0;
     cursor: pointer;
     transition: background-color .1s ease;
 
