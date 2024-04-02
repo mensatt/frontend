@@ -127,6 +127,8 @@ onMounted(() => {
     .icon {
       font-size: 1.2em;
       margin-right: .2em;
+      color: $color-regular;
+      z-index: 10;
     }
 
     &[data-seperator=true] {
