@@ -1,7 +1,7 @@
 <template>
   <div class="account-card">
     <div class="image">
-      <NuxtIcon name="person_filled" />
+      <Icon name="material-symbols:person-rounded" />
     </div>
     <span class="name" v-text="$t('profile_guest_name')" />
     <span class="subtitle" v-text="$t('profile_guest_subtitle')" />

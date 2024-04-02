@@ -11,9 +11,9 @@ export type ThemeObject = {
 
 const themes = [
   // default / basic themes
-  { id: 'auto', name: 'theme_auto', icon: 'theme_auto', primary: true },
-  { id: 'light', name: 'theme_light', icon: 'theme_light', primary: true },
-  { id: 'dark', name: 'theme_dark', icon: 'theme_dark', primary: true },
+  { id: 'auto', name: 'theme_auto', icon: 'material-symbols:auto-mode-rounded', primary: true },
+  { id: 'light', name: 'theme_light', icon: 'material-symbols:light-mode-rounded', primary: true },
+  { id: 'dark', name: 'theme_dark', icon: 'material-symbols:dark-mode-rounded', primary: true },
 
   // funky custom themes
   // { id: 'amoled', name: 'theme_amoled', icon: 'theme_dark' },

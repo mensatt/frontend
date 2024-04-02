@@ -2,15 +2,15 @@
   <div class="outer">
     <div class="months">
       <button @click="selectedMonth--">
-        <NuxtIcon name="left" />
+        <Icon name="material-symbols:chevron-left-rounded" />
       </button>
       <h2
         class="title"
-        v-text="monthName"
         @click="selectedMonth = new Date().getMonth()"
+        v-text="monthName"
       />
       <button @click="selectedMonth++">
-        <NuxtIcon name="right" />
+        <Icon name="material-symbols:chevron-right-rounded" />
       </button>
     </div>
     <div class="dates">

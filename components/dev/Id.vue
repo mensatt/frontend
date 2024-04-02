@@ -1,5 +1,5 @@
 <template>
-  <div class="dev-id" v-if="devtools && showIds">
+  <div v-if="devtools && showIds" class="dev-id">
     id: {{ id }}
   </div>
 </template>

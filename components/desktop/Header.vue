@@ -10,11 +10,11 @@
     <div ref="relDateSelectOuterEl" class="dates">
       <UtilsRelativeDateSelect
         ref="relDateSelectInnerEl"
+        v-model="selectedDay"
         :days-count="6"
         :show-calendar="true"
         @click="gotoIndex()"
         @open-calendar="clickCalendar()"
-        v-model="selectedDay"
       />
     </div>
 
@@ -25,7 +25,7 @@
     </div>
 
     <div ref="profileButtonEl" class="profile" @click="clickProfile()">
-      <NuxtIcon name="person_outline" />
+      <Icon name="material-symbols:person-2-outline-rounded" />
       {{ $t('desktop_profile') }}
     </div>
   </header>
@@ -189,7 +189,7 @@ h1 {
     color: $color-major;
   }
 
-  .nuxt-icon {
+  .icon {
     font-size: 1.3em;
     margin: -.2em;
   }

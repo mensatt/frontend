@@ -1,7 +1,7 @@
 <template>
   <div class="popup" :data-dismissed="data.dismissed">
     <div class="curtain" @click="close(null)" />
-    <div class="content" ref="outer" :data-scrolllock="scrollY === 0 && lengthY < 0">
+    <div ref="outer" class="content" :data-scrolllock="scrollY === 0 && lengthY < 0">
       <div
         ref="inner"
         class="inner"

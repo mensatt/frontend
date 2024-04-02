@@ -23,21 +23,21 @@
               target="_blank"
               class="social"
             >
-              <NuxtIcon name="brands/discord" />
+              <Icon name="fa6-brands:discord" />
             </NuxtLink>
             <NuxtLink
               to="https://github.com/mensatt"
               target="_blank"
               class="social"
             >
-              <NuxtIcon name="brands/github" />
+              <Icon name="fa6-brands:github" />
             </NuxtLink>
             <NuxtLink
               href="mailto:hello@mensatt.de"
               target="_blank"
               class="social"
             >
-              <NuxtIcon name="brands/mail" />
+              <Icon name="material-symbols:mail-rounded" />
             </NuxtLink>
           </div>
         </footer>

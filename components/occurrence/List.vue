@@ -41,13 +41,13 @@
     <div v-if="viewMode === 'desktop'" :data-show-hidden="showHidden" class="footer-desktop">
       <slot name="footer" />
       <div v-if="occurrences.hidden.length" class="toggle" @click="toggleHiddenItems()">
-        <NuxtIcon name="expand_more" />
+        <Icon name="material-symbols:expand-more" />
         <span v-text="$t('hidden_dish', occurrences.hidden.length)" />
       </div>
     </div>
     <div v-else-if="occurrences.hidden.length" :data-show-hidden="showHidden">
       <div class="toggle" @click="toggleHiddenItems()">
-        <NuxtIcon name="expand_more" />
+        <Icon name="material-symbols:expand-more" />
         <span v-text="$t('hidden_dish', occurrences.hidden.length)" />
       </div>
       <div v-if="showHidden" class="hidden-list">
@@ -202,7 +202,7 @@ defineExpose({
   }
 }
 
-.nuxt-icon {
+.icon {
   transition: transform .2s ease-out;
 
   [data-show-hidden=true] & {

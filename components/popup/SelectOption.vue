@@ -11,8 +11,8 @@
         @click.self="opt ? close(opt.id) : {}"
       >
         <span v-if="opt" class="name" v-text="skipNameT ? opt.name : $t(opt.name)" />
-        <NuxtIcon v-if="opt && opt.icon && opt.iconFilled" :name="opt.icon" filled />
-        <NuxtIcon v-else-if="opt && opt.icon" :name="opt.icon" />
+        <Icon v-if="opt && opt.icon && opt.iconFilled" :name="opt.icon" filled />
+        <Icon v-else-if="opt && opt.icon" :name="opt.icon" />
       </div>
     </div>
   </div>
@@ -68,7 +68,7 @@ defineProps<{
     user-select: none;
   }
 
-  .nuxt-icon {
+  .icon {
     padding: 9pt;
     margin: -10pt;
     font-size: calc(1em + 2pt);
@@ -83,7 +83,7 @@ defineProps<{
       color: $color-major;
     }
 
-    .nuxt-icon:not([filled]) {
+    .icon:not([filled]) {
       color: $color-green;
     }
   }
