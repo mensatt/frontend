@@ -70,7 +70,7 @@ const comments = data.dish.reviewData.reviews
 const userCanRate = new Date(data.date) <= new Date()
 
 const displayTags = data.tags
-  .filter(tag => tag.priority !== 'HIDE')
+  .filter(tag => tag.priority === 'MEDIUM' || tag.priority === 'HIGH')
 
 function trimText(text: string): string {
   if (text.length > 300) return text.substring(0, 280) + '...'

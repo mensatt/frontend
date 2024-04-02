@@ -13,34 +13,85 @@
 
   <label for="visual" v-text="$t('settings_visual_header')" />
   <div class="visual">
-    <UiSelectable text="settings_visual_language" :icon-filled="true" :selected="selectedLanguage" :skip-value-t="true" @open="openLanguageSelector" />
-    <UiSelectable text="settings_visual_theme" :selected="selectedTheme" @open="openThemeSelector" />
-    <UiToggle v-model="inputShowCalories" text="settings_visual_show_calories" />
+    <UiSelectable
+      text="settings_visual_language"
+      :icon-filled="true"
+      :selected="selectedLanguage"
+      :skip-value-t="true"
+      @open="openLanguageSelector"
+    />
+    <UiSelectable
+      text="settings_visual_theme"
+      :selected="selectedTheme"
+      @open="openThemeSelector"
+    />
+    <UiToggle
+      v-model="inputShowCalories"
+      text="settings_visual_show_calories"
+    />
   </div>
 
   <label for="preferences" v-text="$t('settings_preferences_header')" />
   <div class="preferences">
-    <UiToggle v-model="inputHideMeat" text="settings_preferences_hide_meat" />
-    <UiToggle v-model="inputHideMeatDairy" text="settings_preferences_hide_meat_dairy" />
-    <UiToggle v-model="inputHideFish" text="settings_preferences_hide_fish" />
-    <UiToggle v-model="inputHideGluten" text="settings_preferences_hide_gluten" />
-    <UiToggle v-model="inputHideLactose" text="settings_preferences_hide_lactose" />
+    <UiToggle
+      v-model="inputHideMeat"
+      text="settings_preferences_hide_meat"
+    />
+    <UiToggle
+      v-model="inputHideMeatDairy"
+      text="settings_preferences_hide_meat_dairy"
+    />
+    <UiToggle
+      v-model="inputHideFish"
+      text="settings_preferences_hide_fish"
+    />
+    <UiToggle
+      v-model="inputHideGluten"
+      text="settings_preferences_hide_gluten"
+    />
+    <UiToggle
+      v-model="inputHideLactose"
+      text="settings_preferences_hide_lactose"
+    />
   </div>
 
   <label for="others" v-text="$t('settings_others_header')" />
   <div class="others">
-    <UiToggle v-model="inputDevMode" text="settings_others_devmode" />
-    <UiSelectable v-if="inputDevMode" text="settings_others_dev_backend" :selected="selectedBackend" :skip-value-t="true" @open="openBackendSelector" />
-    <UiExternLink v-if="inputDevMode" text="settings_others_dev_app_info" url="/dev/info" />
-    <UiSelectable v-if="inputDevMode" text="settings_others_dev_full_reload" :selected="{ name: '', icon: 'material-symbols:refresh-rounded' }" :skip-value-t="true" @open="devFullReload" />
-    <UiSelectable v-if="inputDevMode" text="settings_others_dev_experiments" :selected="{ name: `${inputDevExperiments.length} enabled`, icon: 'material-symbols:labs-outline-rounded' }" :skip-value-t="true" @open="openExperimentMenu" />
-    <UiToggle v-if="inputDevMode" v-model="inputDevShowIds" text="settings_others_dev_show_ids" />
+    <UiToggle
+      v-model="inputDevMode"
+      text="settings_others_devmode"
+    />
+    <UiSelectable
+      v-if="inputDevMode"
+      text="settings_others_dev_backend"
+      :selected="selectedBackend"
+      :skip-value-t="true"
+      @open="openBackendSelector"
+    />
+    <UiExternLink
+      v-if="inputDevMode"
+      text="settings_others_dev_app_info"
+      url="/dev/info"
+    />
+    <UiSelectable
+      v-if="inputDevMode"
+      text="settings_others_dev_full_reload"
+      :selected="{ name: '', icon: 'material-symbols:refresh-rounded' }"
+      :skip-value-t="true"
+      @open="devFullReload"
+    />
+    <UiSelectable
+      v-if="inputDevMode"
+      text="settings_others_dev_experiments"
+      :selected="{ name: `${inputDevExperiments.length} enabled`, icon: 'material-symbols:labs-outline-rounded' }"
+      :skip-value-t="true"
+      @open="openExperimentMenu"
+    />
   </div>
 </template>
 
-
 <script setup lang="ts">
-import { LocaleObject } from '@nuxtjs/i18n/dist/runtime/composables'
+import { LocaleObject } from '@nuxtjs/i18n'
 import { useThemes } from '../../utils/themes'
 
 const popups = usePopups()
@@ -107,7 +158,6 @@ async function openThemeSelector() {
 
 const inputDevMode = useSettingDevMode()
 const inputDevBackend = useSettingDevBackend()
-const inputDevShowIds = useSettingDevShowIds()
 const inputDevExperiments = useSettingDevExperiments()
 
 const backendList = [

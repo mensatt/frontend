@@ -1,5 +1,5 @@
 <template>
-  <div v-if="devtools && showIds" class="dev-id">
+  <div v-if="devtools && experiments.isEnabled('show_ids')" class="dev-id">
     id: {{ id }}
   </div>
 </template>
@@ -10,7 +10,7 @@ defineProps<{
 }>()
 
 const devtools = useSettingDevMode()
-const showIds = useSettingDevShowIds()
+const experiments = useExperiments()
 </script>
 
 <style scoped lang="scss">
