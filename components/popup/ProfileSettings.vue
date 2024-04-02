@@ -1,7 +1,7 @@
 <template>
   <ProfileAccountCard />
 
-  <hr />
+  <hr>
 
   <UtilsSettingsMenu />
 </template>

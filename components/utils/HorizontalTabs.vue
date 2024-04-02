@@ -9,7 +9,7 @@
           :data-seperator="tab.seperator && (i !== tabs.length-1)"
           @click="tab.onClickOverride ? tab.onClickOverride() : emit('select', i)"
         >
-          <NuxtIcon v-if="tab.icon" :name="tab.icon" />
+          <Icon v-if="tab.icon" :name="tab.icon" />
           <span v-text="sanitize(tab.name)" />
         </div>
       </div>
@@ -124,7 +124,7 @@ onMounted(() => {
       z-index: 10;
     }
 
-    .nuxt-icon {
+    .icon {
       font-size: 1.2em;
       margin-right: .2em;
     }

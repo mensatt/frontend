@@ -2,39 +2,39 @@
   <label for="prices" v-text="$t('settings_price_header')" />
   <div class="prices">
     <UiSwitch
+      v-model="inputPrice"
       :options="[
         { name: 'settings_price_group1', iconText: '€', value: 'student' },
         { name: 'settings_price_group2', iconText: '€€', value: 'staff' },
         { name: 'settings_price_group3', iconText: '€€€', value: 'guest' }
       ]"
-      v-model="inputPrice"
     />
   </div>
 
   <label for="visual" v-text="$t('settings_visual_header')" />
   <div class="visual">
-    <UiSelectable text="settings_visual_language" :iconFilled="true" :selected="selectedLanguage" :skip-value-t="true" @open="openLanguageSelector" />
+    <UiSelectable text="settings_visual_language" :icon-filled="true" :selected="selectedLanguage" :skip-value-t="true" @open="openLanguageSelector" />
     <UiSelectable text="settings_visual_theme" :selected="selectedTheme" @open="openThemeSelector" />
-    <UiToggle text="settings_visual_show_calories" v-model="inputShowCalories" />
+    <UiToggle v-model="inputShowCalories" text="settings_visual_show_calories" />
   </div>
 
   <label for="preferences" v-text="$t('settings_preferences_header')" />
   <div class="preferences">
-    <UiToggle text="settings_preferences_hide_meat" v-model="inputHideMeat" />
-    <UiToggle text="settings_preferences_hide_meat_dairy" v-model="inputHideMeatDairy" />
-    <UiToggle text="settings_preferences_hide_fish" v-model="inputHideFish" />
-    <UiToggle text="settings_preferences_hide_gluten" v-model="inputHideGluten" />
-    <UiToggle text="settings_preferences_hide_lactose" v-model="inputHideLactose" />
+    <UiToggle v-model="inputHideMeat" text="settings_preferences_hide_meat" />
+    <UiToggle v-model="inputHideMeatDairy" text="settings_preferences_hide_meat_dairy" />
+    <UiToggle v-model="inputHideFish" text="settings_preferences_hide_fish" />
+    <UiToggle v-model="inputHideGluten" text="settings_preferences_hide_gluten" />
+    <UiToggle v-model="inputHideLactose" text="settings_preferences_hide_lactose" />
   </div>
 
   <label for="others" v-text="$t('settings_others_header')" />
   <div class="others">
-    <UiToggle text="settings_others_devmode" v-model="inputDevMode" />
+    <UiToggle v-model="inputDevMode" text="settings_others_devmode" />
     <UiSelectable v-if="inputDevMode" text="settings_others_dev_backend" :selected="selectedBackend" :skip-value-t="true" @open="openBackendSelector" />
     <UiExternLink v-if="inputDevMode" text="settings_others_dev_app_info" url="/dev/info" />
-    <UiSelectable v-if="inputDevMode" text="settings_others_dev_full_reload" :selected="{ name: '', icon: 'refresh' }" :skip-value-t="true" @open="devFullReload" />
-    <UiSelectable v-if="inputDevMode" text="settings_others_dev_experiments" :selected="{ name: `${inputDevExperiments.length} enabled`, icon: 'labs' }" :skip-value-t="true" @open="openExperimentMenu" />
-    <UiToggle v-if="inputDevMode" text="settings_others_dev_show_ids" v-model="inputDevShowIds" />
+    <UiSelectable v-if="inputDevMode" text="settings_others_dev_full_reload" :selected="{ name: '', icon: 'material-symbols:refresh-rounded' }" :skip-value-t="true" @open="devFullReload" />
+    <UiSelectable v-if="inputDevMode" text="settings_others_dev_experiments" :selected="{ name: `${inputDevExperiments.length} enabled`, icon: 'material-symbols:labs-outline-rounded' }" :skip-value-t="true" @open="openExperimentMenu" />
+    <UiToggle v-if="inputDevMode" v-model="inputDevShowIds" text="settings_others_dev_show_ids" />
   </div>
 </template>
 
@@ -57,12 +57,17 @@ const inputShowCalories = useSettingShowCalories()
 
 const { locale, locales, setLocale } = useI18n()
 
+const languageFlags = {
+  en: 'twemoji:flag-united-kingdom',
+  de: 'twemoji:flag-germany'
+}
+
 const languageList = computed(() => {
   const list = locales.value as any as LocaleObject[]
   return list.map(l => ({
     id: l.code,
     name: l.name ?? '',
-    icon: 'flag_' + l.code,
+    icon: languageFlags[l.code as keyof typeof languageFlags] ?? '',
     iconFilled: true
   } as const))
 })
@@ -106,9 +111,9 @@ const inputDevShowIds = useSettingDevShowIds()
 const inputDevExperiments = useSettingDevExperiments()
 
 const backendList = [
-  { id: 'prod', name: 'api.mensatt.de (prod)', icon: 'rocket' },
-  { id: 'dev', name: 'dev-api.mensatt.de (dev)', icon: 'labs' },
-  { id: 'local', name: 'localhost:4000 (local)', icon: 'laptop' },
+  { id: 'prod', name: 'api.mensatt.de (prod)', icon: 'material-symbols:rocket-launch-outline-rounded' },
+  { id: 'dev', name: 'dev-api.mensatt.de (dev)', icon: 'material-symbols:labs-outline-rounded' },
+  { id: 'local', name: 'localhost:4000 (local)', icon: 'material-symbols:laptop-windows-outline-rounded' },
 ] as const
 
 const selectedBackend = computed(() => backendList.find(search => (search.id === inputDevBackend.value)))

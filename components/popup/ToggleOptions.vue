@@ -9,7 +9,7 @@
         :data-selected="localSelected.has(opt.id)"
         @click.self="toggle(opt)"
       >
-        <NuxtIcon :name="localSelected.has(opt.id) ? 'checkbox_checked' : 'checkbox_blank'" />
+        <Icon :name="localSelected.has(opt.id) ? 'material-symbols:check-box-outline-rounded' : 'material-symbols:check-box-outline-blank'" />
         <span class="name" v-text="skipNameT ? opt.name : $t(opt.name)" />
       </div>
     </div>
@@ -85,7 +85,7 @@ function toggle(opt: { id: T }) {
     user-select: none;
   }
 
-  .nuxt-icon {
+  .icon {
     padding: 9pt;
     margin: -10pt;
     font-size: calc(1em + 2pt);
@@ -100,7 +100,7 @@ function toggle(opt: { id: T }) {
       color: $color-major;
     }
 
-    .nuxt-icon {
+    .icon {
       color: $color-green;
     }
   }

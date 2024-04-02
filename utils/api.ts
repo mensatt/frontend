@@ -1,7 +1,7 @@
 import { EntityOccurrence } from './entities/occurrence'
 import { EntityLocation } from './entities/location'
 import { EntityReview } from './entities/review'
-import type { AsyncData } from "#app"
+import type { AsyncData } from '#app'
 
 
 function getClient() {

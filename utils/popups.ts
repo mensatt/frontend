@@ -1,3 +1,4 @@
+import type {DefineComponent} from 'vue'
 import { EntityLocation } from './entities/location'
 import { EntityOccurrence } from './entities/occurrence'
 import PopupSelectMensa from '~/components/popup/SelectMensa.vue'
@@ -9,7 +10,6 @@ import PopupCalendar from '~/components/popup/Calendar.vue'
 import PopupProfileSettings from '~/components/popup/ProfileSettings.vue'
 import PopupOccurrencesForDay from '~/components/popup/OccurrencesForDay.vue'
 import PopupOccurrenceDetails from '~/components/popup/OccurrenceDetails.vue'
-import type {DefineComponent} from "vue"
 
 /** REGISTER YOUR POPUP HERE */
 export type Popup<T extends String> = {

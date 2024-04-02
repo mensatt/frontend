@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
-    'nuxt-icons',
+    'nuxt-icon',
     '@maanex/nuxt-apollo-upload',
     '@nuxt/image',
     '@nuxtjs/i18n',

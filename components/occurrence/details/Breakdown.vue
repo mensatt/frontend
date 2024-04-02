@@ -38,7 +38,7 @@
       <div v-for="tag of data.tags" :key="tag.key" class="tag">
         <div class="icon">
           <span v-if="tag.shortName" v-text="tag.shortName" />
-          <NuxtIcon v-else name="questionmark" />
+          <Icon v-else name="material-symbols:question-mark-rounded" />
         </div>
         <span class="name" v-text="tag.name" />
         <DevId :id="tag.key" />

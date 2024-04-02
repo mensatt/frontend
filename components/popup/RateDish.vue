@@ -11,7 +11,7 @@
         :data-selected="i <= inputStars"
         @click="inputStars = i"
       >
-        <NuxtIcon :name="(i <= inputStars) ? 'star_filled' : 'star_outline'" />
+        <Icon :name="(i <= inputStars) ? 'material-symbols:star-rounded' : 'material-symbols:star-outline-rounded'" />
       </div>
     </div>
     <span v-if="errorRequireStars" class="error" v-text="$t('rate_dish_stars_error')" />
@@ -22,8 +22,8 @@
       <p v-else @click="open()" v-text="$t('rate_dish_image_upload')" />
 
       <div v-if="fileUploadPreview" class="buttons">
-        <NuxtIcon name="close" @click="clearImage()" />
-        <NuxtIcon name="rotate_90" @click="rotateImage()" />
+        <Icon name="material-symbols:close-rounded" @click="clearImage()" />
+        <Icon name="material-symbols:rotate-90-degrees-ccw-rounded" @click="rotateImage()" />
       </div>
     </div>
     <span v-if="fileUploadPreview" class="info" v-text="$t('rate_dish_image_disclaimer')" />
@@ -245,7 +245,7 @@ label {
     height: 1em;
     cursor: pointer;
 
-    .nuxt-icon {
+    .icon {
       display: grid;
       place-items: center;
       height: 1em;

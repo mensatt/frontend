@@ -5,13 +5,13 @@
   >
     <div>
       <span class="name" v-text="$t(text)" />
-      <NuxtIcon name="right" />
+      <Icon name="material-symbols:chevron-right-rounded" />
     </div>
 
     <span class="selected" v-text="selected ? (skipValueT ? selected.name : $t(selected.name)) : ''" />
 
-    <NuxtIcon v-if="iconFilled" :name="selected?.icon ?? ''" filled />
-    <NuxtIcon v-else :name="selected?.icon ?? ''" />
+    <Icon v-if="iconFilled" :name="selected?.icon ?? ''" filled />
+    <Icon v-else :name="selected?.icon ?? ''" />
   </div>
 </template>
 
@@ -51,7 +51,7 @@ span {
   pointer-events: none;
 }
 
-.selectable > div .nuxt-icon {
+.selectable > div .icon {
   margin-left: 2pt;
 }
 
@@ -67,7 +67,7 @@ span {
   color: $color-sub;
 }
 
-.nuxt-icon {
+.icon {
   font-size: 12pt;
   color: $color-sub;
 }

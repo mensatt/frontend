@@ -68,7 +68,7 @@ if (props.showCalendar) {
       ? globalSelectedDate.value.toLocaleDateString(i18n.locale.value)
       : i18n.t('desktop_calendar')
     ),
-    icon: 'calendar_outline',
+    icon: 'material-symbols:calendar-month-outline',
     onClickOverride() {
       emit('openCalendar')
     }

@@ -1,7 +1,7 @@
 <template>
   <NuxtLink class="external-link" :to="localePath(url)">
     <span v-text="$t(text)" />
-    <NuxtIcon name="right" />
+    <Icon name="material-symbols:chevron-right-rounded" />
   </NuxtLink>
 </template>
 
@@ -38,7 +38,7 @@ const localePath = useLocalePath()
     transition: color .2s ease;
   }
 
-  .nuxt-icon {
+  .icon {
     font-size: 14pt;
     color: $color-sub;
     margin: -10pt 0;

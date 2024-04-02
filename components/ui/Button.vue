@@ -6,7 +6,7 @@
     :data-slim="slim"
     @click="click()"
   >
-    <NuxtIcon v-if="loading" name="animated/loading" filled />
+    <Icon v-if="loading" name="svg-spinners:180-ring" filled />
     <span v-else v-text="text" />
   </button>
 </template>
@@ -49,7 +49,7 @@ button {
     font-size: 10pt;
   }
 
-  .nuxt-icon {
+  .icon {
     font-size: 14pt;
   }
 

@@ -11,7 +11,7 @@
       @click="emit('update:modelValue', opt.value)"
     >
       <span v-if="opt.iconText" v-text="opt.iconText" />
-      <NuxtIcon v-else-if="opt.iconName" :name="opt.iconName" />
+      <Icon v-else-if="opt.iconName" :name="opt.iconName" />
       <span v-text="$t(opt.name)" />
     </div>
   </div>

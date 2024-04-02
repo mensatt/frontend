@@ -2,7 +2,7 @@
   <div class="full-review">
     <div class="user">
       <div class="avatar">
-        <NuxtIcon name="person_outline" />
+        <Icon name="material-symbols:person-2-outline-rounded" />
       </div>
       <span class="name" v-text="data.displayName || $t('occurrence_comment_author_anon')" />
       <span class="time" v-text="createdText" />

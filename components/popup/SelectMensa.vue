@@ -12,7 +12,7 @@
       >
         <span class="name" v-text="opt.name" />
         <div class="fav" @click="toggleFav(opt)">
-          <NuxtIcon :name="favourites.includes(opt.id) ? 'favourite_filled' : 'favourite_outline'" />
+          <Icon :name="favourites.includes(opt.id) ? 'material-symbols:favorite-rounded' : 'material-symbols:favorite-outline-rounded'" />
         </div>
       </div>
     </div>

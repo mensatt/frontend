@@ -5,9 +5,9 @@
       :key="tab.id"
       :to="localePath(tab.href)"
     >
-      <div class="icon">
-        <NuxtIcon :name="tab.iconNormal" />
-        <NuxtIcon :name="tab.iconActive" />
+      <div class="icon-wrapper">
+        <Icon :name="tab.iconNormal" />
+        <Icon :name="tab.iconActive" />
       </div>
       <span v-text="$t(tab.name)" />
     </NuxtLink>
@@ -22,22 +22,22 @@ const tabs = [
     id: 'home',
     name: 'nav_home',
     href: '/',
-    iconNormal: 'home_outline',
-    iconActive: 'home_filled'
+    iconNormal: 'material-symbols:home-outline-rounded',
+    iconActive: 'material-symbols:home-rounded'
   },
   {
     id: 'calendar',
     name: 'nav_calendar',
     href: '/calendar',
-    iconNormal: 'calendar_outline',
-    iconActive: 'calendar_filled'
+    iconNormal: 'material-symbols:calendar-today-outline-rounded',
+    iconActive: 'material-symbols:calendar-today-rounded'
   },
   {
     id: 'profile',
     name: 'nav_profile',
     href: '/profile',
-    iconNormal: 'person_outline',
-    iconActive: 'person_filled'
+    iconNormal: 'material-symbols:person-outline-rounded',
+    iconActive: 'material-symbols:person-rounded'
   },
 ]
 
@@ -62,8 +62,8 @@ a {
   align-items: center;
   flex-direction: column;
   text-decoration: none;
-  gap: 4pt;
-  padding: 6pt 0;
+  gap: 5pt;
+  padding: 8pt 0;
   -webkit-tap-highlight-color: transparent !important;
   outline: none !important;
 
@@ -74,7 +74,7 @@ a {
     color: $color-header;
   }
 
-  .icon {
+  .icon-wrapper {
     position: relative;
     margin: 0;
     padding: 3pt 3pt;
@@ -83,21 +83,21 @@ a {
     height: 1em;
     width: 1em;
 
-    .nuxt-icon {
+    .icon {
       position: absolute;
       color: $color-header;
       margin: 0;
       font-size: inherit;
     }
 
-    .nuxt-icon:last-child { display: none; }
+    .icon:last-child { display: none; }
   }
 
   &.router-link-active span {
     text-shadow: 0 0 0.5px #000000;
   }
 
-  &.router-link-active .icon {
+  &.router-link-active .icon-wrapper {
     background-color: $color-green40;
     padding: 3pt 16pt;
     transition:
