@@ -14,5 +14,4 @@ export const useSettingHideLactose = () => useLocalStorage<boolean>('usersetting
 
 export const useSettingDevMode = () => useLocalStorage<boolean>('devmode-enabled', () => false)
 export const useSettingDevBackend = () => useLocalStorage<'prod' | 'dev' | 'local'>('devmode-backend', () => 'prod')
-export const useSettingDevShowIds = () => useLocalStorage<boolean>('devmode-show-ids', () => false)
 export const useSettingDevExperiments = () => useLocalStorage<ExperimentIds[]>('devmode-experiments', [])

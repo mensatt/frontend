@@ -1,11 +1,16 @@
 <template>
-  <div :data-count="props.count">
+  <div v-if="experiments.isEnabled('new_pills')" :data-count="props.count" class="new">
+    <Icon name="material-symbols:star-rounded" />
+    <span v-text="`${props.stars.toPrecision(2)} / 5`" />
+  </div>
+  <div v-else :data-count="props.count" class="old">
     <UtilsStarIcon v-for="val,i of starValues" :key="i" :percentage="val*100" />
-    <span v-text="props.count || '-'" />
   </div>
 </template>
 
 <script setup lang="ts">
+const experiments = useExperiments()
+
 const props = defineProps<{
   stars: number
   count: number
@@ -23,7 +28,7 @@ const starValues = computed(() => {
 </script>
 
 <style scoped lang="scss">
-div {
+.old {
   height: $content-pills-height;
   background-color: $color-yellow40;
   border-radius: $dish-tag-br;
@@ -33,21 +38,50 @@ div {
   box-sizing: border-box;
   padding: calc($content-pills-height * 0.25);
   user-select: none;
+
+  svg {
+    height: calc($content-pills-height * 0.5);
+  }
+
+  span {
+    color: $color-yellow;
+    font-family: $font-regular;
+    font-size: 10pt;
+    margin-left: calc($content-pills-height * 0.25);
+    margin-right: calc($content-pills-height * 0.15);
+
+    [data-count="0"] & {
+      color: $color-yellow60;
+    }
+  }
 }
 
-svg {
-  height: calc($content-pills-height * 0.5);
-}
+.new {
+  height: $content-pills-height;
+  background-color: $bg-dark;
+  border-radius: $dish-tag-br;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: calc($content-pills-height * 0.25);
+  user-select: none;
 
-span {
-  color: $color-yellow;
-  font-family: $font-regular;
-  font-size: 10pt;
-  margin-left: calc($content-pills-height * 0.25);
-  margin-right: calc($content-pills-height * 0.15);
+  .icon {
+    color: $color-yellow;
+    font-family: $font-regular;
+    font-size: 16pt;
+  }
 
-  [data-count="0"] & {
-    color: $color-yellow60;
+  span {
+    color: $color-yellow;
+    font-family: $font-major;
+    font-size: 10pt;
+    margin: 0 calc($content-pills-height * 0.15);
+
+    [data-count="0"] & {
+      color: $color-yellow60;
+    }
   }
 }
 </style>
