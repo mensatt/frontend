@@ -36,7 +36,7 @@
 
     <div class="tags">
       <div v-for="tag of data.tags" :key="tag.key" class="tag">
-        <div class="icon">
+        <div class="icon-wrapper">
           <span v-if="tag.shortName" v-text="tag.shortName" />
           <Icon v-else name="material-symbols:question-mark-rounded" />
         </div>
@@ -220,7 +220,7 @@ const reviewsCounted = computed(() => {
       margin-bottom: $menu-item-margin;
     }
 
-    .icon {
+    .icon-wrapper {
       width: 26pt;
       height: 26pt;
       background-color: $bg-dark;

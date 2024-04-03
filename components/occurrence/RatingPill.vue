@@ -1,62 +1,20 @@
 <template>
-  <div v-if="experiments.isEnabled('new_pills')" :data-count="props.count" class="new">
+  <div :data-count="props.count">
     <Icon name="material-symbols:star-rounded" />
-    <span v-text="`${props.stars.toPrecision(2)} / 5`" />
-  </div>
-  <div v-else :data-count="props.count" class="old">
-    <UtilsStarIcon v-for="val,i of starValues" :key="i" :percentage="val*100" />
+    <span v-if="!!props.stars" v-text="`${props.stars.toPrecision(2)} / 5`" />
+    <span v-else>- / 5</span>
   </div>
 </template>
 
 <script setup lang="ts">
-const experiments = useExperiments()
-
 const props = defineProps<{
   stars: number
   count: number
 }>()
-
-const starValues = computed(() => {
-  const out: number[] = []
-  for (let i = 1; i <= 5; i++) {
-    if (i <= props.stars) out.push(1)
-    else if (i <= props.stars + 1) out.push(props.stars % 1)
-    else out.push(0)
-  }
-  return out
-})
 </script>
 
 <style scoped lang="scss">
-.old {
-  height: $content-pills-height;
-  background-color: $color-yellow40;
-  border-radius: $dish-tag-br;
-  width: fit-content;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  padding: calc($content-pills-height * 0.25);
-  user-select: none;
-
-  svg {
-    height: calc($content-pills-height * 0.5);
-  }
-
-  span {
-    color: $color-yellow;
-    font-family: $font-regular;
-    font-size: 10pt;
-    margin-left: calc($content-pills-height * 0.25);
-    margin-right: calc($content-pills-height * 0.15);
-
-    [data-count="0"] & {
-      color: $color-yellow60;
-    }
-  }
-}
-
-.new {
+div {
   height: $content-pills-height;
   background-color: $bg-dark;
   border-radius: $dish-tag-br;
@@ -66,22 +24,22 @@ const starValues = computed(() => {
   box-sizing: border-box;
   padding: calc($content-pills-height * 0.25);
   user-select: none;
+}
 
-  .icon {
-    color: $color-yellow;
-    font-family: $font-regular;
-    font-size: 16pt;
-  }
+.icon {
+  color: $color-yellow;
+  font-family: $font-regular;
+  font-size: 16pt;
+}
 
-  span {
-    color: $color-yellow;
-    font-family: $font-major;
-    font-size: 10pt;
-    margin: 0 calc($content-pills-height * 0.15);
+span {
+  color: $color-yellow;
+  font-family: $font-major;
+  font-size: 10pt;
+  margin: 0 calc($content-pills-height * 0.15);
 
-    [data-count="0"] & {
-      color: $color-yellow60;
-    }
+  [data-count="0"] & {
+    color: $color-yellow60;
   }
 }
 </style>
