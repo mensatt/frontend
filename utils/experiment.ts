@@ -23,11 +23,6 @@ const experiments = [
     id: 'account_ui',
     name: 'Show UI for account management',
     authors: [ 'maanex' ]
-  },
-  {
-    id: 'new_pills',
-    name: 'Show alternative pills ui',
-    authors: [ 'maanex' ]
   }
 ] as const satisfies readonly ExperimentObject[]
 
