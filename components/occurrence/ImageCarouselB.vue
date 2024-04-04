@@ -1,13 +1,17 @@
 <template>
   <div class="carousel">
-    <NuxtImg
-      :src="imageReviews[selected].images[0].id"
-      provider="mensatt"
-      sizes="mobile:100vw onecol:96vw twocol:49vw xl:500px xxl:800px"
+    <div
+      class="img"
       @click="tap()"
       @pointerdown="pause()"
       @pointerup="noDelta = true; resume()"
-    />
+    >
+      <NuxtImg
+        :src="imageReviews[selected].images[0].id"
+        provider="mensatt"
+        sizes="mobile:100vw onecol:96vw twocol:49vw xl:500px xxl:800px"
+      />
+    </div>
     <div class="pages">
       <div v-for="_,idx of imageReviews.length" :key="idx" class="page">
         <div :style="{ width: `${getPageProgress(idx) * 100}%` }" />
@@ -57,13 +61,19 @@ const { pause, resume } = useRafFn(({ delta }) => {
   position: relative;
 }
 
-img {
+.img {
   position: absolute;
   top: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
   aspect-ratio: 16/9;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
   display: block;
   pointer-events: none;
 }
