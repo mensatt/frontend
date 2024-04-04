@@ -66,6 +66,7 @@ defineProps<{
     color: $color-regular;
     pointer-events: none;
     user-select: none;
+    pointer-events: none;
   }
 
   .icon {
@@ -74,6 +75,7 @@ defineProps<{
     font-size: calc(1em + 2pt);
     color: $color-minor;
     user-select: none;
+    pointer-events: none;
   }
 
   &[data-selected=true] {
