@@ -65,6 +65,7 @@ img {
   object-fit: cover;
   aspect-ratio: 16/9;
   display: block;
+  pointer-events: none;
 }
 
 .pages {
@@ -82,7 +83,7 @@ img {
 
 .page {
   background-color: #ffffff88;
-  height: 1pt;
+  height: 2pt;
   border-radius: 99pt;
 
   div {
