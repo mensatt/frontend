@@ -18,6 +18,7 @@ export default {
   settings_visual_theme: 'Farbschema',
   settings_visual_theme_select: 'Farbschema auswählen',
   settings_visual_show_calories: 'Kalorien pro € anzeigen',
+  settings_visual_auto_cycle_images: 'Bilder automatisch durchwechseln',
   settings_preferences_header: 'Gerichtspräferenzen',
   settings_preferences_hide_meat: 'Fleischgerichte ausblenden',
   settings_preferences_hide_meat_dairy: 'Nicht-vegane Gerichte ausblenden',

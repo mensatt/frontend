@@ -18,15 +18,28 @@
 <script setup lang="ts">
 import { EntityOccurrence } from '../../utils/entities/occurrence'
 
+const settingsAutoCycleImages = useSettingAutoCycleImages()
+
 const { imageReviews } = defineProps<{
   imageReviews: EntityOccurrence.Review[]
 }>()
 
 const htmlEl = ref<HTMLElement>()
 
+function isCycleAllowed() {
+  if (imageReviews.length === 1) return false
+  return true
+}
+
+function isAutoCycleEnabled() {
+  if (imageReviews.length === 1) return false
+  if (!settingsAutoCycleImages.value) return false
+  return true
+}
+
 const selected = ref(0)
 const progress = ref(0)
-const paused = ref(false)
+const paused = ref(imageReviews.length === 1)
 const tappedAt = ref(0)
 const skipNextIteration = ref(false)
 
@@ -37,7 +50,7 @@ function getPageProgress(idx: number) {
 }
 
 function next() {
-  if (imageReviews.length === 1)
+  if (!isCycleAllowed())
     return
 
   selected.value = (selected.value + 1) % imageReviews.length
@@ -45,7 +58,7 @@ function next() {
 }
 
 function previous() {
-  if (imageReviews.length === 1)
+  if (!isCycleAllowed())
     return
 
   if (selected.value > 0)
@@ -73,14 +86,15 @@ function tapped(e: MouseEvent) {
 }
 
 function pause() {
+  if (!isAutoCycleEnabled()) return
+
   tPause()
   paused.value = true
   tappedAt.value = Date.now()
 }
 
 function resume() {
-  if (imageReviews.length === 1)
-    return
+  if (!isAutoCycleEnabled()) return
 
   tappedAt.value = 0
   skipNextIteration.value = true
@@ -100,10 +114,10 @@ const { pause: tPause, resume: tResume } = useRafFn(({ delta }) => {
 })
 
 onMounted(() => {
-  if (imageReviews.length === 1) {
-    tPause()
-    progress.value = 0
-  }
+  if (isAutoCycleEnabled()) return
+
+  tPause()
+  progress.value = 0
 })
 </script>
 

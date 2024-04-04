@@ -29,6 +29,11 @@
       v-model="inputShowCalories"
       text="settings_visual_show_calories"
     />
+    <UiToggle
+      v-if="experiments.isEnabled('image_carousel_b')"
+      v-model="inputAutoCycleImages"
+      text="settings_visual_auto_cycle_images"
+    />
   </div>
 
   <label for="preferences" v-text="$t('settings_preferences_header')" />
@@ -91,10 +96,11 @@
 </template>
 
 <script setup lang="ts">
-import { LocaleObject } from '@nuxtjs/i18n'
+import { LocaleObject } from '@nuxtjs/i18n/dist/runtime/composables'
 import { useThemes } from '../../utils/themes'
 
 const popups = usePopups()
+const experiments = useExperiments()
 
 const inputPrice = useSettingPrice()
 const inputHideMeat = useSettingHideMeat()
@@ -103,6 +109,7 @@ const inputHideFish = useSettingHideFish()
 const inputHideGluten = useSettingHideGluten()
 const inputHideLactose = useSettingHideLactose()
 const inputShowCalories = useSettingShowCalories()
+const inputAutoCycleImages = useSettingAutoCycleImages()
 
 //
 
@@ -181,8 +188,6 @@ async function openBackendSelector() {
     devFullReload()
   }
 }
-
-const experiments = useExperiments()
 
 async function openExperimentMenu() {
   const sel = await popups.open('toggle_options', {
