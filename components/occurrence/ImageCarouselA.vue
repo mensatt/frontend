@@ -36,5 +36,6 @@ img {
   object-fit: cover;
   aspect-ratio: 16/9;
   scroll-snap-align: center;
+  pointer-events: none;
 }
 </style>
