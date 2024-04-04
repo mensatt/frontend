@@ -1,6 +1,6 @@
 <template>
   <div class="carousel">
-    <div ref="htmlEl" class="img">
+    <div ref="htmlEl" class="img" @click="tapped">
       <NuxtImg
         :src="imageReviews[selected].images[0].id"
         provider="mensatt"
@@ -44,11 +44,33 @@ function next() {
   progress.value = 0
 }
 
+function previous() {
+  if (imageReviews.length === 1)
+    return
+
+  if (selected.value > 1)
+    selected.value--
+  progress.value = 0
+}
+
 const { pressed } = useMousePressed({ target: htmlEl })
 watch(pressed, (val) => {
   if (val) pause()
   else resume()
 })
+
+function tapped(e: MouseEvent) {
+  if (tappedAt.value) {
+    const tappedDelta = Date.now() - tappedAt.value
+    if (tappedDelta > 200)
+      return
+  }
+
+  if (e.offsetX / (e.target as HTMLElement).offsetWidth < 0.2)
+    previous()
+  else
+    next()
+}
 
 function pause() {
   tPause()
@@ -60,13 +82,10 @@ function resume() {
   if (imageReviews.length === 1)
     return
 
+  tappedAt.value = 0
   skipNextIteration.value = true
   tResume()
   paused.value = false
-
-  const tappedDelta = Date.now() - tappedAt.value
-  if (tappedDelta < 200)
-    next()
 }
 
 const { pause: tPause, resume: tResume } = useRafFn(({ delta }) => {
