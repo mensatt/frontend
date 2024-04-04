@@ -48,7 +48,7 @@ function previous() {
   if (imageReviews.length === 1)
     return
 
-  if (selected.value > 1)
+  if (selected.value > 0)
     selected.value--
   progress.value = 0
 }
@@ -119,13 +119,13 @@ onMounted(() => {
   top: 0;
   width: 100%;
   height: 100%;
-  aspect-ratio: 16/9;
+  aspect-ratio: 14/9;
 }
 
 img {
   width: 100%;
   height: 100%;
-  aspect-ratio: 16/9;
+  aspect-ratio: 14/9;
   object-fit: cover;
   display: block;
   pointer-events: none;
