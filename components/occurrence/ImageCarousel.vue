@@ -1,5 +1,5 @@
 <template>
-  <div class="carousell">
+  <div class="carousel">
     <NuxtImg
       v-for="review of imageReviews"
       :key="review.id"
@@ -19,7 +19,7 @@ const { imageReviews } = defineProps<{
 </script>
 
 <style scoped lang="scss">
-.carousell {
+.carousel {
   height: 100%;
   width: 100%;
   overflow: scroll hidden;
