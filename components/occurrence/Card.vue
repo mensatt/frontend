@@ -120,7 +120,7 @@ function showDetails(mobileOnly: boolean) {
   }
 
   & > * {
-    aspect-ratio: 16/9;
+    aspect-ratio: 14/9;
     max-height: 50vh;
     object-fit: cover;
     width: 100%;
