@@ -1,7 +1,8 @@
 <template>
   <div class="occurrence">
     <div class="image">
-      <UiImage v-if="randomImage" :src="randomImage.id" />
+      <OccurrenceImageCarousell v-if="experiments.isEnabled('image_carousel') && imageReviews.length" :image-reviews="imageReviews" />
+      <UiImage v-else-if="randomImage" :src="randomImage.id" />
       <p v-else v-text="$t('occurrence_no_image')" />
     </div>
 
@@ -45,6 +46,7 @@ const router = useRouter()
 const popups = usePopups()
 const viewMode = useViewMode()
 const formatters = useFormatters()
+const experiments = useExperiments()
 
 const showCalories = useSettingShowCalories()
 
@@ -110,8 +112,6 @@ function showDetails(mobileOnly: boolean) {
 }
 
 .image {
-  pointer-events: none;
-
   [view-mode=desktop] & {
     pointer-events: unset;
     overflow: hidden;
@@ -119,7 +119,6 @@ function showDetails(mobileOnly: boolean) {
   }
 
   & > * {
-    display: block;
     aspect-ratio: 16/9;
     max-height: 50vh;
     object-fit: cover;
@@ -127,7 +126,10 @@ function showDetails(mobileOnly: boolean) {
     background-color: $bg-dark;
     box-sizing: border-box;
     margin: 0;
-    user-select: none;
+  }
+
+  & > img {
+    display: block;
   }
 
   p {
@@ -137,6 +139,7 @@ function showDetails(mobileOnly: boolean) {
     display: grid;
     place-items: center;
     padding: $main-content-padding;
+    user-select: none;
   }
 }
 
