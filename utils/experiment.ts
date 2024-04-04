@@ -10,11 +10,6 @@ export type ExperimentObject = {
 
 const experiments = [
   {
-    id: 'show_ids',
-    name: 'Show Ids',
-    authors: [ 'maanex' ]
-  },
-  {
     id: 'alt_layout_desktop',
     name: 'Alternative Desktop Layout',
     authors: [ 'maanex' ]
@@ -25,8 +20,18 @@ const experiments = [
     authors: [ 'maanex' ]
   },
   {
+    id: 'image_carousel',
+    name: '🖼️🎠',
+    authors: [ 'maanex' ]
+  },
+  {
+    id: 'show_ids',
+    name: '🤓 Show Ids',
+    authors: [ 'maanex' ]
+  },
+  {
     id: 'show_ref_images',
-    name: 'Show Size Ref Images',
+    name: '🤓 Show Size Ref Images',
     authors: [ 'maanex' ]
   }
 ] as const satisfies readonly ExperimentObject[]
