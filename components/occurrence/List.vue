@@ -204,6 +204,7 @@ defineExpose({
 
 .icon {
   transition: transform .2s ease-out;
+  color: $color-minor;
 
   [data-show-hidden=true] & {
     transform: scaleY(-1);
