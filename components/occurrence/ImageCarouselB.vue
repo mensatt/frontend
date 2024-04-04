@@ -2,7 +2,6 @@
   <div class="carousel">
     <div
       class="img"
-      @click="tap()"
       @pointerdown="pause()"
       @pointerup="resume()"
     >
@@ -30,6 +29,7 @@ const { imageReviews } = defineProps<{
 const selected = ref(0)
 const progress = ref(0)
 const paused = ref(false)
+const tappedAt = ref(0)
 const skipNextIteration = ref(false)
 
 function getPageProgress(idx: number) {
@@ -38,7 +38,10 @@ function getPageProgress(idx: number) {
   return progress.value
 }
 
-function tap() {
+function next() {
+  if (imageReviews.length === 1)
+    return
+
   selected.value = (selected.value + 1) % imageReviews.length
   progress.value = 0
 }
@@ -46,12 +49,20 @@ function tap() {
 function pause() {
   tPause()
   paused.value = true
+  tappedAt.value = Date.now()
 }
 
 function resume() {
+  if (imageReviews.length === 1)
+    return
+
   skipNextIteration.value = true
   tResume()
   paused.value = false
+
+  const tappedDelta = Date.now() - tappedAt.value
+  if (tappedDelta < 200)
+    next()
 }
 
 const { pause: tPause, resume: tResume } = useRafFn(({ delta }) => {
@@ -62,7 +73,14 @@ const { pause: tPause, resume: tResume } = useRafFn(({ delta }) => {
 
   progress.value += delta / 4000
   if (progress.value >= 1)
-    tap()
+    next()
+})
+
+onMounted(() => {
+  if (imageReviews.length === 1) {
+    tPause()
+    progress.value = 0
+  }
 })
 </script>
 
@@ -105,7 +123,7 @@ img {
 
   &[data-paused=true] {
     opacity: 0;
-    transition: opacity .1s ease-out .4s;
+    transition: opacity .1s ease-out .2s;
   }
 }
 
