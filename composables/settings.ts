@@ -5,6 +5,7 @@ export const useSettingPrice = () => useLocalStorage<SettingPrice>('usersetting-
 export const useSettingColorMode = () => useColorMode<ThemeChoice>({ modes: useThemes().asConfigObject() })
 
 export const useSettingShowCalories = () => useLocalStorage<boolean>('usersetting-show-calories', () => false)
+export const useSettingAutoCycleImages = () => useLocalStorage<boolean>('usersetting-auto-cycle-images', () => true)
 
 export const useSettingHideMeat = () => useLocalStorage<boolean>('usersetting-hide-meat', () => false)
 export const useSettingHideMeatDairy = () => useLocalStorage<boolean>('usersetting-hide-meat-dairy', () => false)
