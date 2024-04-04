@@ -4,7 +4,7 @@
       class="img"
       @click="tap()"
       @pointerdown="pause()"
-      @pointerup="noDelta = true; resume()"
+      @pointerup="resume()"
     >
       <NuxtImg
         :src="imageReviews[selected].images[0].id"
@@ -12,7 +12,7 @@
         sizes="mobile:100vw onecol:96vw twocol:49vw xl:500px xxl:800px"
       />
     </div>
-    <div class="pages">
+    <div class="pages" :data-paused="paused">
       <div v-for="_,idx of imageReviews.length" :key="idx" class="page">
         <div :style="{ width: `${getPageProgress(idx) * 100}%` }" />
       </div>
@@ -29,7 +29,8 @@ const { imageReviews } = defineProps<{
 
 const selected = ref(0)
 const progress = ref(0)
-const noDelta = ref(false)
+const paused = ref(false)
+const skipNextIteration = ref(false)
 
 function getPageProgress(idx: number) {
   if (idx > selected.value) return 0
@@ -42,9 +43,20 @@ function tap() {
   progress.value = 0
 }
 
-const { pause, resume } = useRafFn(({ delta }) => {
-  if (noDelta.value) {
-    noDelta.value = false
+function pause() {
+  tPause()
+  paused.value = true
+}
+
+function resume() {
+  skipNextIteration.value = true
+  tResume()
+  paused.value = false
+}
+
+const { pause: tPause, resume: tResume } = useRafFn(({ delta }) => {
+  if (skipNextIteration.value) {
+    skipNextIteration.value = false
     return
   }
 
@@ -89,6 +101,12 @@ img {
   box-sizing: border-box;
   background: linear-gradient(180deg, #00000055, #00000000);
   padding-bottom: 10pt;
+  transition: opacity .1s ease-out;
+
+  &[data-paused=true] {
+    opacity: 0;
+    transition: opacity .1s ease-out .4s;
+  }
 }
 
 .page {
