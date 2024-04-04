@@ -1,10 +1,6 @@
 <template>
   <div class="carousel">
-    <div
-      class="img"
-      @pointerdown="pause()"
-      @pointerup="resume()"
-    >
+    <div ref="htmlEl" class="img">
       <NuxtImg
         :src="imageReviews[selected].images[0].id"
         provider="mensatt"
@@ -26,6 +22,8 @@ const { imageReviews } = defineProps<{
   imageReviews: EntityOccurrence.Review[]
 }>()
 
+const htmlEl = ref<HTMLElement>()
+
 const selected = ref(0)
 const progress = ref(0)
 const paused = ref(false)
@@ -45,6 +43,12 @@ function next() {
   selected.value = (selected.value + 1) % imageReviews.length
   progress.value = 0
 }
+
+const { pressed } = useMousePressed({ target: htmlEl })
+watch(pressed, (val) => {
+  if (val) pause()
+  else resume()
+})
 
 function pause() {
   tPause()
@@ -117,8 +121,8 @@ img {
   gap: 3pt;
   padding: 3pt;
   box-sizing: border-box;
-  background: linear-gradient(180deg, #00000055, #00000000);
-  padding-bottom: 10pt;
+  background: linear-gradient(180deg, #00000022, #00000000);
+  padding-bottom: 20pt;
   transition: opacity .1s ease-out;
 
   &[data-paused=true] {
@@ -129,8 +133,9 @@ img {
 
 .page {
   background-color: #ffffff88;
-  height: 2pt;
+  height: 2px;
   border-radius: 99pt;
+  overflow: hidden;
 
   div {
     display: block;
