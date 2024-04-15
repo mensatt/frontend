@@ -17,7 +17,7 @@
     <DevId :id="data.id" />
     <p v-if="data.text" class="text" v-text="data.text" />
     <div v-if="data.images.length" class="image">
-      <UiImage :src="data.images[0].id" />
+      <UiImage :src="data.images[0].id" :dynamic-height="true"/>
     </div>
   </div>
 </template>
