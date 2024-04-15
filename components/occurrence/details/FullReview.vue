@@ -17,11 +17,7 @@
     <DevId :id="data.id" />
     <p v-if="data.text" class="text" v-text="data.text" />
     <div v-if="data.images.length" class="image">
-      <NuxtImg
-        :src="data.images[0].id"
-        provider="mensatt"
-        sizes="mobile:100vw onecol:96vw twocol:49vw xl:500px xxl:800px"
-      />
+      <UiImage :src="data.images[0].id" />
     </div>
   </div>
 </template>

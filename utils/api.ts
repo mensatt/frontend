@@ -97,7 +97,7 @@ function buildOptions(opts?: ImageOptions) {
 }
 export function getImageServingUrl(id: string, opts?: ImageOptions): string {
   const optStr = buildOptions(opts)
-  return `${getImageBaseUrl()}/image${id}${optStr}`
+  return `${getImageBaseUrl()}/image${id.startsWith('/') ? id : ('/' + id)}${optStr}`
 }
 
 function getImageUploadUrl(rotation?: number) {
