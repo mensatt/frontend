@@ -1,11 +1,9 @@
 <template>
   <div class="carousel">
-    <NuxtImg
+    <UiImage
       v-for="review of imageReviews"
       :key="review.id"
       :src="review.images[0].id"
-      provider="mensatt"
-      sizes="mobile:100vw onecol:96vw twocol:49vw xl:500px xxl:800px"
     />
   </div>
 </template>

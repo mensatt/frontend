@@ -95,9 +95,55 @@ function buildOptions(opts?: ImageOptions) {
 
   return params ? `?${params}` : ''
 }
-export function getImageServingUrl(id: string, opts?: ImageOptions): string {
+function getImageServingUrl(id: string, opts?: ImageOptions): string {
   const optStr = buildOptions(opts)
   return `${getImageBaseUrl()}/image${id.startsWith('/') ? id : ('/' + id)}${optStr}`
+}
+
+/** same as getImageServingUrl but it correctly uses a stepped size and doesn't downscale if a higher quality image is cached */
+function buildImageUrl(id: string, minWidth?: number, minHeight?: number): string {
+  /** images sizes will be requested in steps of */
+  const imagesScaleStepSize = 100
+
+  const steppedMinWidth = minWidth
+    ? Math.ceil(minWidth / imagesScaleStepSize) * imagesScaleStepSize
+    : undefined
+
+  const steppedMinHeight = minHeight
+    ? Math.ceil(minHeight / imagesScaleStepSize) * imagesScaleStepSize
+    : undefined
+
+  /** map of image id -> [ largest requested width, largest requested height ] */
+  const imageSizes = useState<Map<String, [ number | undefined, number | undefined ]>>('api-cache-image-sizes', () => new Map())
+
+  const cached = imageSizes.value.get(id)
+
+  const requestWidth = steppedMinWidth
+    ? cached?.[0]
+      ? Math.max(cached[0], steppedMinWidth)
+      : steppedMinWidth
+    : undefined
+
+  const requestHeight = steppedMinHeight
+    ? cached?.[1]
+      ? Math.max(cached[1], steppedMinHeight)
+      : steppedMinHeight
+    : undefined
+
+  imageSizes.value.set(id, [ requestWidth, requestHeight ])
+  const experiments = useExperiments()
+
+  if (experiments.isEnabled('show_ref_images')) {
+    // "hashing" the image id to a procedural color
+    const idHash = id.split('').map(c => c.charCodeAt(0)).reduce((a, b) => a*1.03 + b, 0)
+    const backgroundColor = ((idHash ** 15) % 0xFFFFFF).toString(16).padStart(6, '0')
+    return `https://dummyimage.com/${requestWidth ?? 999}x${requestHeight ?? 999}/${backgroundColor}`
+  }
+
+  return getImageServingUrl(id, {
+    width: requestWidth,
+    height: requestHeight
+  })
 }
 
 function getImageUploadUrl(rotation?: number) {
@@ -122,5 +168,6 @@ export const useApi = () => ({
   getLocations,
   postRating,
   uploadImage,
-  getImageServingUrl
+  getImageServingUrl,
+  buildImageUrl
 })
