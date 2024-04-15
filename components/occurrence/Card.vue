@@ -1,12 +1,7 @@
 <template>
   <div class="occurrence">
     <div class="image">
-      <NuxtImg
-        v-if="randomImage"
-        :src="randomImage.id"
-        provider="mensatt"
-        sizes="mobile:100vw onecol:96vw twocol:49vw xl:500px xxl:800px"
-      />
+      <UiImage v-if="randomImage" :src="randomImage.id" />
       <p v-else v-text="$t('occurrence_no_image')" />
     </div>
 

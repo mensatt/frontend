@@ -14,7 +14,6 @@
   },
   "devDependencies": {
     "@maanex/nuxt-apollo-upload": "^5.0.0",
-    "@nuxt/image": "rc",
     "@nuxtjs/i18n": "^8.0.0-beta.13",
     "@types/node": "^18",
     "@typescript-eslint/parser": "^6.9.1",
@@ -28,6 +27,7 @@
     "nuxt": "^3.7.4",
     "sass": "^1.62.1",
     "sass-loader": "^13.3.1",
+    "vaul-vue": "^0.1.0",
     "vue-eslint-parser": "^9.3.2"
   },
   "dependencies": {
