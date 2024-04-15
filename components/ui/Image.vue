@@ -4,7 +4,10 @@
 
 <script setup lang="ts">
 const props = defineProps<{
+  /** image id */
   src: string
+  /** will not specify the image height and just see how it goes */
+  dynamicHeight?: boolean
 }>()
 
 const granularity = 100
@@ -25,9 +28,11 @@ watch(computedHeight, val => (heightMin.value = val))
 
 const url = computed(() => {
   const width = computedWidth.value
-  const height = computedHeight.value
+  const height = props.dynamicHeight
+    ? undefined
+    : computedHeight.value
 
-  if (!width || !height)
+  if (!width)
     return '#'
 
   if (experiments.isEnabled('show_ref_images'))
