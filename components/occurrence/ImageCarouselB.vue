@@ -1,10 +1,11 @@
 <template>
   <div class="carousel">
     <div ref="htmlEl" class="img" @click="tapped">
-      <NuxtImg
+      <UiImage
         :src="imageReviews[selected].images[0].id"
-        provider="mensatt"
-        sizes="mobile:100vw onecol:96vw twocol:49vw xl:500px xxl:800px"
+        aspect-ratio="14 / 9"
+        :preload="imageReviews.map(i => i.images[0].id)"
+        @loaded="imageLoaded(); prefetch()"
       />
     </div>
     <div class="pages" :data-paused="paused">
@@ -16,15 +17,18 @@
 </template>
 
 <script setup lang="ts">
+import { useImage } from '@vueuse/core'
 import { EntityOccurrence } from '../../utils/entities/occurrence'
 
 const settingsAutoCycleImages = useSettingAutoCycleImages()
+const api = useApi()
 
 const { imageReviews } = defineProps<{
   imageReviews: EntityOccurrence.Review[]
 }>()
 
 const htmlEl = ref<HTMLElement>()
+const { width: imgWidth, height: imgHeight } = useElementSize(htmlEl)
 
 function isCycleAllowed() {
   if (imageReviews.length === 1) return false
@@ -113,12 +117,29 @@ const { pause: tPause, resume: tResume } = useRafFn(({ delta }) => {
     next()
 })
 
-onMounted(() => {
-  if (isAutoCycleEnabled()) return
+// indexes of images we've loaded already
+const prefetched = ref(new Set([ selected.value ]))
+// pre-fetching the next image in line
+function prefetch(idx: number = (selected.value + 1)) {
+  if (idx >= imageReviews.length) return
+  if (prefetched.value.has(idx)) return
+  if (!imgWidth.value || !imgHeight.value) return
 
+  prefetched.value.add(idx)
+  const src = api.buildImageUrl(imageReviews[idx].images[0].id, imgWidth.value, imgHeight.value)
+  useImage({ src })
+}
+watch(selected, val => prefetch(val + 1))
+
+onMounted(() => {
   tPause()
   progress.value = 0
 })
+
+function imageLoaded() {
+  if (!paused.value && isAutoCycleEnabled() && progress.value === 0)
+    tResume()
+}
 </script>
 
 <style scoped lang="scss">
@@ -133,16 +154,6 @@ onMounted(() => {
   top: 0;
   width: 100%;
   height: 100%;
-  aspect-ratio: 14/9;
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 14/9;
-  object-fit: cover;
-  display: block;
-  pointer-events: none;
 }
 
 .pages {
