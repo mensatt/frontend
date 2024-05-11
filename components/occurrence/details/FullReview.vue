@@ -17,7 +17,11 @@
     <DevId :id="data.id" />
     <p v-if="data.text" class="text" v-text="data.text" />
     <div v-if="data.images.length" class="image">
-      <UiImage :src="data.images[0].id" :dynamic-height="true"/>
+      <UiImage
+        :src="data.images[0].id"
+        :dynamic-height="true"
+        aspect-ratio="1 / 1"
+      />
     </div>
   </div>
 </template>
@@ -104,14 +108,6 @@ const createdText = computed(() => dayjs()
 
   [view-mode="desktop"] & {
     border-radius: $card-item-br;
-  }
-
-  img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
   }
 }
 </style>
