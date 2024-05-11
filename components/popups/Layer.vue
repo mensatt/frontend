@@ -23,7 +23,7 @@ const WrapperComponent = computed(() => (viewMode.value === 'mobile') ? PopupsWr
 function destruct(popup: PopupInternally) {
   popup.callback(null)
   popup.dismissed = true
-  window.history.back()
+  // window.history.back()
 
   // the below should be taken care of by the time the function runs
   // but in case it wasn't, we're cleaning up anyway
@@ -31,7 +31,7 @@ function destruct(popup: PopupInternally) {
     const index = popups.state.findIndex(search => search.uuid === popup.uuid)
     if (index >= 0)
       popups.state.splice(index, 1)
-  }, 2000)
+  }, 1000)
 }
 </script>
 
