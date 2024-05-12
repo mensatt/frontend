@@ -19,7 +19,7 @@
     <div v-if="data.images.length" class="image">
       <UiImage
         :src="data.images[0].id"
-        :dynamic-height="true"
+        :dynamic-height="false"
         aspect-ratio="1 / 1"
       />
     </div>
