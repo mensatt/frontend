@@ -70,9 +70,10 @@ function filterOccurrences(list: EntityOccurrence.Occurrence[], opts: Partial<Fi
   }
 
   for (const item of list) {
-    if (hideUnavailable && item.notAvailableAfter)
-      out.hidden.push(item)
-    else if (satisfiesFilter(item, filters))
+    // TODO: Re-add filter after a better solution has been found
+    /* if (hideUnavailable && item.notAvailableAfter)
+      out.hidden.push(item) */
+    if (satisfiesFilter(item, filters))
       out.visible.push(item)
     else
       out.hidden.push(item)
