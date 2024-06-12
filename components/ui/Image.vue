@@ -1,6 +1,6 @@
 <template>
   <div ref="imgEl" :style="{ aspectRatio }">
-    <img :src="debouncedUrl" @load="onLoaded">
+    <img :src="url" @load="onLoaded">
   </div>
 </template>
 
@@ -43,7 +43,6 @@ function getUrl(src: string) {
   return api.buildImageUrl(src, width, height)
 }
 const url = computed(() => getUrl(props.src))
-const debouncedUrl = useDebounce(url, 1000)
 </script>
 
 <style scoped lang="scss">
