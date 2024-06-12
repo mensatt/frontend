@@ -1,10 +1,10 @@
 {
   "name": "mensatt-nuxt",
-  "version": "2.1.10",
+  "version": "2.1.11",
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev --port 3003",
+    "dev": "nuxt dev --port 3003 --host mensatt.localhost",
     "package": "node ./prebuild.js",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
