@@ -40,8 +40,7 @@ function getUrl(src: string) {
   if (!width)
     return '#'
 
-  // return api.buildImageUrl(src, width, height)
-  return api.getImageServingUrl(src, { width: 800, height: 800 })
+  return api.buildImageUrl(src, width, height)
 }
 const url = computed(() => getUrl(props.src))
 </script>
@@ -51,6 +50,7 @@ div {
   width: 100%;
   height: 100%;
   position: relative;
+  overflow: hidden;
 }
 
 img {
