@@ -37,7 +37,7 @@ function getUrl(src: string) {
     ? undefined
     : realHeight.value
 
-  console.log('owo?', width, height)
+  console.log('owo?', width, height, src)
 
   if (!width)
     return '#'
