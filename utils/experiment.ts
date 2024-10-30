@@ -20,16 +20,6 @@ const experiments = [
     authors: [ 'maanex' ]
   },
   {
-    id: 'image_carousel_a',
-    name: '🖼️🎠 Variant A',
-    authors: [ 'maanex' ]
-  },
-  {
-    id: 'image_carousel_b',
-    name: '🖼️🎠 Variant B',
-    authors: [ 'maanex' ]
-  },
-  {
     id: 'show_ids',
     name: '🤓 Show Ids',
     authors: [ 'maanex' ]
