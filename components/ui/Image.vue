@@ -29,20 +29,18 @@ function onLoaded() {
 }
 
 const imgEl = ref<HTMLElement>()
-const { width: realWidth, height: realHeight } = useElementSize(imgEl)
+// const { width: realWidth, height: realHeight } = useElementSize(imgEl)
 
 function getUrl(src: string) {
-  const width = realWidth.value
-  const height = props.dynamicHeight
-    ? undefined
-    : realHeight.value
+  // const width = realWidth.value
+  // const height = props.dynamicHeight
+  //   ? undefined
+  //   : realHeight.value
 
-  console.log('owo?', width, height, src)
+  // if (!width)
+  //   return '#'
 
-  if (!width)
-    return '#'
-
-  return api.buildImageUrl(src, width, height)
+  return api.buildImageUrl(src, 700, 700)
 }
 const url = computed(() => getUrl(props.src))
 </script>
