@@ -30,6 +30,7 @@
       text="settings_visual_show_calories"
     />
     <UiToggle
+      v-if="experiments.isEnabled('image_carousel_b')"
       v-model="inputAutoCycleImages"
       text="settings_visual_auto_cycle_images"
     />

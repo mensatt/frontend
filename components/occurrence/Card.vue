@@ -1,7 +1,9 @@
 <template>
   <div class="occurrence">
     <div class="image">
-      <OccurrenceImageCarousel v-if="imageReviews.length" :image-reviews="imageReviews" />
+      <OccurrenceImageCarouselA v-if="experiments.isEnabled('image_carousel_a') && imageReviews.length" :image-reviews="imageReviews" />
+      <OccurrenceImageCarouselB v-else-if="experiments.isEnabled('image_carousel_b') && imageReviews.length" :image-reviews="imageReviews" />
+      <UiImage v-else-if="randomImage" :src="randomImage.id" />
       <p v-else v-text="$t('occurrence_no_image')" />
     </div>
 
