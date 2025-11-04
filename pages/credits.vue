@@ -23,7 +23,7 @@ const coreTeam = [
   'Tobias Gessler (Backend & Organization)',
   'Louis Duemler (Backend & Infrastructure)',
   'Kevin Kollenda (Scraper & Backend)',
-  'Benedikt Nerb (Frontend & Devops)',
+  'Benedikt Nerb (Frontend, Backend & DevOps)',
   'Andreas May (Frontend & Design)',
 ].sort(shuffle)
 
@@ -37,8 +37,8 @@ const specialThanks = [
 
 const weLove = [
   'Nuxt, Vue & VueUse',
-  'Go, Gin & Ent',
-  'GraphQl',
+  'Rust, Axum & Diesel',
+  'GraphQL',
   'Spezi',
 ].sort(shuffle)
 </script>
