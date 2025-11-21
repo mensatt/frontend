@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { TabData } from '../components/utils/HorizontalTabs.vue'
+import type { TabData } from '../components/utils/HorizontalTabs.vue'
 
 const viewMode = useViewMode()
 const i18n = useI18n()
