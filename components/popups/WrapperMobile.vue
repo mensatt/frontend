@@ -1,7 +1,7 @@
 <template>
   <div class="popup" :data-dismissed="data.dismissed">
     <div class="curtain" @click="close(null)" />
-    <div ref="outer" class="content" :data-scrolllock="scrollY === 0 && lengthY < 0">
+    <div ref="outer" class="content">
       <div
         ref="inner"
         class="inner"
@@ -48,17 +48,17 @@ const containerHeight = computed(() => inner.value?.offsetHeight)
 const screenHeight = computed(() => window.innerHeight)
 const innerHeightClamped = computed(() => Math.min(containerHeight.value ?? 0, screenHeight.value * 0.9))
 
-const { y: scrollY } = useScroll(outer)
+const { y: innerScrollY } = useScroll(inner)
 let offsetOnScrollStart = 0
 
 const { isSwiping, lengthY } = useSwipe(inner, {
   passive: true,
   threshold: 10,
   onSwipeStart() {
-    offsetOnScrollStart = scrollY.value
+    offsetOnScrollStart = innerScrollY.value
   },
   onSwipeEnd() {
-    if (-(lengthY.value + scrollY.value) > innerHeightClamped.value/4)
+    if (-(lengthY.value + innerScrollY.value) > innerHeightClamped.value/4)
       close(null)
   }
 })
@@ -66,7 +66,7 @@ const { isSwiping, lengthY } = useSwipe(inner, {
 const swipeOffset = computed(() => {
   if (!isSwiping.value) return '0px'
   if (lengthY.value >= 0) return '0px'
-  if (scrollY.value > 0) return '0px'
+  if (innerScrollY.value > 0) return '0px'
   return `${-lengthY.value - offsetOnScrollStart}px`
 })
 const innerCss = computed(() => ({
@@ -109,19 +109,17 @@ const innerCss = computed(() => ({
 .content {
   pointer-events: none;
   height: 100dvh;
-  overflow-y: scroll;
-
-  &[data-scrolllock=true] {
-    overflow-y: visible;
-  }
+  overflow: hidden;
 }
 
 .inner {
   pointer-events: all;
   width: 100%;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: $bg-lighter;
   height: fit-content;
+  max-height: 90dvh;
   min-height: 30vh;
   top: calc(100dvh - var(--own-height-clamped) + var(--offset));
   position: absolute;
@@ -129,6 +127,7 @@ const innerCss = computed(() => ({
   border-top-right-radius: 30pt;
   box-sizing: border-box;
   animation: inner-in .2s cubic-bezier(0, 0.55, 0.45, 1) 1;
+  -webkit-overflow-scrolling: touch;
 
   &[data-swiping=false] {
     transition: top .1s ease-out;
