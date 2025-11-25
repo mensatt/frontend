@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { TabData } from '../utils/HorizontalTabs.vue'
+import type { TabData } from '../utils/HorizontalTabs.vue'
 
 const props = defineProps<{
   modelValue?: number | null

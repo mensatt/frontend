@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { ViewMode } from '../composables/view'
+import type { ViewMode } from '../composables/view'
 
 const globalHeaderHeight = useGlobalHeaderHeight()
 const viewMode = useViewMode()

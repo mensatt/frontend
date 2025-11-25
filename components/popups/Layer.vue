@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { PopupInternally } from '../../utils/popups'
+import type { PopupInternally } from '../../utils/popups'
 import PopupsWrapperMobile from './WrapperMobile.vue'
 import PopupsWrapperDesktop from './WrapperDesktop.vue'
 

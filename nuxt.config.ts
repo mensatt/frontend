@@ -1,8 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
-    'nuxt-icon',
-    '@maanex/nuxt-apollo-upload',
+    '@nuxt/icon',
+    '@nuxtjs/apollo',
     '@nuxtjs/i18n',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
@@ -128,24 +128,21 @@ export default defineNuxtConfig({
   },
 
   i18n: {
-    legacy: false,
+    restructureDir: '.', // the langDir is resolved relative to a default i18n directory
     langDir: 'lang',
     defaultLocale: 'de',
-    fallbackLocale: 'de',
-    jsTsFormatResource: true,
-    lazy: true,
     // ↓ remove strategy to get mensatt.de/en/about like urls. Downside: PWA entry point url is static -> language gets overwritten on startup. For now we'll rely on cookies only for language persistence.
     strategy: 'no_prefix',
     locales: [
       {
         code: 'de',
-        iso: 'de',
+        language: 'de',
         file: 'de.js',
         name: 'Deutsch'
       },
       {
         code: 'en',
-        iso: 'en',
+        language: 'en',
         file: 'en.js',
         name: 'English'
       },
