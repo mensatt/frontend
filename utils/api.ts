@@ -50,11 +50,11 @@ async function getOccurrence(occurrenceId: string): Promise<GqlResponse> {
 
 /** @returns a list of all found locations or null if network error */
 async function getLocations(): Promise<EntityLocation.Location[] | null> {
-  const res = await useAsyncQuery<{ locations: EntityLocation.Location[] }>(
-    EntityLocation.queryAll,
-    getClient()
-  )
-  return res.data?.value.locations ?? null
+  const res = await useLazyAsyncQuery<{ locations: EntityLocation.Location[] }>({
+    query: EntityLocation.queryAll,
+    clientId: getClient()
+  })
+  return res.data?.value?.locations ?? null
 }
 
 /** @returns true if successful */
