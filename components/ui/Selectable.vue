@@ -1,6 +1,6 @@
 <template>
   <div
-    class="selectable"
+    class="selectable ui-connect"
     @click="emit('open')"
   >
     <div>
@@ -39,12 +39,22 @@ const emit = defineEmits([ 'open' ])
   align-items: center;
   gap: $menu-item-padding;
   margin-bottom: $menu-item-margin;
-  padding: $menu-item-padding;
+  padding: calc($menu-item-padding * 1.2);
   border-radius: $menu-item-br;
   background-color: $bg-light;
   text-decoration: none;
   user-select: none;
   cursor: pointer;
+
+  .ui-connect ~ & {
+    border-top-left-radius: $menu-item-br-connected;
+    border-top-right-radius: $menu-item-br-connected;
+  }
+
+  &:has(~ .ui-connect) {
+    border-bottom-left-radius: $menu-item-br-connected;
+    border-bottom-right-radius: $menu-item-br-connected;
+  }
 }
 
 span {

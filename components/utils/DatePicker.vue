@@ -130,7 +130,7 @@ function clickDate(date: DateType) {
 
   & > div {
     background-color: $bg-dark;
-    border-radius: 999pt;
+    border-radius: 10pt;
     width: 100%;
     height: 100%;
     display: grid;
@@ -157,11 +157,13 @@ function clickDate(date: DateType) {
 
     &[data-selected=true] {
       background-color: $bg-darker;
+      border-radius: 999pt;
     }
 
     &[data-today=true] {
       background-color: $color-green40;
       span { color: $color-green; }
+      border-radius: 999pt;
     }
 
     [view-mode=desktop] &[data-type="selectable"]:hover {

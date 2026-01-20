@@ -32,6 +32,8 @@
     "vue-eslint-parser": "^9.3.2"
   },
   "dependencies": {
+    "baseline-browser-mapping": "^2.9.16",
+    "caniuse-lite": "^1.0.30001765",
     "nuxt-icon": "^0.6.10"
   }
 }
