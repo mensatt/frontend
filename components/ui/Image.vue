@@ -27,23 +27,27 @@ function onLoaded() {
 }
 
 const api = useApi()
-const url = computed(() => api.buildImageUrl(props.src, document.body.clientWidth))
 
-// const imgEl = ref<HTMLElement>()
-// const { width: realWidth, height: realHeight } = useElementSize(imgEl)
+const imgEl = ref<HTMLElement>()
+const { width: realWidth, height: realHeight } = useElementSize(imgEl)
 
-// function getUrl(src: string) {
-//   const width = realWidth.value
-//   const height = props.dynamicHeight
-//     ? undefined
-//     : realHeight.value
+function getUrl(src: string) {
+  const width = realWidth.value
+  const height = props.dynamicHeight
+    ? undefined
+    : realHeight.value
 
-//   if (!width)
-//     return '#'
+  if (!width)
+    return '#'
 
-//   return api.buildImageUrl(src, width, height)
-// }
-// const url = computed(() => getUrl(srcCopy.value))
+  return api.buildImageUrl(src, width, height)
+}
+
+const url = ref('')
+watch(() => props.src, (val) => {
+  url.value = getUrl(val)
+}, { immediate: true })
+watchDebounced(realWidth, () => url.value = getUrl(props.src), { debounce: 200 })
 </script>
 
 <style scoped lang="scss">

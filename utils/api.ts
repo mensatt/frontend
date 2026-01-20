@@ -102,6 +102,7 @@ function getImageServingUrl(id: string, opts?: ImageOptions): string {
 
 /** same as getImageServingUrl but it correctly uses a stepped size and doesn't downscale if a higher quality image is cached */
 function buildImageUrl(id: string, minWidth?: number, minHeight?: number): string {
+  // console.log('[freezedebug] api.buildImageUrl', { id, minWidth, minHeight })
   /** images sizes will be requested in steps of */
   const imagesScaleStepSize = 100
 
