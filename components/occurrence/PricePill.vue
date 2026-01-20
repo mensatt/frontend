@@ -29,8 +29,9 @@ const priceRaw = computed(() => {
 <style scoped lang="scss">
 div {
   height: $content-pills-height;
-  background-color: $bg-dark;
+  background-color: color-mix(in srgb, $bg-lighter, $color-blue 15%);
   border-radius: $dish-tag-br;
+  corner-shape: squircle;
   width: fit-content;
   display: flex;
   align-items: center;

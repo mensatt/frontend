@@ -30,8 +30,9 @@ const text = computed(() => `${Math.round(data.kcal / (priceRaw.value / 100))} k
 <style scoped lang="scss">
 div {
   height: $content-pills-height;
-  background-color: $bg-dark;
+  background-color: color-mix(in srgb, $bg-lighter, $color-green 15%);
   border-radius: $dish-tag-br;
+  corner-shape: squircle;
   width: fit-content;
   display: flex;
   align-items: center;

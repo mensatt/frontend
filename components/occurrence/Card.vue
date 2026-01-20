@@ -35,7 +35,10 @@
         <UiButton :slim="true" :secondary="true" :text="$t('occurrence_show_details')" @click="showDetails(false)" />
         <UiButton :slim="true" :disabled="!userCanRate" :text="$t('occurrence_add_rating')" @click="rate()" />
       </div>
-      <button v-else-if="userCanRate" class="rateme" @click="rate()" v-text="$t('occurrence_add_rating')" />
+      <button v-else-if="userCanRate" class="rateme" @click="rate()">
+        <Icon name="material-symbols:edit-square-outline" />
+        {{ $t('occurrence_add_rating') }}
+      </button>
     </div>
   </div>
 </template>
@@ -197,18 +200,30 @@ h2 {
 .rateme {
   all: unset;
   flex: 1 1;
-  padding: 8pt 10pt;
+  padding: 8pt 14pt 9pt 14pt;
   font-family: $font-regular;
   font-size: 10pt;
-  color: $color-minor;
-  border: 1px solid $bg-darker;
+  color: $bg-lighter;
+  font-family: $font-major;
+  font-size: 10pt;
+  max-width: fit-content;
+  // border: 1px solid $bg-darker;
+  background-color: $color-green;
   margin-top: 10pt;
-  border-radius: $menu-item-br;
+  border-radius: 999pt;
   transition: background-color .1s ease;
   cursor: pointer;
 
+  .icon {
+    font-size: 15pt;
+    margin: -4pt;
+    vertical-align: middle;
+    margin-right: 2pt;
+    transform: translateY(-1px);
+  }
+
   &:hover {
-    border-color: $bg-darker;
+    background-color: $color-green;
   }
 }
 

@@ -68,7 +68,7 @@ export default {
   occurrence_no_image: 'Noch kein Bild vorhanden',
   occurrence_no_comments: 'Noch keine Kommentare vorhanden',
   occurrence_comment_author_anon: '(anonym)',
-  occurrence_add_rating: 'Bewertung abgeben',
+  occurrence_add_rating: 'Bewertung schreiben',
   occurrence_show_details: 'Details anzeigen',
   occurrence_all_hidden_title: 'Nichts dabei, was dich interessiert.',
   occurrence_all_hidden_desc_mobile: 'Scrolle etwas nach unten um ausgeblendete Gerichte anzuzeigen!',
