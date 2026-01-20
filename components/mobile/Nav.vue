@@ -55,6 +55,7 @@ nav {
   background-color: $color-green20S;
   user-select: none;
   view-transition-name: header;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 a {
