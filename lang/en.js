@@ -67,7 +67,7 @@ export default {
   occurrence_no_image: 'No image available yet',
   occurrence_no_comments: 'No comments so far',
   occurrence_comment_author_anon: '(anonymous)',
-  occurrence_add_rating: 'Add your review',
+  occurrence_add_rating: 'Write a review',
   occurrence_show_details: 'Show details',
   occurrence_all_hidden_title: 'Nothing of interest here...',
   occurrence_all_hidden_desc_mobile: 'Scroll down a bit to show hidden dishes.',

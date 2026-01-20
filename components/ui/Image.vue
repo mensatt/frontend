@@ -14,14 +14,9 @@ const props = defineProps<{
   dynamicHeight?: boolean
 }>()
 
-const srcCopy = ref()
-onMounted(() => srcCopy.value = props.src)
-
 const emit = defineEmits<{
   loaded: []
 }>()
-
-const api = useApi()
 
 const loaded = ref(false)
 function onLoaded() {
@@ -31,21 +26,24 @@ function onLoaded() {
   loaded.value = true
 }
 
-const imgEl = ref<HTMLElement>()
-const { width: realWidth, height: realHeight } = useElementSize(imgEl)
+const api = useApi()
+const url = computed(() => api.buildImageUrl(props.src, document.body.clientWidth))
 
-function getUrl(src: string) {
-  const width = realWidth.value
-  const height = props.dynamicHeight
-    ? undefined
-    : realHeight.value
+// const imgEl = ref<HTMLElement>()
+// const { width: realWidth, height: realHeight } = useElementSize(imgEl)
 
-  if (!width)
-    return '#'
+// function getUrl(src: string) {
+//   const width = realWidth.value
+//   const height = props.dynamicHeight
+//     ? undefined
+//     : realHeight.value
 
-  return api.buildImageUrl(src, width, height)
-}
-const url = computed(() => getUrl(srcCopy.value))
+//   if (!width)
+//     return '#'
+
+//   return api.buildImageUrl(src, width, height)
+// }
+// const url = computed(() => getUrl(srcCopy.value))
 </script>
 
 <style scoped lang="scss">

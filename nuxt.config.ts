@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
+    '@nuxt/image'
   ],
 
   // Disabled so storage forms like localStorage work for our application
