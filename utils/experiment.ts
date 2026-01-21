@@ -21,12 +21,7 @@ const experiments = [
   },
   {
     id: 'image_carousel_a',
-    name: '🖼️🎠 Variant A',
-    authors: [ 'maanex' ]
-  },
-  {
-    id: 'image_carousel_b',
-    name: '🖼️🎠 Variant B',
+    name: '🖼️🎠 Use Variant A over B (current)',
     authors: [ 'maanex' ]
   },
   {

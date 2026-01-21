@@ -72,8 +72,10 @@ function previous() {
 
 const { pressed } = useMousePressed({ target: htmlEl })
 watch(pressed, (val) => {
-  if (val) pause()
-  else resume()
+  if (val)
+    pause()
+  else
+    resume()
 })
 
 function tapped(e: MouseEvent) {
@@ -90,7 +92,8 @@ function tapped(e: MouseEvent) {
 }
 
 function pause() {
-  if (!isAutoCycleEnabled()) return
+  if (!isAutoCycleEnabled())
+    return
 
   tPause()
   paused.value = true
@@ -98,9 +101,9 @@ function pause() {
 }
 
 function resume() {
-  if (!isAutoCycleEnabled()) return
+  if (!isAutoCycleEnabled())
+    return
 
-  tappedAt.value = 0
   skipNextIteration.value = true
   tResume()
   paused.value = false

@@ -1,6 +1,6 @@
 <template>
   <div ref="imgEl" :style="{ aspectRatio }">
-    <img :src="url" @load="onLoaded">
+    <img :src="url" draggable="false" @load="onLoaded">
   </div>
 </template>
 
@@ -64,6 +64,7 @@ img {
   object-fit: cover;
   display: block;
   pointer-events: none;
+  user-select: none;
   position: absolute;
   inset: 0;
 }
