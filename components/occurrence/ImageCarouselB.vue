@@ -81,7 +81,7 @@ watch(pressed, (val) => {
 function tapped(e: MouseEvent) {
   if (tappedAt.value) {
     const tappedDelta = Date.now() - tappedAt.value
-    if (tappedDelta > 200)
+    if (tappedDelta > 120)
       return
   }
 
