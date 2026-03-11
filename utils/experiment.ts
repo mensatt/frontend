@@ -20,6 +20,11 @@ const experiments = [
     authors: [ 'maanex' ]
   },
   {
+    id: 'emoji_reviews',
+    name: 'Add emojis to reviews :D',
+    authors: [ 'maanex' ]
+  },
+  {
     id: 'image_carousel_a',
     name: '🖼️🎠 Use Variant A over B (current)',
     authors: [ 'maanex' ]

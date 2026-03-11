@@ -1,7 +1,10 @@
 <template>
   <div class="full-review">
     <div class="user">
-      <div class="avatar">
+      <div v-if="experiments.isEnabled('emoji_reviews')" class="avatar" :style="{ backgroundColor: face.color }">
+        {{ face.emoji }}
+      </div>
+      <div v-else class="avatar">
         <Icon name="material-symbols:person-2-outline-rounded" />
       </div>
       <span class="name" v-text="data.displayName || $t('occurrence_comment_author_anon')" />
@@ -31,6 +34,7 @@ import dayjs from 'dayjs'
 import { EntityOccurrence } from '~/utils/entities/occurrence'
 
 const i18n = useI18n()
+const experiments = useExperiments()
 
 const props = defineProps<{
   data: EntityOccurrence.Review
@@ -40,6 +44,27 @@ const createdText = computed(() => dayjs()
   .locale(i18n.locale.value)
   .to(new Date(props.data.createdAt))
 )
+
+const faces = [
+  '😡 😠 🤬 😤 🤮 🤢 😕 ☹️ 😖 🤒',
+  '😐 😕 🙁 😟 🫤 😑 😮‍💨',
+  '😬 😌 😶 😗 🫠 🙂‍↕️ 😐 🤓 🥴 🙂',
+  '😊 😃 😄 😁 🙂 😋 😇 😺',
+  '🤩 😍 🥳 😄 😁 😎 🥰 😻 🤯',
+].map(row => row.split(' '))
+const animals = '🐹 🐸 🐻 🐨 🐼 🐷 🦁 🐔 🐥 🦝 🐯 🐮 🐰'.split(' ')
+
+const face = computed(() => {
+  const stars = props.data.stars
+  const seed = props.data.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
+  const options = (!props.data.text && !props.data.images && stars >= 2 && stars <= 4 && seed % 3 === 0)
+    ? animals
+    : faces[stars - 1]
+  return {
+    emoji: options[seed % options.length],
+    color: `hsla(${((seed * Math.PI) % 360)}, 70%, 30%, 0.2)`
+  }
+})
 </script>
 
 <style scoped lang="scss">
