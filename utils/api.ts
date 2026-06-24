@@ -32,6 +32,23 @@ async function getOccurrences(locationId: string, date: Date): Promise<GqlRespon
   return res
 }
 
+// async function getOccurrencesForDishes(locationId: string, dishes: string[]): Promise<GqlResponse> {
+//   const client = getClient()
+//   const cacheKey = `ld:${client}:${locationId}:${dishes.join(',')}`
+
+//   if (occurrenceCache.has(cacheKey))
+//     return occurrenceCache.get(cacheKey)!
+
+//   const res = await useLazyAsyncQuery<{ occurrences: EntityOccurrence.Occurrence[] }>({
+//     query: EntityOccurrence.queryByDish,
+//     variables: { locationId, dishIds: dishes },
+//     clientId: client
+//   })
+//   occurrenceCache.set(cacheKey, res)
+//   // TODO fill all occurrences loaded here into the cache with their own occurrenceId key so we don't need to re-fetch this data if a user clicks on details
+//   return res
+// }
+
 async function getOccurrence(occurrenceId: string): Promise<GqlResponse> {
   const client = getClient()
   const cacheKey = `id:${client}:${occurrenceId}`

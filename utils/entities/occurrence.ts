@@ -65,6 +65,13 @@ export namespace EntityOccurrence {
       }
     }`
 
+  export const queryByDish = gql`
+    query getOccurrencesByDish($dishIds: [UUID!]!) {
+      occurrences(filter: { dishes: $dishIds }) {
+        ${occurrenceData}
+      }
+    }`
+
   export type Image = {
     id: string
   }
